@@ -1,4 +1,4 @@
-package com.coseemo.pkmnambra.models;
+package com.coseemo.pkmnambra.maplogic;
 
 public enum TERRAIN {
 

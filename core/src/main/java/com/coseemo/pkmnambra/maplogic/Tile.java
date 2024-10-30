@@ -1,8 +1,11 @@
-package com.coseemo.pkmnambra.models;
+package com.coseemo.pkmnambra.maplogic;
+
+import com.coseemo.pkmnambra.characters.Actor;
 
 public class Tile {
     private TERRAIN terrain;
     private Actor actor;
+    private PlaceObject object;
     public Tile(TERRAIN terrain) {
         this.terrain = terrain;
     }
@@ -14,5 +17,13 @@ public class Tile {
     }
     public void setActor(Actor actor) {
         this.actor = actor;
+    }
+
+    public PlaceObject getObject() {
+        return object;
+    }
+
+    public void setObject(PlaceObject object) {
+        this.object = object;
     }
 }

@@ -2,54 +2,92 @@ package com.coseemo.pkmnambra.controller;
 
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
-import com.coseemo.pkmnambra.models.Actor;
-import com.coseemo.pkmnambra.models.DIRECTION;
+import com.coseemo.pkmnambra.characters.Actor;
+import com.coseemo.pkmnambra.maplogic.DIRECTION;
 
 public class PlayerController extends InputAdapter {
     private Actor player;
-    private boolean up, down, left, right;
+    private boolean[] buttonPress;
+    private float[] pressTimer;
+
+    private float WALK_REFACE_TRESHOLD = 0.2f;
     public PlayerController(Actor player) {
         this.player = player;
+
+        buttonPress = new boolean[DIRECTION.values().length];
+        buttonPress[DIRECTION.NORTH.ordinal()] = false;
+        buttonPress[DIRECTION.SOUTH.ordinal()] = false;
+        buttonPress[DIRECTION.EAST.ordinal()] = false;
+        buttonPress[DIRECTION.WEST.ordinal()] = false;
+
+        pressTimer = new float[DIRECTION.values().length];
+        pressTimer[DIRECTION.NORTH.ordinal()] = 0f;
+        pressTimer[DIRECTION.SOUTH.ordinal()] = 0f;
+        pressTimer[DIRECTION.EAST.ordinal()] = 0f;
+        pressTimer[DIRECTION.WEST.ordinal()] = 0f;
+
+        resetButtonsAndTimers();
     }
     @Override
     public boolean keyDown(int keycode){
         if(keycode == Keys.UP)
-            up = true;
+            buttonPress[DIRECTION.NORTH.ordinal()] = true;
         if(keycode == Keys.DOWN)
-            down = true;
+            buttonPress[DIRECTION.SOUTH.ordinal()] = true;
         if(keycode == Keys.LEFT)
-            left = true;
+            buttonPress[DIRECTION.WEST.ordinal()] = true;
         if(keycode == Keys.RIGHT)
-            right = true;
+            buttonPress[DIRECTION.EAST.ordinal()] = true;
         return false;
     }
 
     @Override
     public boolean keyUp(int keycode){
         if(keycode == Keys.UP)
-            up = false;
+            releaseDirection(DIRECTION.NORTH);
         if(keycode == Keys.DOWN)
-            down = false;
+            releaseDirection(DIRECTION.SOUTH);
         if(keycode == Keys.LEFT)
-            left = false;
+            releaseDirection(DIRECTION.WEST);
         if(keycode == Keys.RIGHT)
-            right = false;
+            releaseDirection(DIRECTION.EAST);
         return false;
     }
 
-    public void update(float delta){
-        if(up){
-            player.move(DIRECTION.NORTH);
-        }
-        if(down){
-            player.move(DIRECTION.SOUTH);
-        }
-        if(left){
-            player.move(DIRECTION.WEST);
-        }
-        if(right){
-            player.move(DIRECTION.EAST);
+    private void resetButtonsAndTimers() {
+        for (DIRECTION dir : DIRECTION.values()) {
+            buttonPress[dir.ordinal()] = false;
+            pressTimer[dir.ordinal()] = 0f;
         }
     }
 
+    public void update(float delta){
+        for (DIRECTION dir : DIRECTION.values()) {
+            if (buttonPress[dir.ordinal()]) {
+                updateDirection(dir, delta);
+            }
+        }
+    }
+
+    private void updateDirection(DIRECTION dir, float delta){
+        pressTimer[dir.ordinal()] += delta;
+        considerMove(dir);
+    }
+
+    private void releaseDirection(DIRECTION dir){
+        buttonPress[dir.ordinal()] = false;
+        considerReface(dir);
+        pressTimer[dir.ordinal()] = 0f;
+    }
+
+    private void considerMove(DIRECTION dir){
+        if(pressTimer[dir.ordinal()] > WALK_REFACE_TRESHOLD){
+            player.move(dir);
+        }
+    }
+    private void considerReface(DIRECTION dir) {
+        if (pressTimer[dir.ordinal()] < WALK_REFACE_TRESHOLD) {
+            player.reface(dir);
+        }
+    }
 }

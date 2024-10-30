@@ -1,4 +1,4 @@
-package com.coseemo.pkmnambra.models;
+package com.coseemo.pkmnambra.maplogic;
 
 public class TileMap {
     private int width, height;
@@ -11,11 +11,7 @@ public class TileMap {
 
         for(int x = 0; x < width; ++x){
             for(int y = 0; y < height; ++y){
-                if(Math.random() > 0.5d){
-                    tileMap[x][y] = new Tile(TERRAIN.SAND_1);
-                }else{
-                    tileMap[x][y] = new Tile(TERRAIN.SAND_2);
-                }
+                tileMap[x][y] = new Tile(TERRAIN.SAND_1);
             }
         }
     }

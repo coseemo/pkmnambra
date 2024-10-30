@@ -1,4 +1,4 @@
-package com.coseemo.pkmnambra.models;
+package com.coseemo.pkmnambra.camera;
 
 public class Camera {
     float x = 0f,y = 0f;

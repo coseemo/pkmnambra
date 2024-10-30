@@ -1,4 +1,4 @@
-package com.coseemo.pkmnambra.screen;
+package com.coseemo.pkmnambra.util;
 
 import com.badlogic.gdx.assets.AssetManager;
 

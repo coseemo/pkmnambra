@@ -1,17 +1,21 @@
-package com.coseemo.pkmnambra.models;
+package com.coseemo.pkmnambra.characters;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Interpolation;
+import com.coseemo.pkmnambra.maplogic.DIRECTION;
+import com.coseemo.pkmnambra.maplogic.YSortable;
+import com.coseemo.pkmnambra.maplogic.TileMap;
 import com.coseemo.pkmnambra.util.AnimationSet;
 
-public class Actor {
+public class Actor implements YSortable {
     private TileMap map;
     private int x, y;
     private DIRECTION facing;
-    private float worldX, worldY;
+    private float placeX, placeY;
     private int srcX, srcY, destX, destY;
     private float animTimer;
-    private float ANIM_TIME = 0.3f;
+    private float WALK_TIME_PER_TILE = 0.2f;
+    private float REFACE_TIME = 0.1f;
     private float walkTimer;
     private boolean moveRequestThisFrame;
     private AnimationSet animations;
@@ -19,8 +23,8 @@ public class Actor {
 
     public Actor(TileMap map, int x, int y, AnimationSet animations) {
         this.map = map;
-        this.worldX = x;
-        this.worldY = y;
+        this.placeX = x;
+        this.placeY = y;
         this.animations = animations;
         map.getTile(x, y).setActor(this);
         this.x = x;
@@ -31,6 +35,7 @@ public class Actor {
     public enum ACTOR_STATE{
         WALKING,
         STANDING,
+        REFACING,
         ;
     }
     public boolean move(DIRECTION dir){
@@ -51,6 +56,11 @@ public class Actor {
             return false; // Movimento bloccato da un altro attore
         }
 
+        if (map.getTile(x + dir.getDx(), y + dir.getDy()).getObject() != null &&
+            !map.getTile(x + dir.getDx(), y + dir.getDy()).getObject().isWalkable()) {
+            return false;
+        }
+
         initializeMove(dir);
 
         // Aggiorna la posizione
@@ -69,8 +79,8 @@ public class Actor {
         this.srcY = y;
         this.destX = x + dir.getDx();
         this.destY = y + dir.getDy();
-        this.worldX = x;
-        this.worldY = y;
+        this.placeX = x;
+        this.placeY = y;
         this.animTimer = 0f;
         this.state = ACTOR_STATE.WALKING;
     }
@@ -80,27 +90,48 @@ public class Actor {
                 animTimer += delta;
                 walkTimer += delta;
 
-                worldX = Interpolation.linear.apply(srcX, destX, animTimer / ANIM_TIME);
-                worldY = Interpolation.linear.apply(srcY, destY, animTimer / ANIM_TIME);
+                placeX = Interpolation.linear.apply(srcX, destX, animTimer / WALK_TIME_PER_TILE);
+                placeY = Interpolation.linear.apply(srcY, destY, animTimer / WALK_TIME_PER_TILE);
 
-                if(animTimer > ANIM_TIME) {
+                if(animTimer > WALK_TIME_PER_TILE) {
+                    float leftOverTime = animTimer - WALK_TIME_PER_TILE;
                     finishMove();
+                    if (moveRequestThisFrame) {
+                        if(move(facing)){
+                            animTimer += leftOverTime;
+                            placeX = Interpolation.linear.apply(srcX, destX, animTimer / WALK_TIME_PER_TILE);
+                            placeY = Interpolation.linear.apply(srcY, destY, animTimer / WALK_TIME_PER_TILE);
+                        }
+                    } else {
+                        walkTimer = 0f;
+                    }
                 }
             }
-
-            // Continue moving if requested
-            if (moveRequestThisFrame) {
-                move(facing);
-            } else {
-                walkTimer = 0f; // Reset the walk timer when not moving
+            if (state == ACTOR_STATE.REFACING) {
+                animTimer += delta;
+                if (animTimer > REFACE_TIME) {
+                    state = ACTOR_STATE.STANDING;
+                }
             }
-
-            moveRequestThisFrame = false; // Reset movement request
+            moveRequestThisFrame = false;
         }
+
+    public void reface(DIRECTION dir) {
+        if (state != ACTOR_STATE.STANDING) {
+            return;
+        }
+        if (facing == dir) {
+            return;
+        }
+        facing = dir;
+        state = ACTOR_STATE.REFACING;
+        animTimer = 0f;
+    }
+
     private void finishMove(){
         state = ACTOR_STATE.STANDING;
-        this.worldY = destY;
-        this.worldX = destX;
+        this.placeY = destY;
+        this.placeX = destX;
         this.srcY = 0;
         this.srcX = 0;
         this.destY = 0;
@@ -111,9 +142,22 @@ public class Actor {
             return animations.getWalking(facing).getKeyFrame(walkTimer);
         } else if (state == ACTOR_STATE.STANDING){
             return animations.getStanding(facing);
+        } else if (state == ACTOR_STATE.REFACING) {
+            return animations.getWalking(facing).getKeyFrames()[0];
         }
         return animations.getStanding(DIRECTION.EAST);
     }
+
+    @Override
+    public float getSizeX() {
+        return 1;
+    }
+
+    @Override
+    public float getSizeY() {
+        return 1;
+    }
+
     public int getX() {
         return x;
     }
@@ -126,12 +170,20 @@ public class Actor {
     public void setY(int y) {
         this.y = y;
     }
-    public float getWorldX() {
-        return worldX;
+    public float getPlaceX() {
+        return placeX;
     }
 
-    public float getWorldY() {
-        return worldY;
+    public float getPlaceY() {
+        return placeY;
+    }
+
+    public void setState(ACTOR_STATE state) {
+        this.state = state;
+    }
+
+    public ACTOR_STATE getState() {
+        return state;
     }
 }
 
