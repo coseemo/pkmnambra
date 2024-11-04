@@ -7,6 +7,7 @@ import com.badlogic.gdx.utils.Scaling;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -78,4 +79,13 @@ public class OptionBox extends Table {
             arrows.get(i).setVisible(i == selectorIndex);
         }
     }
+
+    public List<String> getChoices() {
+        List<String> choices = new ArrayList<>();
+        for (Label option : options) {
+            choices.add(option.getText().toString());
+        }
+        return choices;
+    }
+
 }

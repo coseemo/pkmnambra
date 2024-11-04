@@ -32,6 +32,11 @@ public class Actor implements YSortable {
         this.state = ACTOR_STATE.STANDING;
         this.facing = DIRECTION.EAST;
     }
+
+    public Actor() {
+
+    }
+
     public enum ACTOR_STATE{
         WALKING,
         STANDING,

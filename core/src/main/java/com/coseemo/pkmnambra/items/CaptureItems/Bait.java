@@ -1,12 +1,10 @@
 package com.coseemo.pkmnambra.items.CaptureItems;
 
-import com.coseemo.pkmnambra.items.CaptureItem;
-
 public class Bait extends CaptureItem {
 
     public Bait(String name, String description,
                     String capturePhrase, int effectValue) {
-        super(name, description, "Bait", capturePhrase, effectValue);
+        super(name, description, "BAIT", capturePhrase, effectValue);
     }
 
 

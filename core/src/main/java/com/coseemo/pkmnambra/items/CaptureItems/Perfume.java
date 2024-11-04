@@ -1,12 +1,10 @@
 package com.coseemo.pkmnambra.items.CaptureItems;
 
-import com.coseemo.pkmnambra.items.CaptureItem;
-
 public class Perfume extends CaptureItem {
 
     public Perfume(String name, String description,
                    String capturePhrase, int effectValue) {
-       super(name, description, "Perfume", capturePhrase, effectValue);
+       super(name, description, "PERFUME", capturePhrase, effectValue);
     }
 
 

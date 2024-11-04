@@ -13,24 +13,21 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.coseemo.pkmnambra.Main;
 import com.coseemo.pkmnambra.items.Inventory;
 import com.coseemo.pkmnambra.items.Item;
-import com.coseemo.pkmnambra.util.EventNotifier;
-import com.coseemo.pkmnambra.util.Observer;
-import com.coseemo.pkmnambra.util.ServiceLocator;
-import com.coseemo.pkmnambra.util.SkinGenerator;
+import com.coseemo.pkmnambra.util.*;
+
+import java.util.Map;
 
 public class InventoryScreen implements Screen, Observer {
     private Stage uiStage;
     private Table root;
-    private EventNotifier eventNotifier;
-    private Inventory inventory;
+    private GameState gameState;
     private Skin skin;
     private Game game; // Aggiungi un riferimento a Game
 
-    public InventoryScreen(Game game, Inventory inventory, EventNotifier eventNotifier) {
+    public InventoryScreen(Game game) {
         this.game = game; // Inizializza il riferimento a Game
-        this.inventory = inventory;
-        this.eventNotifier = eventNotifier;
-        this.eventNotifier.registerObserver(this);
+        this.gameState = GameState.getInstance();
+        gameState.getEventNotifier().registerObserver(this);
         uiStage = new Stage(new ScreenViewport());
         skin = SkinGenerator.generateSkin(ServiceLocator.getAssetManager());
 
@@ -50,24 +47,33 @@ public class InventoryScreen implements Screen, Observer {
 
     private void updateInventoryDisplay() {
         root.clear(); // Pulisci la tabella esistente
-        if (inventory.getItems().isEmpty()) {
-            Label emptyLabel = new Label("L'inventario è vuoto.", skin); // Usa Skin per il Label
-            root.add(emptyLabel).center(); // Aggiungi l'etichetta al centro
+        if (gameState.getPlayer().getInventory().getItemsWithQuantity().isEmpty()) {
+            Label emptyLabel = new Label("L'inventario è vuoto.", skin);
+            root.add(emptyLabel).center();
         } else {
-            for (Item item : inventory.getItems()) {
-                Label itemLabel = new Label(item.getName() + ": " + item.getDescription(), skin); // Usa Skin per il Label
+            // Recupera gli oggetti e le loro quantità
+            Map<Item, Integer> itemsWithQuantity = gameState.getPlayer().getInventory().getItemsWithQuantity();
+
+            // Mostra ogni oggetto una sola volta con la quantità
+            for (Map.Entry<Item, Integer> entry : itemsWithQuantity.entrySet()) {
+                Item item = entry.getKey();
+                int count = entry.getValue();
+                Label itemLabel = new Label(item.getName() + ": " + item.getDescription() + " (Quantità: " + count + ")", skin);
                 root.add(itemLabel).expandX().pad(10);
                 root.row();
             }
         }
     }
 
+
+
+
     @Override
     public void render(float delta) {
         // Gestisci l'uscita dall'inventario
         if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) { // Puoi cambiare ESCAPE con un altro tasto
 
-            game.setScreen(new GameScreen((Main) game, eventNotifier)); // Torna al GameScreen o alla schermata principale
+            game.setScreen(new GameScreen((Main) game)); // Torna al GameScreen o alla schermata principale
         }
 
         Gdx.gl.glClearColor(0.5f, 0.7f, 1, 1);

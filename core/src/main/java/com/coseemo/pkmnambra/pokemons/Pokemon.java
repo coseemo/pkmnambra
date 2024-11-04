@@ -1,19 +1,19 @@
 package com.coseemo.pkmnambra.pokemons;
 
+import com.coseemo.pkmnambra.items.CaptureItems.CaptureItem;
+import com.coseemo.pkmnambra.items.CaptureItems.CaptureItemFactory;
+
+
 public class Pokemon {
 
     private String name;               // Nome del Pokémon
-    private int level;                 // Livello del Pokémon
-    private float captureDifficulty;    // Difficoltà di cattura del Pokémon
     private float angerLevel;           // Livello di rabbia del Pokémon
     private float baseCaptureRate;      // Cattura di base del Pokémon
     private float baseAngerLevel;       // Rabbia di base del Pokémon
 
     // Costruttore della classe Pokémon
-    public Pokemon(String name, int level, float captureDifficulty, float baseCaptureRate, float baseAngerLevel) {
+    public Pokemon(String name, float baseCaptureRate, float baseAngerLevel) {
         this.name = name;
-        this.level = level;
-        this.captureDifficulty = captureDifficulty;
         this.baseCaptureRate = baseCaptureRate;
         this.baseAngerLevel = baseAngerLevel;
         this.angerLevel = baseAngerLevel; // Inizializza il livello di rabbia alla rabbia di base
@@ -22,14 +22,6 @@ public class Pokemon {
     // Getters
     public String getName() {
         return name;
-    }
-
-    public int getLevel() {
-        return level;
-    }
-
-    public float getCaptureDifficulty() {
-        return captureDifficulty;
     }
 
     public float getAngerLevel() {
@@ -44,32 +36,118 @@ public class Pokemon {
         return baseAngerLevel;
     }
 
-    // Metodi per aumentare e diminuire la rabbia
-    public void increaseAnger(float amount) {
-        angerLevel = Math.min(angerLevel + amount, 100.0f); // Rabbia massima a 100
+    public float getBaitEffect(int i) {
+
+        CaptureItem item;
+        float effect = 0;
+
+        switch (i) {
+            case 0:
+                item = CaptureItemFactory.createItem("STANDARDBAIT");
+                break; // Aggiunto break
+            case 1:
+                item = CaptureItemFactory.createItem("SPICYBAIT");
+                break; // Aggiunto break
+            case 2:
+                item = CaptureItemFactory.createItem("SWEETBAIT");
+                break; // Aggiunto break
+            case 3:
+                item = CaptureItemFactory.createItem("SMELLYBAIT");
+                break; // Aggiunto break
+            default:
+                item = CaptureItemFactory.createItem("STANDARDBAIT");
+                break; // Aggiunto break
+        }
+
+        return effect; // Assicurati che getEffectValue() sia un metodo di CaptureItem
     }
 
-    public void decreaseAnger(float amount) {
-        angerLevel = Math.max(angerLevel - amount, 0.0f); // Rabbia minima a 0
+    public float getPerfumeEffect(int i) {
+
+        CaptureItem item;
+        float effect = 0;
+
+        switch (i){
+            case(0):
+                item = CaptureItemFactory.createItem("FLORALPERFUME") ;
+                effect = item.getEffectValue()*2;
+                break;
+            case(1):
+                item = CaptureItemFactory.createItem("FRUITYPERFUME") ;
+                effect = item.getEffectValue()*2;
+                break;
+            case(2):
+                item = CaptureItemFactory.createItem("HERBALPERFUME") ;
+                effect = item.getEffectValue()*2;
+                break;
+            case(3):
+                item = CaptureItemFactory.createItem("MYSTICPERFUME") ;
+                effect = item.getEffectValue()*2;
+                break;
+            default:
+                item = CaptureItemFactory.createItem("FLORALPERFUME") ;
+                effect = item.getEffectValue()*2;
+                break;
+
+        }return effect;
     }
 
-    // Reazione del Pokémon alle esche
-    public void reactToBait() {
-        increaseAnger(5.0f); // Esempio di aumento della rabbia se viene utilizzata un'esca
-        System.out.println(name + " reacts to the bait, anger increases to " + angerLevel);
+    public float getTrapEffect(int i) {
+
+        CaptureItem item;
+        float effect = 0f;
+
+        switch (i){
+            case(0):
+                item = CaptureItemFactory.createItem("BASICTRAP") ;
+                effect = item.getEffectValue()*2;
+                break;
+            case(1):
+                item = CaptureItemFactory.createItem("ADVANCEDTRAP") ;
+                effect = item.getEffectValue()*2;
+                break;
+            case(2):
+                item = CaptureItemFactory.createItem("TRICKYTRAP") ;
+                effect = item.getEffectValue()*2;
+                break;
+            case(3):
+                item = CaptureItemFactory.createItem("QUICKTRAP") ;
+                effect = item.getEffectValue()*2;
+                break;
+            default:
+                item = CaptureItemFactory.createItem("BASICTRAP") ;
+                effect = item.getEffectValue()*2;
+                break;
+        }
+        return effect;
     }
 
-    // Reazione del Pokémon ai profumi
-    public void reactToPerfume() {
-        decreaseAnger(10.0f); // Esempio di diminuzione della rabbia se viene utilizzato un profumo
-        System.out.println(name + " reacts to the perfume, anger decreases to " + angerLevel);
-    }
+    public float getPokeballEffect(int i) {
+        CaptureItem item;
+        float effect = 0f;
 
-    public float getBaitEffect() {
-        return 10.0f;
-    }
-
-    public float getPerfumeEffect() {
-        return 10.0f;
+        switch (i) {
+            case (0):
+                item = CaptureItemFactory.createItem("POKEBALL");
+                effect = item.getEffectValue()*2;
+                break;
+            case (1):
+                item = CaptureItemFactory.createItem("GREATBALL");
+                effect = item.getEffectValue()*2;
+                break;
+            case (2):
+                item = CaptureItemFactory.createItem("ULTRABALL");
+                effect = item.getEffectValue()*2;
+                break;
+            case (3):
+                item = CaptureItemFactory.createItem("MASTERBALL");
+                effect = item.getEffectValue();
+                break;
+            default:
+                item = CaptureItemFactory.createItem("POKEBALL");
+                effect = item.getEffectValue()*2;
+                break;
+        }
+        return effect;
     }
 }

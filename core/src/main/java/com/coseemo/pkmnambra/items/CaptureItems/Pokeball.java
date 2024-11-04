@@ -1,12 +1,10 @@
 package com.coseemo.pkmnambra.items.CaptureItems;
 
-import com.coseemo.pkmnambra.items.CaptureItem;
-
 public class Pokeball extends CaptureItem {
 
     public Pokeball(String name, String description,
                     String capturePhrase, int effectValue) {
-       super(name, description, "Ball", capturePhrase, effectValue);
+       super(name, description, "POKEBALL", capturePhrase, effectValue);
     }
 
 

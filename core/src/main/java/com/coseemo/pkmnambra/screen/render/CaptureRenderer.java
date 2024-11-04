@@ -1,4 +1,4 @@
-package com.coseemo.pkmnambra.capture;
+package com.coseemo.pkmnambra.screen.render;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -7,8 +7,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.coseemo.pkmnambra.items.Inventory;
+import com.coseemo.pkmnambra.items.Item;
 import com.coseemo.pkmnambra.ui.OptionBox;
 import com.coseemo.pkmnambra.util.EventNotifier;
+import com.coseemo.pkmnambra.util.GameState;
 import com.coseemo.pkmnambra.util.ServiceLocator;
 import com.coseemo.pkmnambra.util.SkinGenerator;
 
@@ -16,6 +19,7 @@ public class CaptureRenderer {
     private Stage stage;
     private Table root;
     private Skin skin;
+    private GameState gameState;
     private OptionBox optionBox;
     private ProgressBar captureProbabilityBar;
     private ProgressBar angerLevelBar;
@@ -25,7 +29,9 @@ public class CaptureRenderer {
     private Texture pokemonSprite;
     private Texture mimiSprite;
 
-    public CaptureRenderer(EventNotifier eventNotifier) {
+    public CaptureRenderer() {
+
+        this.gameState = GameState.getInstance();
         stage = new Stage(new ScreenViewport());
         batch = new SpriteBatch();
         background = new Texture(Gdx.files.internal("assets/background/beach.png"));
@@ -52,22 +58,56 @@ public class CaptureRenderer {
         // Expand the space above the right menu
         container.add().expandY();
         // Add the right menu to the bottom-right
-        container.add(createRightMenu(eventNotifier)).right().bottom().padRight(10f).padBottom(10f);
+        container.add(createRightMainMenu(gameState.getEventNotifier())).right().bottom().padRight(10f).padBottom(10f);
     }
 
-    private Table createRightMenu(EventNotifier eventNotifier) {
-        Table rightMenuTable = new Table();
+    private Table createRightMainMenu(EventNotifier eventNotifier) {
+        Table rightMainMenuTable = new Table();
+
 
         optionBox = new OptionBox(skin);
         optionBox.addOption("Throw Bait");
         optionBox.addOption("Use Perfume");
         optionBox.addOption("Set Trap");
-        optionBox.addOption("Attempt Capture");
+        optionBox.addOption("Use PokeBall");
         optionBox.addOption("Run Away");
 
         // Reduced width and height for the option box
-        rightMenuTable.add(optionBox).width(150).height(200);
-        return rightMenuTable;
+        rightMainMenuTable.add(optionBox).width(150).height(200);
+        return rightMainMenuTable;
+    }
+
+    private Table createSecondaryRightMenu() {
+        Table rightSecondaryMenuTable = new Table();
+
+        // Controllo per evitare duplicati di opzioni
+        if (optionBox == null) {
+            optionBox = new OptionBox(skin);
+        } else {
+            optionBox.clearChoices();
+        }
+
+        // Aggiungiamo qui le opzioni dinamicamente tramite `updateInventoryOptions`
+        rightSecondaryMenuTable.add(optionBox).width(150).height(200);
+        return rightSecondaryMenuTable;
+    }
+
+    // Metodo per aggiornare l'optionBox con gli oggetti dell'inventario
+    public void updateInventoryOptions(String category) {
+        if (optionBox == null) {
+            optionBox = new OptionBox(skin);
+        }
+
+        optionBox.clearChoices();
+
+        // Aggiungi solo gli oggetti della categoria specificata
+        for (Item item : gameState.getPlayer().getInventory().getItemList()) {
+            if (item.getCategory().equalsIgnoreCase(category)) {
+                optionBox.addOption(item.getName() + " " + gameState.getPlayer().getInventory().getItemQuantity(item));
+            }
+        }
+
+        optionBox.setVisible(!optionBox.getChoices().isEmpty()); // Mostra il menu solo se ci sono elementi
     }
 
     private Table createLeftPokemonSection() {
@@ -114,8 +154,9 @@ public class CaptureRenderer {
 
     private ProgressBar.ProgressBarStyle createProgressBarStyle(String color) {
         ProgressBar.ProgressBarStyle style = new ProgressBar.ProgressBarStyle();
-        style.background = skin.getDrawable("background_hpbar");
+        style.background = skin.getDrawable("hpbar_bar");
         style.knobBefore = skin.getDrawable(color);
+        style.knobBefore.setMinHeight(3); // Imposta l'altezza desiderata
         return style;
     }
 
@@ -128,7 +169,7 @@ public class CaptureRenderer {
 
         float spriteWidth = mimiSprite.getWidth() * 0.5f;
         float spriteHeight = mimiSprite.getHeight() * 0.5f;
-        batch.draw(mimiSprite, 10, -80, spriteWidth, spriteHeight);
+        batch.draw(mimiSprite, -150, -80, spriteWidth, spriteHeight);
 
         // Aggiungi qui l'ombra per il Pokémon
         float spriteWidth1 = pokemonSprite.getWidth() * 3f;
@@ -145,7 +186,6 @@ public class CaptureRenderer {
         // Ripristina il colore per disegnare lo sprite
         batch.setColor(1, 1, 1, 1);
         batch.draw(pokemonSprite, 200, 100, spriteWidth1, spriteHeight1);
-
 
         batch.end();
 

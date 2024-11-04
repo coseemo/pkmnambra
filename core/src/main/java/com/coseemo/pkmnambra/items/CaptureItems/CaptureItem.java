@@ -1,4 +1,4 @@
-package com.coseemo.pkmnambra.items;
+package com.coseemo.pkmnambra.items.CaptureItems;
 import com.coseemo.pkmnambra.items.Item;
 public abstract class CaptureItem extends Item{
     private String capturePhrase;

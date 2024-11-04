@@ -5,14 +5,18 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.coseemo.pkmnambra.util.GameState;
+import com.coseemo.pkmnambra.items.Inventory;
 import com.coseemo.pkmnambra.screen.GameScreen;
 import com.coseemo.pkmnambra.util.EventNotifier; // Importa EventNotifier
 import com.coseemo.pkmnambra.util.ServiceLocator;
 
+
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class Main extends Game {
 
-    private EventNotifier eventNotifier; // Aggiungi un'istanza di EventNotifier
+    private EventNotifier eventNotifier;// Aggiungi un'istanza di EventNotifier
+    private Inventory inventory;
 
     @Override
     public void create() {
@@ -31,9 +35,9 @@ public class Main extends Game {
         ServiceLocator.provideAssetManager(assetManager);
 
         // Inizializza l'EventNotifier
-        eventNotifier = new EventNotifier();
+        GameState gameState = GameState.getInstance();
 
         // Avvia la schermata di gioco
-        setScreen(new GameScreen(this, eventNotifier)); // Passa l'EventNotifier al GameScreen
+        setScreen(new GameScreen(this)); // Passa l'EventNotifier al GameScreen
     }
 }
