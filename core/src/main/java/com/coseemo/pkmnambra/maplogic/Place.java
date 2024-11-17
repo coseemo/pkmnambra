@@ -2,7 +2,7 @@ package com.coseemo.pkmnambra.maplogic;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.math.GridPoint2;
-import com.coseemo.pkmnambra.characters.Actor;
+import com.coseemo.pkmnambra.characters.logic.Actor;
 import com.coseemo.pkmnambra.events.MapEvent;
 
 import java.util.ArrayList;

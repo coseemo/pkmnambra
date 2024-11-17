@@ -1,7 +1,6 @@
 package com.coseemo.pkmnambra.maplogic;
 
-import com.coseemo.pkmnambra.characters.Actor;
-import com.coseemo.pkmnambra.pokemons.Pokemon;
+import com.coseemo.pkmnambra.characters.logic.Actor;
 
 public class Tile {
     private TERRAIN terrain;

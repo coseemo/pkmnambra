@@ -21,6 +21,7 @@ S1 S1 S1 S1 S1 S1 S1 S1 S1 S1 S1 S1 S1 S1 S1 S1 S1 S1 S1 S1
 
 OBJECTS:
 
+house 13 13 false
 flower 3 4 true
 flower 2 4 true
 flower 3 5 true
@@ -29,5 +30,8 @@ flower 2 5 true
 EVENTS:
 
 encounter 11 11 1.0
-teleport 6 4 assets/maps/lab.txt 2 2
+teleport 14 14 assets/maps/lab.txt 2 2
 
+NPCS:
+
+PROFESSOR 11 11 ProfessorOak

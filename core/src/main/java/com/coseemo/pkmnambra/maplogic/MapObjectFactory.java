@@ -15,18 +15,23 @@ public class MapObjectFactory {
     }
 
     public PlaceObject createStaticObject(String objectType, int x, int y) {
-        TextureAtlas atlas = assetManager.get("assets/tiles/tilespack/tilespack.atlas", TextureAtlas.class);
+        TextureAtlas atlas = assetManager.get("assets/tiles/houses_packed/housespacked.atlas", TextureAtlas.class);
 
         switch(objectType) {
             case "house":
                 return new PlaceObject(x, y, false,
                     atlas.findRegion("house"),
-                    2, 2,
+                    4, 4,
                     new GridPoint2[]{
                         new GridPoint2(0,0),
-                        new GridPoint2(1,0),
                         new GridPoint2(0,1),
-                        new GridPoint2(1,1)
+                        new GridPoint2(0,2),
+                        new GridPoint2(1,2),
+                        new GridPoint2(2,1),
+                        new GridPoint2(2,2),
+                        new GridPoint2(3,0),
+                        new GridPoint2(3,1),
+                        new GridPoint2(3,2),
                     });
             case "tree":
                 return new PlaceObject(x, y, false,

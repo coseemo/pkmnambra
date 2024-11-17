@@ -1,7 +1,8 @@
-package com.coseemo.pkmnambra.characters;
+package com.coseemo.pkmnambra.characters.logic;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Interpolation;
+import com.coseemo.pkmnambra.characters.Player;
 import com.coseemo.pkmnambra.dialogue.Dialogue;
 import com.coseemo.pkmnambra.maplogic.DIRECTION;
 import com.coseemo.pkmnambra.maplogic.YSortable;
@@ -24,6 +25,7 @@ public class Actor implements YSortable {
     private boolean moveRequestThisFrame; // Richiesta di movimento
     private AnimationSet animations;
     private ACTOR_STATE state;
+    private boolean inDialogue;
 
     public Actor(Place place, int x, int y, AnimationSet animations) {
         this.place = place;
@@ -31,6 +33,7 @@ public class Actor implements YSortable {
         this.placeX = x;
         this.placeY = y;
         this.animations = animations;
+        this.inDialogue = false;
         map.getTile(x, y).setActor(this);
         this.x = x;
         this.y = y;
@@ -48,6 +51,7 @@ public class Actor implements YSortable {
     }
 
     public boolean move(DIRECTION dir) {
+
         if (state == ACTOR_STATE.WALKING) {
             if (facing == dir) moveRequestThisFrame = true;
             return false;
@@ -75,7 +79,7 @@ public class Actor implements YSortable {
         return !(targetX < 0 || targetX >= map.getWidth() || targetY < 0 || targetY >= map.getHeight() ||
             map.getTile(targetX, targetY).getActor() != null ||
             (map.getTile(targetX, targetY).getObject() != null &&
-                !map.getTile(targetX, targetY).getObject().isWalkable()));
+                !map.getTile(targetX, targetY).getObject().isWalkable()) || isInDialogue());
     }
 
     private void initializeMove(DIRECTION dir) {
@@ -112,11 +116,15 @@ public class Actor implements YSortable {
         return dialogue;
     }
 
-    public void setDialogue(Dialogue dialogue) {
+    protected void setDialogue(Dialogue dialogue) {
         this.dialogue = dialogue;
     }
 
     public void update(float delta) {
+
+        if (isInDialogue()){
+            return;
+        }
         if (state == ACTOR_STATE.WALKING) {
             animTimer += delta;
             walkTimer += delta;
@@ -137,7 +145,6 @@ public class Actor implements YSortable {
                     walkTimer = 0f;
                 }
             }
-            System.out.println("Player current position: (" + getPlaceX() + ", " + getPlaceY() + ")");
         }
 
 
@@ -270,4 +277,11 @@ public class Actor implements YSortable {
 
     public void interactWithPlayer(Player player){}
 
+    public boolean isInDialogue() {
+        return inDialogue;
+    }
+
+    public void setInDialogue(boolean inDialogue) {
+        this.inDialogue = inDialogue;
+    }
 }

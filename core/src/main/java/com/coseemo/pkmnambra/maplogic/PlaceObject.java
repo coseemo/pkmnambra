@@ -13,19 +13,6 @@ public class PlaceObject implements YSortable {
     private List<GridPoint2> tiles;
     private boolean walkable;
 
-    public PlaceObject(int x, int y, TextureRegion texture, float sizeX, float sizeY, GridPoint2[] tiles) {
-        this.x = x;
-        this.y = y;
-        this.texture = texture;
-        this.sizeX = sizeX;
-        this.sizeY = sizeY;
-        this.tiles = new ArrayList<GridPoint2>();
-        for (GridPoint2 p : tiles) {
-            this.tiles.add(p);
-            this.walkable = true;
-        }
-    }
-
     public PlaceObject(int x, int y, boolean walkable, TextureRegion texture, float sizeX, float sizeY, GridPoint2[] tiles) {
         this.x = x;
         this.y = y;

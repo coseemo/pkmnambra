@@ -12,7 +12,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.coseemo.pkmnambra.Settings;
 import com.coseemo.pkmnambra.maplogic.*;
 import com.coseemo.pkmnambra.camera.Camera;
-import com.coseemo.pkmnambra.characters.Actor;
+import com.coseemo.pkmnambra.characters.logic.Actor;
 
 public class PlaceRenderer {
 

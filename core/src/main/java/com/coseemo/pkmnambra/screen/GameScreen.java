@@ -2,6 +2,7 @@ package com.coseemo.pkmnambra.screen;
 
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -15,12 +16,15 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.coseemo.pkmnambra.Main;
 import com.coseemo.pkmnambra.camera.Camera;
 import com.coseemo.pkmnambra.characters.Player;
+import com.coseemo.pkmnambra.controller.InputDevice;
+import com.coseemo.pkmnambra.controller.KeyboardInputDevice;
+import com.coseemo.pkmnambra.controller.*;
+import com.coseemo.pkmnambra.dialogue.DialogueDb;
+import com.coseemo.pkmnambra.dialogue.DialogueLoader;
 import com.coseemo.pkmnambra.events.EventManager;
 import com.coseemo.pkmnambra.maplogic.Place;
 import com.coseemo.pkmnambra.screen.render.PlaceRenderer;
 import com.coseemo.pkmnambra.util.*;
-import com.coseemo.pkmnambra.controller.DialogueController;
-import com.coseemo.pkmnambra.controller.PlayerController;
 import com.coseemo.pkmnambra.ui.DialogueBox;
 import com.coseemo.pkmnambra.ui.OptionBox;
 import com.coseemo.pkmnambra.dialogue.Dialogue;
@@ -37,7 +41,8 @@ public class GameScreen implements Screen {
     private Viewport gameViewport;
     private int uiScale = 2;
     private PlaceRenderer placeRenderer;
-    private PlayerController controller;
+    private PlayerController playerController;
+    private NPCController npcController;
     private InputMultiplexer multiplexer;
     private Stage uiStage;
     private Table root;
@@ -47,6 +52,7 @@ public class GameScreen implements Screen {
     private EventManager eventManager;
 
     public GameScreen(GameState gameState) {
+
         this.game = gameState.getGame();
         this.gameState = GameState.getInstance();
         eventManager = new EventManager(gameState);
@@ -55,6 +61,8 @@ public class GameScreen implements Screen {
         AssetManager assetManager = gameState.getAssetManager();
         TextureAtlas atlas = assetManager.get("assets/sprites/player_packed/mimipacked.atlas", TextureAtlas.class);
         assetManager.load("assets/tiles/tilespack/tilespack.atlas", TextureAtlas.class);
+        assetManager.setLoader(DialogueDb.class, new DialogueLoader(new InternalFileHandleResolver()));
+        assetManager.load("assets/dialogues/dialogues.xml", DialogueDb.class);
         skin = SkinGenerator.generateSkin(assetManager);
         assetManager.finishLoading();
 
@@ -83,19 +91,23 @@ public class GameScreen implements Screen {
         }
 
 
-
         initUI();
         multiplexer = new InputMultiplexer();
         batch = new SpriteBatch();
+        InputDevice inputDevice = new KeyboardInputDevice();
         placeRenderer = new PlaceRenderer(assetManager, gameState.getCurrentPlace());
-        dialogueController = new DialogueController(dialogueBox, optionsBox);
-        controller = new PlayerController(gameState.getPlayer());
 
+        this.dialogueController = new DialogueController(dialogueBox, optionsBox);
+        this.npcController = new NPCController(dialogueController);
+        this.playerController = new PlayerController(gameState.getPlayer());
+
+
+        // Configuriamo il multiplexer nell'ordine corretto
         multiplexer = new InputMultiplexer();
         multiplexer.addProcessor(dialogueController);
-        multiplexer.addProcessor(controller);
+        multiplexer.addProcessor(npcController);
+        multiplexer.addProcessor(playerController);
 
-        // Imposta il multiplexer come input processor
         Gdx.input.setInputProcessor(multiplexer);
     }
 
@@ -112,13 +124,12 @@ public class GameScreen implements Screen {
 
         updateEvents();
         Player player = gameState.getPlayer();
-        player.update(delta);
+        placeRenderer.getPlace().update(delta);
 
-        if (dialogueController != null) {
-            dialogueController.update(delta);
-        }
+        dialogueController.update(delta);
+        playerController.update(delta);
 
-        controller.update(delta);
+
         camera.update(player.getPlaceX() + 0.5f, player.getPlaceY() + 0.5f);
 
         eventManager.checkEvents(player);
@@ -132,22 +143,26 @@ public class GameScreen implements Screen {
             placeRenderer.setPlace(newPlace);
         }
 
-
         // Debug keys
-        if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_5)) {
+        if (player.isHasInventory() && Gdx.input.isKeyJustPressed(Input.Keys.NUM_5)) {
             player.addItem(createItem("masterball"));
             player.addItem(createItem("spicybait"));
             player.addItem(createItem("herbalperfume"));
             player.addItem(createItem("advancedtrap"));
         }
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.I)) {
+        if (player.isHasInventory() && Gdx.input.isKeyJustPressed(Input.Keys.I)) {
             openInventory();
         }
 
         batch.begin();
         placeRenderer.render(batch, camera);
         batch.end();
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.U)) {
+            dialogueBox.setVisible(true);  // Rendi visibile il DialogueBox
+            dialogueBox.animateText("Questo è un test del DialogueBox!");
+        }
 
         uiStage.draw();
     }
@@ -188,6 +203,7 @@ public class GameScreen implements Screen {
         // Controlla gli eventi alla posizione del giocatore
         eventManager.checkEvents(gameState.getPlayer());
     }
+
     private void openInventory() {
         game.setScreen(new InventoryScreen(gameState));
     }
@@ -202,14 +218,12 @@ public class GameScreen implements Screen {
 
         dialogueBox = new DialogueBox(skin);
         dialogueBox.setVisible(false);
+        dialogueBox.setFillParent(false);
 
         optionsBox = new OptionBox(skin);
         optionsBox.setVisible(false);
 
-        if (dialogueController == null) {
-            dialogueController = new DialogueController(dialogueBox, optionsBox);
-        }
-
+        // Creiamo la tabella per i dialoghi
         Table dialogTable = new Table();
         dialogTable.add(optionsBox)
             .expand()
@@ -224,4 +238,5 @@ public class GameScreen implements Screen {
 
         root.add(dialogTable).expand().align(Align.bottom);
     }
+
 }

@@ -5,11 +5,9 @@ import java.util.stream.Collectors;
 
 public class Inventory {
     private Map<Item, Integer> items;
-    private int maxSize;
 
     public Inventory(int maxSize) {
         this.items = new HashMap<>();
-        this.maxSize = maxSize;
     }
 
     // Aggiungi un oggetto all'inventario
@@ -81,14 +79,6 @@ public class Inventory {
         }
     }
 
-    // Controlla se l'inventario è pieno
-    public boolean isFull() {
-        return items.size() >= maxSize;
-    }
-
-    public int getMaxSize() {
-        return maxSize;
-    }
 
     public Item getItemByName(String name) {
         for(Item item : this.getItemList()){

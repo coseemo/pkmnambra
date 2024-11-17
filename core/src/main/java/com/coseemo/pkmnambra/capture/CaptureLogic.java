@@ -2,6 +2,7 @@ package com.coseemo.pkmnambra.capture;
 
 import com.coseemo.pkmnambra.characters.Player;
 import com.coseemo.pkmnambra.pokemons.Pokemon;
+import com.coseemo.pkmnambra.pokemons.PokemonFactory;
 import com.coseemo.pkmnambra.screen.CaptureScreen;
 import com.coseemo.pkmnambra.util.EventNotifier;
 import com.coseemo.pkmnambra.util.GameState;
@@ -16,7 +17,10 @@ public class CaptureLogic {
     private float angerLevel;
     private boolean captureInterrupted;
 
-    public CaptureLogic(Pokemon pokemon, CaptureScreen captureScreen) {
+
+    public CaptureLogic(String pkmonName, CaptureScreen captureScreen) {
+
+        Pokemon pokemon = PokemonFactory.createPokemon(pkmonName);
         this.currentPokemon = pokemon;
         GameState gameState = GameState.getInstance();
         this.eventNotifier = gameState.getEventNotifier();

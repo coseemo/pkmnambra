@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Dialogues>
+    <!-- Dialogo introduttivo -->
+    <dialogue name="init">
+        <linear id="0" text="Welcome! I'm Professor Oak, a Pokemon researcher.">
+            <pointer target="1"/>
+        </linear>
+        <linear id="1" text="I need your help with an important research project.">
+            <pointer target="2"/>
+        </linear>
+        <linear id="2" text="I'm studying these specific Pokemon species and their behavior.">
+            <pointer target="3"/>
+        </linear>
+        <linear id="3" text="Press 'I' to see the list of Pokemon I need you to catch.">
+            <pointer target="4"/>
+        </linear>
+        <linear id="4" text="For each new Pokemon you bring me, I'll reward you handsomely!">
+            <pointer target="5"/>
+        </linear>
+        <linear id="5" text="Take this items with you in this adventure. You'll need them.">
+            <pointer target="6"/>
+        </linear>
+        <linear id="6" text="Are you ready to help advance Pokemon research?"/>
+    </dialogue>
+
+    <!-- Dialogo squadra vuota -->
+    <dialogue name="professor_empty_team">
+        <linear id="0" text="Oh, I see your team is empty at the moment.">
+            <pointer target="1"/>
+        </linear>
+        <linear id="1" text="Come back when you've caught some of the Pokemon I'm researching!">
+            <pointer target="2"/>
+        </linear>
+        <linear id="2" text="Remember to check your research list with 'I' if you need a reminder."/>
+    </dialogue>
+
+    <!-- Dialogo post introduzione -->
+    <dialogue name="professor_post_intro">
+        <linear id="0" text="Ah, you're back! Let's see what Pokemon you've brought.">
+            <pointer target="1"/>
+        </linear>
+        <linear id="1" text="Remember, I'm especially interested in species you haven't caught before!"/>
+    </dialogue>
+
+    <!-- Dialogo vicino al completamento -->
+    <dialogue name="professor_near_completion">
+        <linear id="0" text="Outstanding work! You're very close to completing the research!">
+            <pointer target="1"/>
+        </linear>
+        <linear id="1" text="Just a few more Pokemon species to study.">
+            <pointer target="2"/>
+        </linear>
+        <linear id="2" text="Let's see what you've brought this time."/>
+    </dialogue>
+
+    <!-- Dialogo completamento -->
+    <dialogue name="professor_completion">
+        <linear id="0" text="Remarkable! You've helped me study all the Pokemon I needed!">
+            <pointer target="1"/>
+        </linear>
+        <linear id="1" text="Your contribution to Pokemon research has been invaluable.">
+            <pointer target="2"/>
+        </linear>
+        <linear id="2" text="Please accept this special Certificate as proof of your achievement.">
+            <pointer target="3"/>
+        </linear>
+        <linear id="3" text="And of course, some extra special rewards for your outstanding work!"/>
+    </dialogue>
+
+    <!-- Dialogo premio nuovo Pokémon -->
+    <dialogue name="new_pokemon_reward">
+        <linear id="0" text="Excellent! This is the first time you've brought me this Pokémon! Here's a reward for your effort!">
+            <pointer target="1"/>
+        </linear>
+        <linear id="1" text="Keep up the great work!"/>
+    </dialogue>
+
+    <!-- Dialogo premio milestone -->
+    <dialogue name="milestone_reward">
+        <linear id="0" text="Wow! You've caught 10 Pokémon of this species! Here's an Ultra Ball and a Sweet Bait as a reward!">
+            <pointer target="1"/>
+        </linear>
+        <linear id="1" text="Thank you for your dedication!"/>
+    </dialogue>
+
+    <!-- Dialogo premio regolare -->
+    <dialogue name="regular_reward">
+        <linear id="0" text="Thank you for bringing me another Pokémon of this species! Here's a Poké Ball as a reward.">
+            <pointer target="1"/>
+        </linear>
+        <linear id="1" text="Your effort is much appreciated!"/>
+    </dialogue>
+
+    <!-- Dialogo premio completamento -->
+    <dialogue name="completion_reward">
+        <linear id="0" text="Congratulations on completing the research!">
+            <pointer target="1"/>
+        </linear>
+        <linear id="1" text="I present you with the Professor's Certificate and some special rewards for your dedication!"/>
+    </dialogue>
+
+</Dialogues>

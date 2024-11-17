@@ -10,3 +10,6 @@ OBJECTS:
 
 EVENTS:
 teleport 3 3 assets/maps/beach.txt 7 7
+
+NPCS:
+PROFESSOR 4 2 ProfessorOak

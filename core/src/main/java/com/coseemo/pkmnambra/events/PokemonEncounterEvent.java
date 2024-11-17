@@ -42,7 +42,7 @@ public class PokemonEncounterEvent extends MapEvent {
 
             Pokemon pokemon = possibleEncounters.get(random.nextInt(possibleEncounters.size()));
             System.out.println("Encountered Pokémon: " + pokemon.getName());
-            gameState.getGame().setScreen(new CaptureScreen(gameState, pokemon));
+            gameState.getGame().setScreen(new CaptureScreen(gameState, pokemon.getName()));
         } else {
             System.out.println("No Pokémon encountered - probability check failed");
         }

@@ -4,22 +4,18 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
-import com.coseemo.pkmnambra.Main;
 import com.coseemo.pkmnambra.capture.CaptureLogic;
 import com.coseemo.pkmnambra.capture.CaptureRenderer;
 import com.coseemo.pkmnambra.controller.CaptureController;
-import com.coseemo.pkmnambra.pokemons.Pokemon;
 import com.coseemo.pkmnambra.util.GameState;
 import com.coseemo.pkmnambra.util.Observer;
 
 public class CaptureScreen implements Screen, Observer {
     private Game game;
-    private Pokemon currentPokemon;
+    private String pkmnName;
     private CaptureLogic captureLogic;
     private CaptureController captureController;
     private GameState gameState;
-
-    // State variables for exit logic
     private boolean notExit;
     private boolean waitingForKeyPress;
     private boolean keyPressed;
@@ -29,12 +25,12 @@ public class CaptureScreen implements Screen, Observer {
     private CaptureRenderer captureRenderer;
     private String eventType;
 
-    public CaptureScreen(GameState gameState, Pokemon pokemon) {
+    public CaptureScreen(GameState gameState, String pkmnName) {
         this.game = gameState.getGame();
-        this.currentPokemon = pokemon;
+        this.pkmnName = pkmnName;
         this.notExit = true;
         this.gameState = GameState.getInstance();
-        this.captureLogic = new CaptureLogic(currentPokemon,this);
+        this.captureLogic = new CaptureLogic(this.pkmnName,this);
         this.captureRenderer = new CaptureRenderer();
         this.captureController = new CaptureController(captureRenderer.getOptionBox(), this);
 
@@ -73,7 +69,6 @@ public class CaptureScreen implements Screen, Observer {
             exitTimer += delta;
             if (exitTimer >= EXIT_DELAY) {
                 changeScreen();
-                System.out.println("zao");
             }
         }
     }
@@ -134,13 +129,13 @@ public class CaptureScreen implements Screen, Observer {
                 captureLogic.attemptCapture(getBallIndex(eventType));
                 break;
             case "CAPTURE_FAIL":
-                captureRenderer.updateStatusMessage(currentPokemon.getName() + " broke free!");
+                captureRenderer.updateStatusMessage(pkmnName + " broke free!");
                 break;
             case "POKEMON_FLED":
-                captureRenderer.updateStatusMessage(currentPokemon.getName() + " has fled.");
+                captureRenderer.updateStatusMessage(pkmnName + " has fled.");
                 break;
             case "POKEMON_ANGER":
-                captureRenderer.updateStatusMessage(currentPokemon.getName() + " is too angry, run!");
+                captureRenderer.updateStatusMessage(pkmnName + " is too angry, run!");
                 break;
             case "CAPTURE_SUCCESS":
                 handleCaptureSuccess();
@@ -173,8 +168,8 @@ public class CaptureScreen implements Screen, Observer {
     }
 
     private void handleCaptureSuccess() {
-        if (gameState.getPlayer().addPokemon(currentPokemon)) {
-            captureRenderer.updateStatusMessage("You caught " + currentPokemon.getName() + "!!!");
+        if (gameState.getPlayer().addPokemon(pkmnName)) {
+            captureRenderer.updateStatusMessage("You caught " + pkmnName + "!!!");
             eventType = "CATCH_SUCC";
         } else {
             captureRenderer.updateStatusMessage("Team is full, go to prof!");
