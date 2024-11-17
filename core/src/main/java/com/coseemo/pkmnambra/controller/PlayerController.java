@@ -43,6 +43,7 @@ public class PlayerController extends InputAdapter {
 
     @Override
     public boolean keyUp(int keycode){
+
         if(keycode == Keys.UP)
             releaseDirection(DIRECTION.NORTH);
         if(keycode == Keys.DOWN)
@@ -62,6 +63,7 @@ public class PlayerController extends InputAdapter {
     }
 
     public void update(float delta){
+
         for (DIRECTION dir : DIRECTION.values()) {
             if (buttonPress[dir.ordinal()]) {
                 updateDirection(dir, delta);

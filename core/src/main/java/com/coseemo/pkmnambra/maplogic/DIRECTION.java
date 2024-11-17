@@ -16,4 +16,17 @@ public enum DIRECTION {
     public int getDy() {
         return dy;
     }
+    public static DIRECTION getOpposite(DIRECTION dir) {
+        switch (dir) {
+            case NORTH:
+                return SOUTH;
+            case SOUTH:
+                return NORTH;
+            case EAST:
+                return WEST;
+            case WEST:
+                return EAST;
+        }
+        return null;
+    }
 }

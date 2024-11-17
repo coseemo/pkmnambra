@@ -49,7 +49,7 @@ public class OptionBox extends Table {
     public void moveUp() {
         selectorIndex--;
         if (selectorIndex < 0) {
-            selectorIndex = 0;
+            selectorIndex = arrows.size() - 1;  // Torna all'ultima opzione
         }
         updateArrowVisibility();
     }
@@ -57,11 +57,10 @@ public class OptionBox extends Table {
     public void moveDown() {
         selectorIndex++;
         if (selectorIndex >= arrows.size()) {
-            selectorIndex = arrows.size() - 1;
+            selectorIndex = 0;  // Torna alla prima opzione
         }
         updateArrowVisibility();
     }
-
     public void clearChoices() {
         this.clearChildren();
         options.clear();

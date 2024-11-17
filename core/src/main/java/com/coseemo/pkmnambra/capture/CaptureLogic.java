@@ -30,10 +30,16 @@ public class CaptureLogic {
     public void attemptCapture(int pokeballIndex) {
         player.printTeam();
         resetCaptureState();
-        // Calcola la probabilità di cattura aggiustata
-        captureProbability = Math.min(100, captureProbability + currentPokemon.getPokeballEffect(pokeballIndex));
-        double angerImpact = angerLevel / 100.0;
-        double adjustedCaptureProbability = captureProbability * (1 - angerImpact);
+        double adjustedCaptureProbability;
+
+        if (pokeballIndex != 3) {
+            captureProbability = Math.min(100, captureProbability + currentPokemon.getPokeballEffect(pokeballIndex));
+            double angerImpact = angerLevel / 100.0;
+            adjustedCaptureProbability = captureProbability * (1 - angerImpact);
+        } else {
+            adjustedCaptureProbability = 100;
+        }
+
 
         if (Math.random() * 100 < adjustedCaptureProbability) {
             endBattleWithMessage("CAPTURE_SUCCESS");

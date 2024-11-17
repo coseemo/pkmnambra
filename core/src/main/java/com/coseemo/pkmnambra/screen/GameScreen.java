@@ -15,19 +15,15 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.coseemo.pkmnambra.Main;
 import com.coseemo.pkmnambra.camera.Camera;
 import com.coseemo.pkmnambra.characters.Player;
+import com.coseemo.pkmnambra.events.EventManager;
 import com.coseemo.pkmnambra.maplogic.Place;
-import com.coseemo.pkmnambra.pokemons.Pokemon;
 import com.coseemo.pkmnambra.screen.render.PlaceRenderer;
-import com.coseemo.pkmnambra.util.MapUtil;
+import com.coseemo.pkmnambra.util.*;
 import com.coseemo.pkmnambra.controller.DialogueController;
 import com.coseemo.pkmnambra.controller.PlayerController;
 import com.coseemo.pkmnambra.ui.DialogueBox;
 import com.coseemo.pkmnambra.ui.OptionBox;
-import com.coseemo.pkmnambra.util.AnimationSet;
 import com.coseemo.pkmnambra.dialogue.Dialogue;
-import com.coseemo.pkmnambra.util.ServiceLocator;
-import com.coseemo.pkmnambra.util.SkinGenerator;
-import com.coseemo.pkmnambra.util.GameState;
 
 import static com.coseemo.pkmnambra.items.CaptureItems.CaptureItemFactory.createItem;
 
@@ -35,7 +31,6 @@ public class GameScreen implements Screen {
     private Main game;
     private GameState gameState;
     private DialogueController dialogueController;
-    private MapUtil mapUtil;
     private SpriteBatch batch;
     private Camera camera;
     private Skin skin;
@@ -43,21 +38,21 @@ public class GameScreen implements Screen {
     private int uiScale = 2;
     private PlaceRenderer placeRenderer;
     private PlayerController controller;
+    private InputMultiplexer multiplexer;
     private Stage uiStage;
     private Table root;
     private DialogueBox dialogueBox;
     private OptionBox optionsBox;
     private Dialogue dialogue;
+    private EventManager eventManager;
 
-    public GameScreen(Main game) {
-        this.game = game;
+    public GameScreen(GameState gameState) {
+        this.game = gameState.getGame();
         this.gameState = GameState.getInstance();
-    }
-
-    @Override
-    public void show() {
+        eventManager = new EventManager(gameState);
+        camera = new Camera();
         gameViewport = new ScreenViewport();
-        AssetManager assetManager = ServiceLocator.getAssetManager();
+        AssetManager assetManager = gameState.getAssetManager();
         TextureAtlas atlas = assetManager.get("assets/sprites/player_packed/mimipacked.atlas", TextureAtlas.class);
         assetManager.load("assets/tiles/tilespack/tilespack.atlas", TextureAtlas.class);
         skin = SkinGenerator.generateSkin(assetManager);
@@ -76,35 +71,67 @@ public class GameScreen implements Screen {
 
         // Inizializza o recupera lo stato di gioco
         if (gameState.getCurrentPlace() == null) {
-            Place place = new Place(20, 20);
-            Player player = new Player(place.getMap(), 10, 10, animations);
+            String currentPlace = "assets/maps/beach.txt";
+            Place place = MapLoader.loadMapAndObjects(currentPlace, gameState.getAssetManager());
+            Player player = new Player(place, 10, 10, animations);
             place.addActor(player);
-            gameState.initializeGameState(player, place);
+            gameState.initializeGameState(player, place, game);
         }
 
-        camera = new Camera();
-        mapUtil = new MapUtil();
+        if (gameState.getCurrentPlace() != null && gameState.getCurrentPlace().getEvents() != null) {
+            eventManager.registerEvents(gameState.getCurrentPlace().getEvents());
+        }
+
+
+
         initUI();
+        multiplexer = new InputMultiplexer();
         batch = new SpriteBatch();
         placeRenderer = new PlaceRenderer(assetManager, gameState.getCurrentPlace());
+        dialogueController = new DialogueController(dialogueBox, optionsBox);
         controller = new PlayerController(gameState.getPlayer());
-        Gdx.input.setInputProcessor(controller);
+
+        multiplexer = new InputMultiplexer();
+        multiplexer.addProcessor(dialogueController);
+        multiplexer.addProcessor(controller);
+
+        // Imposta il multiplexer come input processor
+        Gdx.input.setInputProcessor(multiplexer);
+    }
+
+    @Override
+    public void show() {
+        Gdx.input.setInputProcessor(multiplexer);
     }
 
     @Override
     public void render(float delta) {
         gameViewport.apply();
-        Gdx.gl.glClearColor(0.5f, 0.7f, 1, 1);
+        Gdx.gl.glClearColor(0, 0, 0, 0);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        updateEvents();
         Player player = gameState.getPlayer();
-        controller.update(delta);
         player.update(delta);
+
+        if (dialogueController != null) {
+            dialogueController.update(delta);
+        }
+
+        controller.update(delta);
         camera.update(player.getPlaceX() + 0.5f, player.getPlaceY() + 0.5f);
 
-        if(player.getPlaceX() == 11 && player.getPlaceY() == 10) {
-            mapUtil.addHouse(gameState.getCurrentPlace(), 1, 1, ServiceLocator.getAssetManager());
+        eventManager.checkEvents(player);
+
+        if (placeRenderer.getPlace() != gameState.getCurrentPlace()) {
+            Place newPlace = gameState.getCurrentPlace();
+            if (newPlace != null && newPlace.getEvents() != null) {
+                eventManager.clearEvents();
+                eventManager.registerEvents(newPlace.getEvents());
+            }
+            placeRenderer.setPlace(newPlace);
         }
+
 
         // Debug keys
         if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_5)) {
@@ -116,16 +143,6 @@ public class GameScreen implements Screen {
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.I)) {
             openInventory();
-        }
-        if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_9)) {
-            player.setJustCapt(false);
-        }
-
-        // Check for Pokemon encounter
-        if (player.getPlaceX() == 9 && player.getPlaceY() == 9 && !player.isJustCapt()) {
-            Pokemon parasect = new Pokemon("Parasect", 50, 20);
-            game.setScreen(new CaptureScreen(game, parasect));
-            player.setJustCapt(true);
         }
 
         batch.begin();
@@ -160,8 +177,19 @@ public class GameScreen implements Screen {
         uiStage.dispose();
     }
 
+    private void updateEvents() {
+        if (gameState.getCurrentPlace() != placeRenderer.getPlace()) {
+            Place newPlace = gameState.getCurrentPlace();
+            eventManager.clearEvents();
+            eventManager.registerEvents(newPlace.getEvents());
+            placeRenderer.setPlace(newPlace);
+        }
+
+        // Controlla gli eventi alla posizione del giocatore
+        eventManager.checkEvents(gameState.getPlayer());
+    }
     private void openInventory() {
-        game.setScreen(new InventoryScreen(game));
+        game.setScreen(new InventoryScreen(gameState));
     }
 
     private void initUI() {
@@ -177,6 +205,10 @@ public class GameScreen implements Screen {
 
         optionsBox = new OptionBox(skin);
         optionsBox.setVisible(false);
+
+        if (dialogueController == null) {
+            dialogueController = new DialogueController(dialogueBox, optionsBox);
+        }
 
         Table dialogTable = new Table();
         dialogTable.add(optionsBox)

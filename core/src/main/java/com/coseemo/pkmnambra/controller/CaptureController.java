@@ -44,7 +44,7 @@ public class CaptureController extends InputAdapter {
                 case Keys.DOWN:
                     optionBox.moveDown();
                     break;
-                case Keys.ENTER:
+                case Keys.X:
                     if (isInInventoryMenu) {
                         handleSecondarySelection(optionBox.getIndex());
                     } else {

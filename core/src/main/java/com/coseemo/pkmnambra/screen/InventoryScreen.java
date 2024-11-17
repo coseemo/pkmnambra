@@ -24,12 +24,12 @@ public class InventoryScreen implements Screen, Observer {
     private Skin skin;
     private Game game; // Aggiungi un riferimento a Game
 
-    public InventoryScreen(Game game) {
-        this.game = game; // Inizializza il riferimento a Game
+    public InventoryScreen(GameState gameState) {
+        this.game = gameState.getGame(); // Inizializza il riferimento a Game
         this.gameState = GameState.getInstance();
         gameState.getEventNotifier().registerObserver(this);
         uiStage = new Stage(new ScreenViewport());
-        skin = SkinGenerator.generateSkin(ServiceLocator.getAssetManager());
+        skin = SkinGenerator.generateSkin(gameState.getAssetManager());
 
         initUI();
     }
@@ -73,7 +73,7 @@ public class InventoryScreen implements Screen, Observer {
         // Gestisci l'uscita dall'inventario
         if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) { // Puoi cambiare ESCAPE con un altro tasto
 
-            game.setScreen(new GameScreen((Main) game)); // Torna al GameScreen o alla schermata principale
+            game.setScreen(new GameScreen(gameState)); // Torna al GameScreen o alla schermata principale
         }
 
         Gdx.gl.glClearColor(0.5f, 0.7f, 1, 1);

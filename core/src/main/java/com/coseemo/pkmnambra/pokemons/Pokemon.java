@@ -140,8 +140,7 @@ public class Pokemon {
                 effect = item.getEffectValue()*2;
                 break;
             case (3):
-                item = CaptureItemFactory.createItem("MASTERBALL");
-                effect = item.getEffectValue();
+                effect = 100;
                 break;
             default:
                 item = CaptureItemFactory.createItem("POKEBALL");

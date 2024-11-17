@@ -1,4 +1,4 @@
-package com.coseemo.pkmnambra.screen.render;
+package com.coseemo.pkmnambra.capture;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -7,12 +7,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.coseemo.pkmnambra.items.Inventory;
 import com.coseemo.pkmnambra.items.Item;
 import com.coseemo.pkmnambra.ui.OptionBox;
 import com.coseemo.pkmnambra.util.EventNotifier;
 import com.coseemo.pkmnambra.util.GameState;
-import com.coseemo.pkmnambra.util.ServiceLocator;
 import com.coseemo.pkmnambra.util.SkinGenerator;
 
 public class CaptureRenderer {
@@ -38,7 +36,7 @@ public class CaptureRenderer {
         pokemonSprite = new Texture(Gdx.files.internal("assets/sprites/pokemonbattle/parasect.png"));
         mimiSprite = new Texture(Gdx.files.internal("assets/sprites/pokemonbattle/mimi.png"));
 
-        skin = SkinGenerator.generateSkin(ServiceLocator.getAssetManager());
+        skin = SkinGenerator.generateSkin(gameState.getAssetManager());
 
         root = new Table();
         root.setFillParent(true);

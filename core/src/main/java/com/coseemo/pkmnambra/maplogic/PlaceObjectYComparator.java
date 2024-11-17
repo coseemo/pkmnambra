@@ -1,4 +1,4 @@
-package com.coseemo.pkmnambra.screen.render;
+package com.coseemo.pkmnambra.maplogic;
 
 import java.util.Comparator;
 import com.coseemo.pkmnambra.maplogic.YSortable;

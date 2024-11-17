@@ -6,11 +6,9 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.coseemo.pkmnambra.Main;
 import com.coseemo.pkmnambra.capture.CaptureLogic;
-import com.coseemo.pkmnambra.characters.Player;
-import com.coseemo.pkmnambra.screen.render.CaptureRenderer;
+import com.coseemo.pkmnambra.capture.CaptureRenderer;
 import com.coseemo.pkmnambra.controller.CaptureController;
 import com.coseemo.pkmnambra.pokemons.Pokemon;
-import com.coseemo.pkmnambra.util.EventNotifier;
 import com.coseemo.pkmnambra.util.GameState;
 import com.coseemo.pkmnambra.util.Observer;
 
@@ -31,14 +29,12 @@ public class CaptureScreen implements Screen, Observer {
     private CaptureRenderer captureRenderer;
     private String eventType;
 
-    public CaptureScreen(Game game, Pokemon pokemon) {
-        this.game = game;
+    public CaptureScreen(GameState gameState, Pokemon pokemon) {
+        this.game = gameState.getGame();
         this.currentPokemon = pokemon;
         this.notExit = true;
         this.gameState = GameState.getInstance();
-
         this.captureLogic = new CaptureLogic(currentPokemon,this);
-
         this.captureRenderer = new CaptureRenderer();
         this.captureController = new CaptureController(captureRenderer.getOptionBox(), this);
 
@@ -101,8 +97,8 @@ public class CaptureScreen implements Screen, Observer {
     @Override
     public void dispose() {
         gameState.getEventNotifier().deregisterObserver(this);
+        gameState.getPlayer().cancelMove();
         captureRenderer.dispose();
-        Gdx.input.setInputProcessor(null); // Reset input processor
     }
 
     @Override
@@ -204,7 +200,7 @@ public class CaptureScreen implements Screen, Observer {
         if(!notExit) {
             resetExitState();
             dispose();
-            game.setScreen(new GameScreen((Main) game));
+            game.setScreen(new GameScreen(gameState));
             System.out.println("zao");
         }
     }

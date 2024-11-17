@@ -22,10 +22,7 @@ public class DialogueController extends InputAdapter {
 
     @Override
     public boolean keyDown(int keycode) {
-        if (dialogueBox.isVisible()) {
-            return true;
-        }
-        return false;
+        return dialogueBox.isVisible();
     }
 
     @Override
@@ -50,10 +47,7 @@ public class DialogueController extends InputAdapter {
             }
             return true;
         }
-        if (dialogueBox.isVisible()) {
-            return true;
-        }
-        return false;
+        return dialogueBox.isVisible();
     }
 
     public void update(float delta) {

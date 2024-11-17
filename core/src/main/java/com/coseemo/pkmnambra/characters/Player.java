@@ -2,6 +2,7 @@ package com.coseemo.pkmnambra.characters;
 
 import com.coseemo.pkmnambra.items.Inventory;
 import com.coseemo.pkmnambra.items.Item;
+import com.coseemo.pkmnambra.maplogic.Place;
 import com.coseemo.pkmnambra.maplogic.TileMap;
 import com.coseemo.pkmnambra.pokemons.Pokemon;
 import com.coseemo.pkmnambra.util.AnimationSet;
@@ -14,16 +15,15 @@ public class Player extends Actor {
     private List<Pokemon> team; // Lista dei Pokémon nella squadra
     private final int MAX_TEAM = 2;
 
-    private boolean justCapt;
-
-    public Player(TileMap map, int x, int y, AnimationSet animations) {
-        super(map, x, y, animations);
+    public Player(Place place, int x, int y, AnimationSet animations) {
+        super(place, x, y, animations);
         this.inventory = new Inventory(10); // Imposta una dimensione massima per l'inventario, ad esempio 10
         this.team = new ArrayList<>();
-        this.justCapt = false;
+
     }
 
     public Player() {
+        super();
 
     }
 
@@ -85,11 +85,8 @@ public class Player extends Actor {
         }
     }
 
-    public boolean isJustCapt() {
-        return justCapt;
+    public List<Pokemon> getTeam() {
+        return team;
     }
 
-    public void setJustCapt(boolean justCapt) {
-        this.justCapt = justCapt;
-    }
 }

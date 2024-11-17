@@ -1,16 +1,25 @@
 package com.coseemo.pkmnambra.util;
 
+import com.badlogic.gdx.assets.AssetManager;
+import com.coseemo.pkmnambra.Main;
 import com.coseemo.pkmnambra.characters.Player;
 import com.coseemo.pkmnambra.maplogic.Place;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class GameState {
     private static GameState instance;
     private Player player;
     private Place currentPlace;
+    private Map<String, Place> places;
+    private Main game;
     private final EventNotifier eventNotifier;
+    private AssetManager assetManager;
 
     private GameState() {
         eventNotifier = new EventNotifier();
+        places = new HashMap<>();
     }
 
     public static GameState getInstance() {
@@ -20,9 +29,25 @@ public class GameState {
         return instance;
     }
 
-    public void initializeGameState(Player player, Place place) {
+    public void initializeGameState(Player player, Place startingPlace, Main game) {
         this.player = player;
-        this.currentPlace = place;
+        this.currentPlace = startingPlace;
+        this.game = game;
+        if (startingPlace != null) {
+            places.put("starting_map", startingPlace);
+        }
+    }
+
+    public Main getGame() {
+        return game;
+    }
+
+    public Place getPlace(String mapName) {
+        return places.get(mapName);
+    }
+
+    public void addPlace(String mapName, Place place) {
+        places.put(mapName, place);
     }
 
     public Player getPlayer() {
@@ -41,8 +66,11 @@ public class GameState {
         this.currentPlace = place;
     }
 
-    // Metodo per resettare lo stato (utile per testing o nuovo gioco)
-    public static void reset() {
-        instance = null;
+    public AssetManager getAssetManager() {
+        return assetManager;
+    }
+
+    public void setAssetManager(AssetManager assetManager) {
+        this.assetManager = assetManager;
     }
 }

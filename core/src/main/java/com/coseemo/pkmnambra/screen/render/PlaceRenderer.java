@@ -10,12 +10,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.coseemo.pkmnambra.Settings;
-import com.coseemo.pkmnambra.maplogic.TERRAIN;
+import com.coseemo.pkmnambra.maplogic.*;
 import com.coseemo.pkmnambra.camera.Camera;
-import com.coseemo.pkmnambra.maplogic.YSortable;
 import com.coseemo.pkmnambra.characters.Actor;
-import com.coseemo.pkmnambra.maplogic.Place;
-import com.coseemo.pkmnambra.maplogic.PlaceObject;
 
 public class PlaceRenderer {
 
@@ -59,6 +56,10 @@ public class PlaceRenderer {
                         (Settings.SCALED_TILE_SIZE));
                 }
             }
+        }
+
+        for (PlaceObject object : place.getObjects()) {
+            object.update(Gdx.graphics.getDeltaTime());
         }
 
         /* collect objects and actors */
@@ -108,8 +109,13 @@ public class PlaceRenderer {
         forRendering.clear();
     }
 
-    public void setWorld(Place place) {
+    public void setPlace(Place place) {
         this.place = place;
+        renderedObjects.clear();
+        forRendering.clear();
     }
 
+    public Place getPlace() {
+        return place;
+    }
 }
