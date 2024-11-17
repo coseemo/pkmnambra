@@ -31,3 +31,6 @@ EVENTS:
 encounter 11 11 1.0
 teleport 6 4 assets/maps/lab.txt 2 2
 
+NPCS:
+
+PROFESSOR 2 2 ProfessorOak

@@ -112,7 +112,7 @@ public class Actor implements YSortable {
         return dialogue;
     }
 
-    public void setDialogue(Dialogue dialogue) {
+    protected void setDialogue(Dialogue dialogue) {
         this.dialogue = dialogue;
     }
 

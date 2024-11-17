@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Dialogues>
+    <!-- Dialogo introduttivo -->
+    <dialogue name="professor_intro">
+        <linear id="0" text="Oh, benvenuto! Sono il Professor Oak.">
+            <pointer target="1"/>
+        </linear>
+        <linear id="1" text="Stavo proprio cercando un allenatore promettente.">
+            <pointer target="2"/>
+        </linear>
+        <linear id="2" text="Torna a parlarmi quando sei pronto per una missione importante."/>
+    </dialogue>
+
+    <!-- Dialogo per iniziare la quest -->
+    <dialogue name="professor_quest">
+        <linear id="0" text="Eccellente, sei tornato!">
+            <pointer target="1"/>
+        </linear>
+        <linear id="1" text="Ho bisogno che tu trovi una rara Pokéball nella foresta.">
+            <pointer target="2"/>
+        </linear>
+        <choice id="2" text="Accetti questa missione?">
+            <option text="Sì, la troverò per te!" target="3"/>
+            <option text="No, forse più tardi." target="4"/>
+        </choice>
+        <linear id="3" text="Fantastico! La Pokéball emette una luce blu, non puoi sbagliarti."/>
+        <linear id="4" text="Capisco, torna quando ti senti pronto."/>
+    </dialogue>
+
+    <!-- Dialogo durante la quest -->
+    <dialogue name="professor_quest_progress">
+        <linear id="0" text="Hai trovato la Pokéball che ti ho chiesto?">
+            <pointer target="1"/>
+        </linear>
+        <linear id="1" text="Ricorda, emette una luce blu caratteristica.">
+            <pointer target="2"/>
+        </linear>
+        <linear id="2" text="Continua a cercare nella foresta!"/>
+    </dialogue>
+
+    <!-- Dialogo completamento quest -->
+    <dialogue name="professor_quest_complete">
+        <linear id="0" text="Ah, eccola! Hai trovato la Pokéball!">
+            <pointer target="1"/>
+        </linear>
+        <linear id="1" text="Come ricompensa, accetta questo regalo speciale.">
+            <pointer target="2"/>
+        </linear>
+        <linear id="2" text="Grazie del tuo aiuto. Torna a trovarmi quando vuoi!"/>
+    </dialogue>
+</Dialogues>
