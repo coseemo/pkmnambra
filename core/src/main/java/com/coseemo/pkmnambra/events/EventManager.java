@@ -3,8 +3,7 @@ package com.coseemo.pkmnambra.events;
 import com.badlogic.gdx.math.Vector2;
 import com.coseemo.pkmnambra.characters.Player;
 import com.coseemo.pkmnambra.maplogic.Place;
-import com.coseemo.pkmnambra.util.GameState;
-import com.coseemo.pkmnambra.util.Observer;
+import com.coseemo.pkmnambra.util.states.GameState;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,10 +11,10 @@ import java.util.List;
 import java.util.Map;
 
 public class EventManager {
-    private Map<Vector2, List<MapEvent>> eventMap;
-    private GameState gameState;
+    private final Map<Vector2, List<MapEvent>> eventMap;
+    private final GameState gameState;
     private boolean isProcessingEvent;
-    private Vector2 lastProcessedPosition;
+    private final Vector2 lastProcessedPosition;
 
     public EventManager(GameState gameState) {
         this.gameState = gameState;
@@ -109,7 +108,7 @@ public class EventManager {
         if (event.isActive()) {
             System.out.println("Pokemon encounter triggered!");
             event.trigger(gameState);
-        }else{
+        } else {
             reactivateEncounterTiles();
         }
     }

@@ -5,17 +5,22 @@ public enum DIRECTION {
     SOUTH(0, -1),
     EAST(1, 0),
     WEST(-1, 0);
-    private int dx, dy;
+    private final int dx;
+    private final int dy;
+
     DIRECTION(int dx, int dy) {
         this.dx = dx;
         this.dy = dy;
     }
+
     public int getDx() {
         return dx;
     }
+
     public int getDy() {
         return dy;
     }
+
     public static DIRECTION getOpposite(DIRECTION dir) {
         switch (dir) {
             case NORTH:

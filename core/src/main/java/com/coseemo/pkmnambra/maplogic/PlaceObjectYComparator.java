@@ -1,7 +1,6 @@
 package com.coseemo.pkmnambra.maplogic;
 
 import java.util.Comparator;
-import com.coseemo.pkmnambra.maplogic.YSortable;
 
 public class PlaceObjectYComparator implements Comparator<YSortable> {
     @Override

@@ -4,7 +4,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class Inventory {
-    private Map<Item, Integer> items;
+    private final Map<Item, Integer> items;
 
     public Inventory(int maxSize) {
         this.items = new HashMap<>();
@@ -81,8 +81,8 @@ public class Inventory {
 
 
     public Item getItemByName(String name) {
-        for(Item item : this.getItemList()){
-            if(Objects.equals(item.getName(), name)){
+        for (Item item : this.getItemList()) {
+            if (Objects.equals(item.getName(), name)) {
                 return item;
             }
         }
@@ -90,8 +90,8 @@ public class Inventory {
     }
 
     public boolean hasItemsInCategory(String name) {
-        for(Item item : this.getItemList()){
-            if (Objects.equals(name, item.getName())){
+        for (Item item : this.getItemList()) {
+            if (Objects.equals(name, item.getName())) {
                 return true;
             }
         }

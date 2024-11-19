@@ -16,8 +16,6 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.coseemo.pkmnambra.Main;
 import com.coseemo.pkmnambra.camera.Camera;
 import com.coseemo.pkmnambra.characters.Player;
-import com.coseemo.pkmnambra.controller.InputDevice;
-import com.coseemo.pkmnambra.controller.KeyboardInputDevice;
 import com.coseemo.pkmnambra.controller.*;
 import com.coseemo.pkmnambra.dialogue.DialogueDb;
 import com.coseemo.pkmnambra.dialogue.DialogueLoader;
@@ -28,6 +26,7 @@ import com.coseemo.pkmnambra.util.*;
 import com.coseemo.pkmnambra.ui.DialogueBox;
 import com.coseemo.pkmnambra.ui.OptionBox;
 import com.coseemo.pkmnambra.dialogue.Dialogue;
+import com.coseemo.pkmnambra.util.states.GameState;
 
 import static com.coseemo.pkmnambra.items.CaptureItems.CaptureItemFactory.createItem;
 
@@ -53,6 +52,7 @@ public class GameScreen implements Screen {
 
     public GameScreen(GameState gameState) {
 
+        gameState.setCurrentScreen(this);
         this.game = gameState.getGame();
         this.gameState = GameState.getInstance();
         eventManager = new EventManager(gameState);
@@ -94,7 +94,6 @@ public class GameScreen implements Screen {
         initUI();
         multiplexer = new InputMultiplexer();
         batch = new SpriteBatch();
-        InputDevice inputDevice = new KeyboardInputDevice();
         placeRenderer = new PlaceRenderer(assetManager, gameState.getCurrentPlace());
 
         this.dialogueController = new DialogueController(dialogueBox, optionsBox);
@@ -151,7 +150,7 @@ public class GameScreen implements Screen {
             player.addItem(createItem("advancedtrap"));
         }
 
-        if (player.isHasInventory() && Gdx.input.isKeyJustPressed(Input.Keys.I)) {
+        if (player.isHasInventory() && Gdx.input.isKeyJustPressed(Input.Keys.Z)) {
             openInventory();
         }
 

@@ -4,13 +4,13 @@ public class Pokeball extends CaptureItem {
 
     public Pokeball(String name, String description,
                     String capturePhrase, int effectValue) {
-       super(name, description, "POKEBALL", capturePhrase, effectValue);
+        super(name, description, "POKEBALL", capturePhrase, effectValue);
     }
 
 
     @Override
     public void use() {
-        System.out.println("Using " + getName() + "" + getCapturePhrase());
+        System.out.println("Using " + getName() + getCapturePhrase());
         // Logica di cattura con il valore effectValue
     }
 }

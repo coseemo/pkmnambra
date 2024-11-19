@@ -7,30 +7,32 @@ import com.badlogic.gdx.Screen;
 import com.coseemo.pkmnambra.capture.CaptureLogic;
 import com.coseemo.pkmnambra.capture.CaptureRenderer;
 import com.coseemo.pkmnambra.controller.CaptureController;
-import com.coseemo.pkmnambra.util.GameState;
+import com.coseemo.pkmnambra.pokemons.Pokemon;
+import com.coseemo.pkmnambra.util.states.GameState;
 import com.coseemo.pkmnambra.util.Observer;
 
 public class CaptureScreen implements Screen, Observer {
-    private Game game;
-    private String pkmnName;
-    private CaptureLogic captureLogic;
-    private CaptureController captureController;
-    private GameState gameState;
+    private final Game game;
+    private final Pokemon pokemon;
+    private final CaptureLogic captureLogic;
+    private final CaptureController captureController;
+    private final GameState gameState;
     private boolean notExit;
     private boolean waitingForKeyPress;
     private boolean keyPressed;
     private float exitTimer;
     private static final float EXIT_DELAY = 0.05f; // Delay before changing screen
 
-    private CaptureRenderer captureRenderer;
+    private final CaptureRenderer captureRenderer;
     private String eventType;
 
-    public CaptureScreen(GameState gameState, String pkmnName) {
+    public CaptureScreen(GameState gameState, Pokemon pokemon) {
+        gameState.setCurrentScreen(this);
         this.game = gameState.getGame();
-        this.pkmnName = pkmnName;
+        this.pokemon = pokemon;
         this.notExit = true;
         this.gameState = GameState.getInstance();
-        this.captureLogic = new CaptureLogic(this.pkmnName,this);
+        this.captureLogic = new CaptureLogic(pokemon, this);
         this.captureRenderer = new CaptureRenderer();
         this.captureController = new CaptureController(captureRenderer.getOptionBox(), this);
 
@@ -79,10 +81,12 @@ public class CaptureScreen implements Screen, Observer {
     }
 
     @Override
-    public void pause() {}
+    public void pause() {
+    }
 
     @Override
-    public void resume() {}
+    public void resume() {
+    }
 
     @Override
     public void hide() {
@@ -129,13 +133,13 @@ public class CaptureScreen implements Screen, Observer {
                 captureLogic.attemptCapture(getBallIndex(eventType));
                 break;
             case "CAPTURE_FAIL":
-                captureRenderer.updateStatusMessage(pkmnName + " broke free!");
+                captureRenderer.updateStatusMessage(pokemon.getName() + " broke free!");
                 break;
             case "POKEMON_FLED":
-                captureRenderer.updateStatusMessage(pkmnName + " has fled.");
+                captureRenderer.updateStatusMessage(pokemon.getName() + " has fled.");
                 break;
             case "POKEMON_ANGER":
-                captureRenderer.updateStatusMessage(pkmnName + " is too angry, run!");
+                captureRenderer.updateStatusMessage(pokemon.getName() + " is too angry, run!");
                 break;
             case "CAPTURE_SUCCESS":
                 handleCaptureSuccess();
@@ -168,8 +172,8 @@ public class CaptureScreen implements Screen, Observer {
     }
 
     private void handleCaptureSuccess() {
-        if (gameState.getPlayer().addPokemon(pkmnName)) {
-            captureRenderer.updateStatusMessage("You caught " + pkmnName + "!!!");
+        if (gameState.getPlayer().addPokemon(pokemon.getName())) {
+            captureRenderer.updateStatusMessage("You caught " + pokemon.getName() + "!!!");
             eventType = "CATCH_SUCC";
         } else {
             captureRenderer.updateStatusMessage("Team is full, go to prof!");
@@ -192,11 +196,10 @@ public class CaptureScreen implements Screen, Observer {
     }
 
     private void changeScreen() {
-        if(!notExit) {
+        if (!notExit) {
             resetExitState();
             dispose();
-            game.setScreen(new GameScreen(gameState));
-            System.out.println("zao");
+            gameState.changeScreen(new GameScreen(gameState));
         }
     }
 
@@ -210,41 +213,61 @@ public class CaptureScreen implements Screen, Observer {
 
     private int getBallIndex(String eventType) {
         switch (eventType) {
-            case "USE_POKEBALL": return 0;
-            case "USE_GREATBALL": return 1;
-            case "USE_ULTRABALL": return 2;
-            case "USE_MASTERBALL": return 3;
-            default: return -1;
+            case "USE_POKEBALL":
+                return 0;
+            case "USE_GREATBALL":
+                return 1;
+            case "USE_ULTRABALL":
+                return 2;
+            case "USE_MASTERBALL":
+                return 3;
+            default:
+                return -1;
         }
     }
 
     private int getBaitIndex(String eventType) {
         switch (eventType) {
-            case "USE_STANDARDBAIT": return 0;
-            case "USE_SPICYBAIT": return 1;
-            case "USE_SWEETBAIT": return 2;
-            case "USE_SMELLYBAIT": return 3;
-            default: return -1;
+            case "USE_STANDARDBAIT":
+                return 0;
+            case "USE_SPICYBAIT":
+                return 1;
+            case "USE_SWEETBAIT":
+                return 2;
+            case "USE_SMELLYBAIT":
+                return 3;
+            default:
+                return -1;
         }
     }
 
     private int getPerfumeIndex(String eventType) {
         switch (eventType) {
-            case "USE_FLORALPERFUME": return 0;
-            case "USE_FRUITYPERFUME": return 1;
-            case "USE_HERBALPERFUME": return 2;
-            case "USE_MYSTICPERFUME": return 3;
-            default: return -1;
+            case "USE_FLORALPERFUME":
+                return 0;
+            case "USE_FRUITYPERFUME":
+                return 1;
+            case "USE_HERBALPERFUME":
+                return 2;
+            case "USE_MYSTICPERFUME":
+                return 3;
+            default:
+                return -1;
         }
     }
 
     private int getTrapIndex(String eventType) {
         switch (eventType) {
-            case "USE_BASICTRAP": return 0;
-            case "USE_ADVANCEDTRAP": return 1;
-            case "USE_TRICKYTRAP": return 2;
-            case "USE_QUICKTRAP": return 3;
-            default: return -1;
+            case "USE_BASICTRAP":
+                return 0;
+            case "USE_ADVANCEDTRAP":
+                return 1;
+            case "USE_TRICKYTRAP":
+                return 2;
+            case "USE_QUICKTRAP":
+                return 3;
+            default:
+                return -1;
         }
     }
 

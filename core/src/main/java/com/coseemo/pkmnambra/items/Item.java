@@ -4,9 +4,9 @@ import java.util.Objects;
 
 // Classe astratta di base per tutti gli oggetti del gioco
 public abstract class Item {
-    private String name;
-    private String description;
-    private String category;
+    private final String name;
+    private final String description;
+    private final String category;
 
     public Item(String name, String description, String category) {
         this.name = name;

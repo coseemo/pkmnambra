@@ -6,6 +6,5 @@ public enum TERRAIN {
     SAND_2,
     PORTAL,
     GRASS
-    ;
 
 }

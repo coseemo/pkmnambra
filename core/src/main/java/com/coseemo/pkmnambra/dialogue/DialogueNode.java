@@ -5,11 +5,11 @@ import java.util.List;
 
 public class DialogueNode {
 
-    private ArrayList<Integer> pointers = new ArrayList<Integer>();
-    private ArrayList<String> labels = new ArrayList<String>();
+    private final ArrayList<Integer> pointers = new ArrayList<Integer>();
+    private final ArrayList<String> labels = new ArrayList<String>();
 
-    private String text;
-    private int id;
+    private final String text;
+    private final int id;
 
     private NODE_TYPE type;
 
@@ -17,7 +17,6 @@ public class DialogueNode {
         MULTIPLE_CHOICE,
         LINEAR,
         END,
-        ;
     }
 
     public DialogueNode(String text, int id) {

@@ -1,18 +1,18 @@
 package com.coseemo.pkmnambra.controller;
 
-import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.InputAdapter;
 import com.coseemo.pkmnambra.dialogue.Dialogue;
 import com.coseemo.pkmnambra.dialogue.DialogueNode;
-import com.coseemo.pkmnambra.dialogue.DialogueTraverser;
 import com.coseemo.pkmnambra.dialogue.DialogueNode.NODE_TYPE;
+import com.coseemo.pkmnambra.dialogue.DialogueTraverser;
 import com.coseemo.pkmnambra.ui.DialogueBox;
 import com.coseemo.pkmnambra.ui.OptionBox;
 
 public class DialogueController extends InputAdapter {
     private DialogueTraverser traverser;
-    private DialogueBox dialogueBox;
-    private OptionBox optionBox;
+    private final DialogueBox dialogueBox;
+    private final OptionBox optionBox;
     private Runnable completionCallback;
     private boolean waitingForInput = false;
 
@@ -24,10 +24,7 @@ public class DialogueController extends InputAdapter {
     @Override
     public boolean keyDown(int keycode) {
         // Se il dialogo è visibile, blocchiamo tutti gli input
-        if (dialogueBox.isVisible()) {
-            return true;
-        }
-        return false;
+        return dialogueBox.isVisible();
     }
 
     @Override
@@ -124,7 +121,7 @@ public class DialogueController extends InputAdapter {
         }
 
         // Aggiorna il dialogue box per l'animazione del testo
-        dialogueBox.act(0.1f);
+        dialogueBox.act(0.05f);
 
         // Se l'option box è visibile, aggiornalo
         if (optionBox.isVisible()) {

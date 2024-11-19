@@ -1,11 +1,12 @@
 package com.coseemo.pkmnambra.dialogue;
 
-import java.util.List;
 import com.coseemo.pkmnambra.dialogue.DialogueNode.NODE_TYPE;
+
+import java.util.List;
 
 public class DialogueTraverser {
 
-    private Dialogue dialogue;
+    private final Dialogue dialogue;
     private DialogueNode currentNode;
 
     public DialogueTraverser(Dialogue dialogue) {

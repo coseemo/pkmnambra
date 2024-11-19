@@ -9,7 +9,7 @@ public class DialogueBox extends Table {
     private float animTimer = 0f;
     private final float TIME_PER_CHARACTER = 0.05f;
     private STATE currentState = STATE.IDLE;
-    private Label textLabel;
+    private final Label textLabel;
     private boolean isTextComplete = false;
 
     private enum STATE {

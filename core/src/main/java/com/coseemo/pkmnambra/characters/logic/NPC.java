@@ -17,8 +17,8 @@ public abstract class NPC extends Actor {
     public NPC(Place place, int x, int y, String npcId, AnimationSet animationSet, AssetManager assetManager) {
         super(place, x, y, animationSet);
         this.npcId = npcId;
-        this.assetManager = assetManager;
         this.state = NPCStateManager.getInstance().getOrCreateState(npcId);
+        this.assetManager = assetManager;
         initializeDialogue();
     }
 
@@ -34,6 +34,7 @@ public abstract class NPC extends Actor {
     }
 
     protected abstract void initializeDialogue();
+
     protected abstract void handleInteraction(Player player);
 
     protected void setDialogue(Dialogue dialogue) {
@@ -43,6 +44,7 @@ public abstract class NPC extends Actor {
     public Dialogue getCurrentDialogue() {
         return currentDialogue;
     }
+
     public void onDialogueComplete() {
         setInDialogue(false);
         executeDialogueCallback();
@@ -50,16 +52,13 @@ public abstract class NPC extends Actor {
 
     @Override
     public void interactWithPlayer(Player player) {
+
         reface(DIRECTION.getOpposite(player.getFacing()));
         setState(ACTOR_STATE.STANDING);
         setInDialogue(true);
         handleInteraction(player);
-        state.incrementInteractions();
-        // Facciamo partire il dialogo se è stato impostato
-        if (currentDialogue != null) {
-            startDialogue();
-        }
     }
+
 
     private void startDialogue() {
         initializeDialogue();

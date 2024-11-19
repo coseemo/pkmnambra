@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class NPCStateManager {
     private static NPCStateManager instance;
-    private Map<String, NPCState> npcStates;
+    private final Map<String, NPCState> npcStates;
 
     private NPCStateManager() {
         npcStates = new HashMap<>();

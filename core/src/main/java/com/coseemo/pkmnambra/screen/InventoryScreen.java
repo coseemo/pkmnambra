@@ -1,28 +1,28 @@
 package com.coseemo.pkmnambra.screen;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys; // Importa Keys per usare i codici dei tasti
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.coseemo.pkmnambra.Main;
-import com.coseemo.pkmnambra.items.Inventory;
 import com.coseemo.pkmnambra.items.Item;
-import com.coseemo.pkmnambra.util.*;
+import com.coseemo.pkmnambra.util.states.GameState;
+import com.coseemo.pkmnambra.util.Observer;
+import com.coseemo.pkmnambra.util.SkinGenerator;
 
 import java.util.Map;
 
 public class InventoryScreen implements Screen, Observer {
-    private Stage uiStage;
+    private final Stage uiStage;
     private Table root;
-    private GameState gameState;
-    private Skin skin;
-    private Game game; // Aggiungi un riferimento a Game
+    private final GameState gameState;
+    private final Skin skin;
+    private final Game game; // Aggiungi un riferimento a Game
 
     public InventoryScreen(GameState gameState) {
         this.game = gameState.getGame(); // Inizializza il riferimento a Game
@@ -66,12 +66,10 @@ public class InventoryScreen implements Screen, Observer {
     }
 
 
-
-
     @Override
     public void render(float delta) {
         // Gestisci l'uscita dall'inventario
-        if (Gdx.input.isKeyJustPressed(Keys.ESCAPE)) { // Puoi cambiare ESCAPE con un altro tasto
+        if (Gdx.input.isKeyJustPressed(Keys.Z)) { // Puoi cambiare ESCAPE con un altro tasto
 
             game.setScreen(new GameScreen(gameState)); // Torna al GameScreen o alla schermata principale
         }
@@ -88,13 +86,16 @@ public class InventoryScreen implements Screen, Observer {
     }
 
     @Override
-    public void pause() {}
+    public void pause() {
+    }
 
     @Override
-    public void resume() {}
+    public void resume() {
+    }
 
     @Override
-    public void hide() {}
+    public void hide() {
+    }
 
     @Override
     public void dispose() {

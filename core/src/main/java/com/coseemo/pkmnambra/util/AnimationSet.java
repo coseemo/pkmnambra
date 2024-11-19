@@ -8,8 +8,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class AnimationSet {
-    private Map<DIRECTION, Animation<TextureRegion>> walking;  // Specifica il tipo generico TextureRegion
-    private Map<DIRECTION, TextureRegion> standing;
+    private final Map<DIRECTION, Animation<TextureRegion>> walking;  // Specifica il tipo generico TextureRegion
+    private final Map<DIRECTION, TextureRegion> standing;
 
     public AnimationSet(Animation<TextureRegion> walking_east,
                         Animation<TextureRegion> walking_west,

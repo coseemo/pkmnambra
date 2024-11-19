@@ -1,9 +1,12 @@
-package com.coseemo.pkmnambra.util;
+package com.coseemo.pkmnambra.util.states;
 
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import com.coseemo.pkmnambra.Main;
 import com.coseemo.pkmnambra.characters.Player;
 import com.coseemo.pkmnambra.maplogic.Place;
+import com.coseemo.pkmnambra.screen.TransitionScreen;
+import com.coseemo.pkmnambra.util.EventNotifier;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,10 +15,11 @@ public class GameState {
     private static GameState instance;
     private Player player;
     private Place currentPlace;
-    private Map<String, Place> places;
+    private final Map<String, Place> places;
     private Main game;
     private final EventNotifier eventNotifier;
     private AssetManager assetManager;
+    private Screen currentScreen;
 
     private GameState() {
         eventNotifier = new EventNotifier();
@@ -69,8 +73,19 @@ public class GameState {
     public AssetManager getAssetManager() {
         return assetManager;
     }
-
     public void setAssetManager(AssetManager assetManager) {
         this.assetManager = assetManager;
+    }
+
+    public Screen getCurrentScreen() {
+        return currentScreen;
+    }
+
+    public void setCurrentScreen(Screen currentScreen) {
+        this.currentScreen = currentScreen;
+    }
+
+    public void changeScreen(Screen arriveScreen){
+        game.setScreen(new TransitionScreen(game, currentScreen, arriveScreen));
     }
 }

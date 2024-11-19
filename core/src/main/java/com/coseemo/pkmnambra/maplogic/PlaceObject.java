@@ -7,10 +7,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PlaceObject implements YSortable {
-    private int x, y;
-    private TextureRegion texture;
-    private float sizeX, sizeY;
-    private List<GridPoint2> tiles;
+    private final int x;
+    private final int y;
+    private final TextureRegion texture;
+    private final float sizeX;
+    private final float sizeY;
+    private final List<GridPoint2> tiles;
     private boolean walkable;
 
     public PlaceObject(int x, int y, boolean walkable, TextureRegion texture, float sizeX, float sizeY, GridPoint2[] tiles) {

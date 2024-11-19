@@ -1,8 +1,10 @@
 package com.coseemo.pkmnambra.items.CaptureItems;
+
 import com.coseemo.pkmnambra.items.Item;
-public abstract class CaptureItem extends Item{
-    private String capturePhrase;
-    private int effectValue;
+
+public abstract class CaptureItem extends Item {
+    private final String capturePhrase;
+    private final int effectValue;
 
     public CaptureItem(String name, String description, String category,
                        String capturePhrase, int effectValue) {

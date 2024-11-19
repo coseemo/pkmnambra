@@ -5,10 +5,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.coseemo.pkmnambra.util.GameState;
-import com.coseemo.pkmnambra.items.Inventory;
 import com.coseemo.pkmnambra.screen.GameScreen;
-import com.coseemo.pkmnambra.util.EventNotifier;
+import com.coseemo.pkmnambra.util.states.GameState;
 
 public class Main extends Game {
 

@@ -5,9 +5,9 @@ import com.badlogic.gdx.math.Interpolation;
 import com.coseemo.pkmnambra.characters.Player;
 import com.coseemo.pkmnambra.dialogue.Dialogue;
 import com.coseemo.pkmnambra.maplogic.DIRECTION;
-import com.coseemo.pkmnambra.maplogic.YSortable;
-import com.coseemo.pkmnambra.maplogic.TileMap;
 import com.coseemo.pkmnambra.maplogic.Place;
+import com.coseemo.pkmnambra.maplogic.TileMap;
+import com.coseemo.pkmnambra.maplogic.YSortable;
 import com.coseemo.pkmnambra.util.AnimationSet;
 
 public class Actor implements YSortable {
@@ -122,7 +122,7 @@ public class Actor implements YSortable {
 
     public void update(float delta) {
 
-        if (isInDialogue()){
+        if (isInDialogue()) {
             return;
         }
         if (state == ACTOR_STATE.WALKING) {
@@ -241,6 +241,7 @@ public class Actor implements YSortable {
         this.setCoords(newX, newY);
         this.place.addActor(this);
     }
+
     public void cancelMove() {
         // Arrotonda per difetto la posizione corrente
         this.placeX = (float) Math.floor(this.placeX);
@@ -275,7 +276,8 @@ public class Actor implements YSortable {
         return facing;
     }
 
-    public void interactWithPlayer(Player player){}
+    public void interactWithPlayer(Player player) {
+    }
 
     public boolean isInDialogue() {
         return inDialogue;

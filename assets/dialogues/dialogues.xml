@@ -39,7 +39,10 @@
         <linear id="0" text="Ah, you're back! Let's see what Pokemon you've brought.">
             <pointer target="1"/>
         </linear>
-        <linear id="1" text="Remember, I'm especially interested in species you haven't caught before!"/>
+        <linear id="1" text="Remember, I'm especially interested in species you haven't caught before!">
+            <pointer target="2"/>
+        </linear>
+        <linear id="2" text="Keep up the good work, and come back when you have more discoveries!"/>
     </dialogue>
 
     <!-- Dialogo vicino al completamento -->

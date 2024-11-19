@@ -9,12 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Place{
-    private TileMap map;
-    private List<Actor> actors;
-    private List<PlaceObject> objects;
-    private MapObjectFactory objectFactory;
-    private List<MapEvent> events;
+public class Place {
+    private final TileMap map;
+    private final List<Actor> actors;
+    private final List<PlaceObject> objects;
+    private final MapObjectFactory objectFactory;
+    private final List<MapEvent> events;
 
     public Place(TileMap tileMap, AssetManager assetManager) {
         this.map = tileMap;
@@ -43,14 +43,14 @@ public class Place{
         actors.remove(actor);
     }
 
-    public void addActor(Actor a){
+    public void addActor(Actor a) {
         map.getTile(a.getX(), a.getY()).setActor(a);
         actors.add(a);
     }
 
-    public void addObject(PlaceObject o){
-        for(GridPoint2 p : o.getTiles())
-            map.getTile(o.getX()+p.x, o.getY()+p.y).setObject(o);
+    public void addObject(PlaceObject o) {
+        for (GridPoint2 p : o.getTiles())
+            map.getTile(o.getX() + p.x, o.getY() + p.y).setObject(o);
         objects.add(o);
     }
 
@@ -64,10 +64,10 @@ public class Place{
         addObject(object);
     }
 
-    public void update(float delta){
-        for(Actor a : actors)
+    public void update(float delta) {
+        for (Actor a : actors)
             a.update(delta);
-        for(PlaceObject o : objects)
+        for (PlaceObject o : objects)
             o.update(delta);
     }
 

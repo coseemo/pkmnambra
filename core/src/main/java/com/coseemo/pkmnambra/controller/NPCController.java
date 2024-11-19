@@ -1,16 +1,16 @@
 package com.coseemo.pkmnambra.controller;
 
-import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Input.Keys;
-import com.coseemo.pkmnambra.characters.logic.NPC;
+import com.badlogic.gdx.InputAdapter;
 import com.coseemo.pkmnambra.characters.Player;
 import com.coseemo.pkmnambra.characters.logic.Actor;
+import com.coseemo.pkmnambra.characters.logic.NPC;
 import com.coseemo.pkmnambra.dialogue.Dialogue;
-import com.coseemo.pkmnambra.util.GameState;
+import com.coseemo.pkmnambra.util.states.GameState;
 
 public class NPCController extends InputAdapter {
-    private GameState gameState;
-    private DialogueController dialogueController;
+    private final GameState gameState;
+    private final DialogueController dialogueController;
     private NPC currentInteractingNPC;
 
     public NPCController(DialogueController dialogueController) {

@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class NPCState {
-    private String npcId;
-    private Map<String, Object> flags;
+    private final String npcId;
+    private final Map<String, Object> flags;
     private boolean hasInteracted;
     private int interactionCount;
     private String currentDialoguePath;

@@ -11,7 +11,7 @@ import com.badlogic.gdx.utils.XmlReader;
 import com.badlogic.gdx.utils.XmlReader.Element;
 
 public class DialogueLoader extends AsynchronousAssetLoader<DialogueDb, DialogueLoader.DialogueParameter> {
-    private DialogueDb dialogueDb;
+    private final DialogueDb dialogueDb;
 
     public DialogueLoader(FileHandleResolver resolver) {
         super(resolver);
@@ -90,5 +90,6 @@ public class DialogueLoader extends AsynchronousAssetLoader<DialogueDb, Dialogue
         return null;
     }
 
-    static public class DialogueParameter extends AssetLoaderParameters<DialogueDb> {}
+    static public class DialogueParameter extends AssetLoaderParameters<DialogueDb> {
+    }
 }

@@ -1,27 +1,27 @@
 package com.coseemo.pkmnambra.screen.render;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.coseemo.pkmnambra.Settings;
-import com.coseemo.pkmnambra.maplogic.*;
 import com.coseemo.pkmnambra.camera.Camera;
 import com.coseemo.pkmnambra.characters.logic.Actor;
+import com.coseemo.pkmnambra.maplogic.*;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class PlaceRenderer {
 
-    private AssetManager assetManager;
+    private final AssetManager assetManager;
     private Place place;
-    private TextureRegion sand1;
-    private TextureRegion sand2;
-    private List<Integer> renderedObjects = new ArrayList<Integer>();
-    private List<YSortable> forRendering = new ArrayList<YSortable>();
+    private final TextureRegion sand1;
+    private final TextureRegion sand2;
+    private final List<Integer> renderedObjects = new ArrayList<Integer>();
+    private final List<YSortable> forRendering = new ArrayList<YSortable>();
 
     public PlaceRenderer(AssetManager assetManager, Place place) {
         this.assetManager = assetManager;
@@ -44,7 +44,7 @@ public class PlaceRenderer {
                     render = sand1;
                 } else if (place.getMap().getTile(x, y).getTerrain() == TERRAIN.SAND_2) {
                     render = sand2;
-                } else{
+                } else {
                     render = null;
                 }
 

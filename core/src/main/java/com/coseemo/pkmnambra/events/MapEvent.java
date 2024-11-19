@@ -1,6 +1,6 @@
 package com.coseemo.pkmnambra.events;
 
-import com.coseemo.pkmnambra.util.GameState;
+import com.coseemo.pkmnambra.util.states.GameState;
 
 public abstract class MapEvent {
     protected int x;
@@ -13,9 +13,17 @@ public abstract class MapEvent {
         this.type = type;
     }
 
-    public int getX() { return x; }
-    public int getY() { return y; }
-    public EVENT_TYPE getType() { return type; }
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public EVENT_TYPE getType() {
+        return type;
+    }
 
     public abstract void trigger(GameState gameState);
 }

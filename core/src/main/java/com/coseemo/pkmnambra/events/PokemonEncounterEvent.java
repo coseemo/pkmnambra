@@ -1,17 +1,17 @@
 package com.coseemo.pkmnambra.events;
 
-import com.coseemo.pkmnambra.pokemons.Pokemon;
+import com.coseemo.pkmnambra.pokemons.PokemonFactory;
 import com.coseemo.pkmnambra.screen.CaptureScreen;
-import com.coseemo.pkmnambra.util.GameState;
+import com.coseemo.pkmnambra.util.states.GameState;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public class PokemonEncounterEvent extends MapEvent {
-    private float encounterRate;
-    private List<Pokemon> possibleEncounters;
-    private Random random;
+    private final float encounterRate;
+    private final List<String> possibleEncounters;
+    private final Random random;
     private boolean isActive;
     private boolean isProcessing;
 
@@ -40,9 +40,10 @@ public class PokemonEncounterEvent extends MapEvent {
             isActive = false;
             System.out.println("Encounter successful - deactivating tile");
 
-            Pokemon pokemon = possibleEncounters.get(random.nextInt(possibleEncounters.size()));
-            System.out.println("Encountered Pokémon: " + pokemon.getName());
-            gameState.getGame().setScreen(new CaptureScreen(gameState, pokemon.getName()));
+            // Estrazione del Pokémon con peso basato sulla posizione
+            String pokemon = weightedRandomEncounter();
+            System.out.println("Encountered Pokémon: " + pokemon);
+            gameState.changeScreen(new CaptureScreen(gameState, PokemonFactory.createPokemon(pokemon)));
         } else {
             System.out.println("No Pokémon encountered - probability check failed");
         }
@@ -59,7 +60,30 @@ public class PokemonEncounterEvent extends MapEvent {
         return isActive;
     }
 
-    public void addPossibleEncounter(Pokemon pokemon) {
+    public void addPossibleEncounter(String pokemon) {
         possibleEncounters.add(pokemon);
+    }
+
+    /**
+     * Seleziona un Pokémon casuale dalla lista con una probabilità maggiore per quelli in cima.
+     */
+    private String weightedRandomEncounter() {
+        int totalWeight = 0;
+        for (int i = 1; i <= possibleEncounters.size(); i++) {
+            totalWeight += i; // Peso crescente in base alla posizione
+        }
+
+        int randomValue = random.nextInt(totalWeight) + 1;
+        int cumulativeWeight = 0;
+
+        for (int i = 0; i < possibleEncounters.size(); i++) {
+            cumulativeWeight += (i + 1); // Peso della posizione
+            if (randomValue <= cumulativeWeight) {
+                return possibleEncounters.get(i);
+            }
+        }
+
+        // Default, non dovrebbe mai succedere
+        return possibleEncounters.get(possibleEncounters.size() - 1);
     }
 }

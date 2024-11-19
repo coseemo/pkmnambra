@@ -10,7 +10,7 @@ public class Trap extends CaptureItem {
 
     @Override
     public void use() {
-        System.out.println("Using " + getName() + "" + getCapturePhrase());
+        System.out.println("Using " + getName() + getCapturePhrase());
         // Logica di cattura con il valore effectValue
     }
 }

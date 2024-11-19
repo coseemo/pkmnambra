@@ -1,5 +1,7 @@
 package com.coseemo.pkmnambra.ui;
 
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
@@ -7,17 +9,13 @@ import com.badlogic.gdx.utils.Scaling;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 
 public class OptionBox extends Table {
 
     private int selectorIndex = 0;
 
-    private List<Image> arrows = new ArrayList<>();
-    private List<Label> options = new ArrayList<>();
+    private final List<Image> arrows = new ArrayList<>();
+    private final List<Label> options = new ArrayList<>();
 
     public OptionBox(Skin skin) {
         super(skin);
@@ -61,6 +59,7 @@ public class OptionBox extends Table {
         }
         updateArrowVisibility();
     }
+
     public void clearChoices() {
         this.clearChildren();
         options.clear();

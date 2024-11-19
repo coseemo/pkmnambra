@@ -2,25 +2,23 @@ package com.coseemo.pkmnambra.capture;
 
 import com.coseemo.pkmnambra.characters.Player;
 import com.coseemo.pkmnambra.pokemons.Pokemon;
-import com.coseemo.pkmnambra.pokemons.PokemonFactory;
 import com.coseemo.pkmnambra.screen.CaptureScreen;
 import com.coseemo.pkmnambra.util.EventNotifier;
-import com.coseemo.pkmnambra.util.GameState;
+import com.coseemo.pkmnambra.util.states.GameState;
 
 
 public class CaptureLogic {
-    private Pokemon currentPokemon;
-    private EventNotifier eventNotifier;
-    private Player player;
+    private final Pokemon currentPokemon;
+    private final EventNotifier eventNotifier;
+    private final Player player;
     private CaptureScreen captureScreen;
     private float captureProbability;
     private float angerLevel;
     private boolean captureInterrupted;
 
 
-    public CaptureLogic(String pkmonName, CaptureScreen captureScreen) {
+    public CaptureLogic(Pokemon pokemon, CaptureScreen captureScreen) {
 
-        Pokemon pokemon = PokemonFactory.createPokemon(pkmonName);
         this.currentPokemon = pokemon;
         GameState gameState = GameState.getInstance();
         this.eventNotifier = gameState.getEventNotifier();
@@ -53,6 +51,7 @@ public class CaptureLogic {
             handlePokemonReaction();
         }
     }
+
     public void handleBait(int baitIndex) {
         captureProbability = Math.min(100, captureProbability + currentPokemon.getBaitEffect(baitIndex));
         handlePokemonReaction();
@@ -73,10 +72,8 @@ public class CaptureLogic {
     public void handlePokemonReaction() {
         if (angerLevel >= 100) {
             endBattleWithMessage("POKEMON_ANGER");
-            return;
         } else if (Math.random() <= 0.10) {
             endBattleWithMessage("POKEMON_FLED");
-            return;
         }
     }
 
@@ -111,6 +108,7 @@ public class CaptureLogic {
     public boolean isCaptureInterrupted() {
         return captureInterrupted;
     }
+
     private void resetCaptureState() {
         this.angerLevel = currentPokemon.getBaseAngerLevel();
         this.captureProbability = currentPokemon.getBaseCaptureRate();

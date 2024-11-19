@@ -4,5 +4,5 @@ public enum CATEGORY {
     BAIT,
     TRAP,
     PERFUME,
-    POKEBALL;
+    POKEBALL
 }

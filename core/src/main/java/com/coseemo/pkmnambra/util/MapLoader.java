@@ -1,14 +1,18 @@
 package com.coseemo.pkmnambra.util;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
-import com.coseemo.pkmnambra.characters.logic.NPC;
+import com.badlogic.gdx.files.FileHandle;
 import com.coseemo.pkmnambra.characters.Professor;
+import com.coseemo.pkmnambra.characters.logic.NPC;
 import com.coseemo.pkmnambra.events.PokemonEncounterEvent;
 import com.coseemo.pkmnambra.events.TeleportEvent;
-import com.coseemo.pkmnambra.maplogic.*;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
+import com.coseemo.pkmnambra.maplogic.Place;
+import com.coseemo.pkmnambra.maplogic.TERRAIN;
+import com.coseemo.pkmnambra.maplogic.TileMap;
 import com.coseemo.pkmnambra.pokemons.Pokemon;
+
+import java.util.Random;
 
 public class MapLoader {
     private static final String OBJECT_MARKER = "OBJECTS:";
@@ -122,7 +126,7 @@ public class MapLoader {
                             int y = Integer.parseInt(parts[2]);
                             float rate = Float.parseFloat(parts[3]);
                             PokemonEncounterEvent event = new PokemonEncounterEvent(x, y, rate);
-                            event.addPossibleEncounter(new Pokemon("Parasect", 50, 20));
+                            event.addPossibleEncounter("Parasect");
                             place.addEvent(event);
                         }
                         break;

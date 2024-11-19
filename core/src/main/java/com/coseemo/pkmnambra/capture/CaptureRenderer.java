@@ -5,27 +5,30 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.coseemo.pkmnambra.items.Item;
 import com.coseemo.pkmnambra.ui.OptionBox;
 import com.coseemo.pkmnambra.util.EventNotifier;
-import com.coseemo.pkmnambra.util.GameState;
+import com.coseemo.pkmnambra.util.states.GameState;
 import com.coseemo.pkmnambra.util.SkinGenerator;
 
 public class CaptureRenderer {
-    private Stage stage;
-    private Table root;
-    private Skin skin;
-    private GameState gameState;
+    private final Stage stage;
+    private final Table root;
+    private final Skin skin;
+    private final GameState gameState;
     private OptionBox optionBox;
     private ProgressBar captureProbabilityBar;
     private ProgressBar angerLevelBar;
     private Label statusMessageLabel;
-    private SpriteBatch batch;
-    private Texture background;
-    private Texture pokemonSprite;
-    private Texture mimiSprite;
+    private final SpriteBatch batch;
+    private final Texture background;
+    private final Texture pokemonSprite;
+    private final Texture mimiSprite;
 
     public CaptureRenderer() {
 
