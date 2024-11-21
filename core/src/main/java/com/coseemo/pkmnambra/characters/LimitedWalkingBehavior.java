@@ -1,5 +1,6 @@
 package com.coseemo.pkmnambra.characters;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import com.badlogic.gdx.math.GridPoint2;

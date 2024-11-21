@@ -2,7 +2,6 @@ package com.coseemo.pkmnambra.controller;
 
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
-import com.coseemo.pkmnambra.characters.Actor;
 import com.coseemo.pkmnambra.characters.Player;
 import com.coseemo.pkmnambra.maplogic.DIRECTION;
 
@@ -39,6 +38,7 @@ public class PlayerController extends InputAdapter {
             buttonPress[DIRECTION.WEST.ordinal()] = true;
         if(keycode == Keys.RIGHT)
             buttonPress[DIRECTION.EAST.ordinal()] = true;
+
         return false;
     }
 

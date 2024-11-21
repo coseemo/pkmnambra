@@ -51,7 +51,7 @@ public class Actor implements YSortable {
         WALKING,
         STANDING,
         REFACING,
-        STILL
+        STILL;
     }
 
     public boolean move(DIRECTION dir) {
@@ -269,7 +269,7 @@ public class Actor implements YSortable {
 
         // Aggiunge il giocatore al nuovo mondo
         this.world = world;
-        this.world.addActor(this);
+        this.world.addPlayer((Player) this);
     }
 
     public DIRECTION getFacing() {

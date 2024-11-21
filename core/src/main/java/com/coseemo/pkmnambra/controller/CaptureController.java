@@ -2,6 +2,7 @@ package com.coseemo.pkmnambra.controller;
 
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
+import com.coseemo.pkmnambra.characters.Player;
 import com.coseemo.pkmnambra.items.Inventory;
 import com.coseemo.pkmnambra.items.Item;
 import com.coseemo.pkmnambra.screen.CaptureScreen;
@@ -12,10 +13,8 @@ import com.coseemo.pkmnambra.util.states.GameState;
 import java.util.List;
 
 public class CaptureController extends InputAdapter {
-
-    CaptureScreen captureScreen;
     private final OptionBox optionBox;
-    private final Inventory inventory;
+    private Player player;
     private final EventNotifier eventNotifier;
     private boolean mustPress;
     private boolean isInInventoryMenu = false;
@@ -25,7 +24,7 @@ public class CaptureController extends InputAdapter {
         this.optionBox = optionBox;
         this.gameState = gameState;
         this.eventNotifier = gameState.getEventManager().getEventNotifier();
-        this.inventory = gameState.getPlayerState().getPlayer().getInventory();
+        this.player = gameState.getPlayerState().getPlayer();
         this.mustPress = false;
     }
 
@@ -100,7 +99,7 @@ public class CaptureController extends InputAdapter {
         Item selectedItem = null;
 
         // Cerca l'oggetto selezionato in base al nome esatto
-        for (Item item : inventory.getItemList()) {
+        for (Item item : player.getInventory().getItems().keySet()) {
             if (selectedChoice.startsWith(item.getName())) {
                 selectedItem = item;
                 break;
@@ -112,56 +111,56 @@ public class CaptureController extends InputAdapter {
                 case "Pokeball":
                     eventNotifier.notifyObservers("USE_POKEBALL");
                     break;
-                case "Great Ball":
+                case "GreatBall":
                     eventNotifier.notifyObservers("USE_GREATBALL");
                     break;
-                case "Ultra Ball":
+                case "UltraBall":
                     eventNotifier.notifyObservers("USE_ULTRABALL");
                     break;
-                case "Master Ball":
+                case "MasterBall":
                     eventNotifier.notifyObservers("USE_MASTERBALL");
                     break;
-                case "Standard Bait":
+                case "StandardBait":
                     eventNotifier.notifyObservers("USE_STANDARDBAIT");
                     break;
-                case "Spicy Bait":
+                case "SpicyBait":
                     eventNotifier.notifyObservers("USE_SPICYBAIT");
                     break;
-                case "Sweet Bait":
+                case "SweetBait":
                     eventNotifier.notifyObservers("USE_SWEETBAIT");
                     break;
-                case "Smelly Bait":
+                case "SmellyBait":
                     eventNotifier.notifyObservers("USE_SMELLYBAIT");
                     break;
-                case "Floral Perfume":
+                case "FloralPerfume":
                     eventNotifier.notifyObservers("USE_FLORALPERFUME");
                     break;
-                case "Fruity Perfume":
+                case "FruityPerfume":
                     eventNotifier.notifyObservers("USE_FRUITYPERFUME");
                     break;
-                case "Herbal Perfume":
+                case "HerbalPerfume":
                     eventNotifier.notifyObservers("USE_HERBALPERFUME");
                     break;
-                case "Mystic Perfume":
+                case "MysticPerfume":
                     eventNotifier.notifyObservers("USE_MYSTICPERFUME");
                     break;
-                case "Basic Trap":
+                case "BasicTrap":
                     eventNotifier.notifyObservers("USE_BASICTRAP");
                     break;
-                case "Advanced Trap":
+                case "AdvancedTrap":
                     eventNotifier.notifyObservers("USE_ADVANCEDTRAP");
                     break;
-                case "Tricky Trap":
+                case "TrickyTrap":
                     eventNotifier.notifyObservers("USE_TRICKYTRAP");
                     break;
-                case "Quick Trap":
+                case "QuickTrap":
                     eventNotifier.notifyObservers("USE_QUICKTRAP");
                     break;
                 default:
                     eventNotifier.notifyObservers(selectedItem.getCategory().toUpperCase());
                     break;
             }
-            inventory.removeItem(selectedItem);
+            player.removeItem(selectedItem.getName());
         }
 
         // Torna al menu principale dopo l'uso
@@ -181,10 +180,10 @@ public class CaptureController extends InputAdapter {
 
     private void showInventoryOptions(String category) {
         optionBox.clearChoices();
-        List<Item> items = inventory.getItemsByCategory(category);
+        List<Item> items = player.getInventory().getItemsByCategory(category);
 
         for (Item item : items) {
-            optionBox.addOption(item.getName() + " x" + inventory.getItemQuantity(item));
+            optionBox.addOption(item.getName() + " x" + player.getInventory().getItems().get(item));
         }
         // Aggiunge il tasto "Back" come ultima opzione per tornare al menu principale
         optionBox.addOption("Back");

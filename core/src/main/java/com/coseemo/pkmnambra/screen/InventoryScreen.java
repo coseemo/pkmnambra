@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.coseemo.pkmnambra.characters.Player;
 import com.coseemo.pkmnambra.items.Item;
 import com.coseemo.pkmnambra.util.states.GameState;
 
@@ -19,6 +20,7 @@ public class InventoryScreen implements Screen {
     private final SpriteBatch batch;
     private final GameState gameState;
     private final Game game;
+    private Player player;
     private Texture backgroundTexture;
     private BitmapFont font;
     private BitmapFont titleFont;
@@ -42,7 +44,9 @@ public class InventoryScreen implements Screen {
 
     @Override
     public void show() {
-        Gdx.input.setInputProcessor(null);  // Disable input processor to avoid unwanted interactions
+        Gdx.input.setInputProcessor(null);
+        player = gameState.getPlayerState().getPlayer();
+        // Disable input processor to avoid unwanted interactions
     }
 
     @Override
@@ -80,7 +84,7 @@ public class InventoryScreen implements Screen {
         y -= 60;
 
         // Draw Inventory Items
-        Map<Item, Integer> itemsWithQuantity = gameState.getPlayerState().getPlayer().getInventory().getItemsWithQuantity();
+        Map<Item, Integer> itemsWithQuantity = gameState.getPlayerState().getPlayer().getInventory().getItems();
         font.setColor(Color.BLACK);
         if (itemsWithQuantity.isEmpty()) {
             font.draw(batch, "Is empty.", x, y);
@@ -119,8 +123,8 @@ public class InventoryScreen implements Screen {
                 float textWidth = font.getScaleX() * pokemonName.length() * 10; // Estimate text width
                 font.draw(batch, pokemonName, x, y);
 
-                // Draw strikethrough if not caught
-                if (caught) {
+                // Only draw the red line if the Pokémon is in the player's team (i.e., captured)
+                if (!caught) {
                     batch.end(); // End batch to switch to ShapeRenderer
                     shapeRenderer.begin(ShapeRenderer.ShapeType.Filled); // Use Filled for thicker line
                     shapeRenderer.setColor(Color.RED);
@@ -133,6 +137,7 @@ public class InventoryScreen implements Screen {
             }
         }
     }
+
 
     @Override
     public void resize(int width, int height) {

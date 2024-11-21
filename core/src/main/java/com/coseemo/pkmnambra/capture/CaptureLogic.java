@@ -9,7 +9,7 @@ import com.coseemo.pkmnambra.util.states.GameState;
 
 public class CaptureLogic {
     private final Pokemon currentPokemon;
-    private final EventNotifier eventNotifier;
+    private EventNotifier eventNotifier;
     private final Player player;
     private float captureProbability;
     private float angerLevel;
@@ -30,7 +30,6 @@ public class CaptureLogic {
 
     public void attemptCapture(int pokeballIndex) {
         player.printTeam();
-        resetCaptureState();
         double adjustedCaptureProbability;
 
         if (pokeballIndex != 3) {
@@ -43,8 +42,8 @@ public class CaptureLogic {
 
 
         if (Math.random() * 100 < adjustedCaptureProbability) {
-            endBattleWithMessage("CAPTURE_SUCCESS");
-        } else {
+            eventNotifier.notifyObservers("CAPTURE_SUCCESS");
+        } else {;
             eventNotifier.notifyObservers("CAPTURE_FAIL");
             increaseAngerLevel(10);
             handlePokemonReaction();
@@ -101,9 +100,4 @@ public class CaptureLogic {
         return captureInterrupted;
     }
 
-    private void resetCaptureState() {
-        this.angerLevel = currentPokemon.getBaseAngerLevel();
-        this.captureProbability = currentPokemon.getBaseCaptureRate();
-        this.captureInterrupted = false;
-    }
 }

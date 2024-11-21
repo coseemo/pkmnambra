@@ -72,10 +72,10 @@
 
     <!-- Dialogo premio nuovo Pokémon -->
     <dialogue name="new_pokemon_reward">
-        <linear id="0" text="Excellent! This is the first time you've brought me this Pokémon! Here's a reward for your effort!">
+        <linear id="0" text="Excellent! This is the first time you've brought me this Pokémon!">
             <pointer target="1"/>
         </linear>
-        <linear id="1" text="Keep up the great work!"/>
+        <linear id="1" text=" Here's a reward for your effort! Keep up the great work!"/>
     </dialogue>
 
     <!-- Dialogo premio milestone -->
@@ -88,10 +88,10 @@
 
     <!-- Dialogo premio regolare -->
     <dialogue name="regular_reward">
-        <linear id="0" text="Thank you for bringing me another Pokémon of this species! Here's a Poké Ball as a reward.">
+        <linear id="0" text="Thank you for bringing me another Pokémon of this species!">
             <pointer target="1"/>
         </linear>
-        <linear id="1" text="Your effort is much appreciated!"/>
+        <linear id="1" text="Here's a a reward. Your effort is much appreciated!"/>
     </dialogue>
 
     <!-- Dialogo premio completamento -->

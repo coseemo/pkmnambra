@@ -113,10 +113,10 @@ public class CaptureRenderer {
         optionBox.clearChoices();
 
         // Aggiungi solo gli oggetti della categoria specificata
-        for (Item item : gameState.getPlayerState().getPlayer().getInventory().getItemList()) {
+        for (Item item : gameState.getPlayerState().getPlayer().getInventory().getItems().keySet()) {
             if (item.getCategory().equalsIgnoreCase(category)) {
                 optionBox.addOption(item.getName() + " " +
-                    gameState.getPlayerState().getPlayer().getInventory().getItemQuantity(item));
+                    gameState.getPlayerState().getPlayer().getInventory().getItems().get(item));
             }
         }
 

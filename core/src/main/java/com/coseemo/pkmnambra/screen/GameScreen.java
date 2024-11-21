@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.coseemo.pkmnambra.Saver.SaveManager;
 import com.coseemo.pkmnambra.camera.Camera;
 import com.coseemo.pkmnambra.characters.Player;
 import com.coseemo.pkmnambra.controller.*;
@@ -25,7 +26,7 @@ import com.coseemo.pkmnambra.ui.DialogueBox;
 import com.coseemo.pkmnambra.ui.OptionBox;
 import com.coseemo.pkmnambra.util.states.GameState;
 
-import static com.coseemo.pkmnambra.items.CaptureItems.CaptureItemFactory.createItem;
+import java.io.IOException;
 
 public class GameScreen implements Screen {
     private GameState gameState;
@@ -52,7 +53,6 @@ public class GameScreen implements Screen {
         this.player = gameState.getPlayerState().getPlayer();
 
         gameState.getScreenManager().setCurrentScreen(this);
-
 
         camera = new Camera();
         gameViewport = new ScreenViewport();
@@ -92,7 +92,6 @@ public class GameScreen implements Screen {
 
     @Override
     public void show() {
-        gameState.saveToFile();
         Gdx.input.setInputProcessor(multiplexer);
     }
 
@@ -116,15 +115,28 @@ public class GameScreen implements Screen {
         }
 
         // Debug keys
-        if (player.isHasInventory() && Gdx.input.isKeyJustPressed(Input.Keys.NUM_5)) {
-            player.addItem(createItem("masterball"));
-            player.addItem(createItem("spicybait"));
-            player.addItem(createItem("herbalperfume"));
-            player.addItem(createItem("advancedtrap"));
+        if (player.hasInventory() && Gdx.input.isKeyJustPressed(Input.Keys.NUM_5)) {
+            player.addItem("masterball");
+            player.addItem("spicybait");
+            player.addItem("herbalperfume");
+            player.addItem("advancedtrap");
         }
 
-        if (player.isHasInventory() && Gdx.input.isKeyJustPressed(Input.Keys.Z)) {
+        if (player.hasInventory() && Gdx.input.isKeyJustPressed(Input.Keys.Z)) {
             openInventory();
+        }
+
+        if ( Gdx.input.isKeyJustPressed(Input.Keys.L)) {
+            player.printTeam();
+            System.out.println(player.getToCatch());
+        }
+
+        if(Gdx.input.isKeyJustPressed(Input.Keys.S)) {
+            try {
+                SaveManager.saveGame(gameState.getMapState().getCurrentPlace(), player);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
 
         batch.begin();

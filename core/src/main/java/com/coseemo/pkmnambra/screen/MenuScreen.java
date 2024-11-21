@@ -9,6 +9,8 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.coseemo.pkmnambra.Main;
+import com.coseemo.pkmnambra.Saver.SaveData;
+import com.coseemo.pkmnambra.Saver.SaveManager;
 import com.coseemo.pkmnambra.characters.Player;
 import com.coseemo.pkmnambra.dialogue.DialogueDb;
 import com.coseemo.pkmnambra.dialogue.DialogueLoader;
@@ -17,8 +19,12 @@ import com.coseemo.pkmnambra.util.AnimationSet;
 import com.coseemo.pkmnambra.util.MapLoader;
 import com.coseemo.pkmnambra.util.states.GameState;
 
+import java.io.IOException;
+
 public class MenuScreen implements Screen {
     private final Game game;
+
+    AssetManager assetManager;
     private SpriteBatch batch;
     private BitmapFont font;
     private String[] options = {"New Game", "Load Game"};
@@ -28,6 +34,8 @@ public class MenuScreen implements Screen {
         this.game = game;
         batch = new SpriteBatch();
         font = new BitmapFont(); // Puoi usare un font personalizzato
+        this.assetManager = ((Main) game).getAssetManager();
+
     }
 
     @Override
@@ -49,7 +57,17 @@ public class MenuScreen implements Screen {
             if (selectedIndex == 0) {
                 game.setScreen(new TransitionScreen(game, this, new GameScreen(loadall())));
             } else {
-                GameState gameState = GameState.getInstance().loadGame(); // Carica stato di gioco
+                SaveData saveData = null;
+                try {
+                    saveData = SaveManager.loadGame();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+
+                GameState gameState = loadall();
+                World world = MapLoader.loadMapFromSave(saveData, assetManager);
+
+                gameState.initialize((Main) game, world.getPlayer(), world);
                 game.setScreen(new TransitionScreen(game, this, new GameScreen(gameState)));
             }
         }
@@ -113,7 +131,7 @@ public class MenuScreen implements Screen {
 
         World start = MapLoader.loadMapAndObjects("assets/maps/beach.txt", assetManager);
         Player player = new Player(start, 10, 10, animations);
-        start.addActor(player);
+        start.addPlayer(player);
         // Inizializza GameState
         GameState gameState = GameState.getInstance();
         gameState.initialize((Main) game, player, start);

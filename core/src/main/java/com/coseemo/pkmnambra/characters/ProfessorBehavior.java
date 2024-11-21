@@ -5,6 +5,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.coseemo.pkmnambra.dialogue.*;
 import com.coseemo.pkmnambra.items.Inventory;
+import com.coseemo.pkmnambra.maplogic.DIRECTION;
 import com.coseemo.pkmnambra.pokemons.Pokemon;
 import com.coseemo.pkmnambra.characters.Player;
 
@@ -14,7 +15,6 @@ import java.util.List;
 import java.util.Map;
 
 public class ProfessorBehavior extends ActorBehavior {
-    private boolean firstInteraction = true;
     private Map<String, Boolean> toCatch;
     private List<Dialogue> dialogues = new ArrayList<>();
 
@@ -28,10 +28,9 @@ public class ProfessorBehavior extends ActorBehavior {
         assetManager.finishLoading();
 
         this.toCatch = new HashMap<>();
-
-        String[] list = new String[]{"bellossom", "exeggutor", "slakoth", "parasect"};
+        String[] list = new String[]{"Bellossom", "Exeggutor", "Slakoth", "Parasect"};
         for(String pokemon : list){
-            toCatch.put(pokemon, false);
+            toCatch.put(pokemon, true);
         }
 
     }
@@ -40,7 +39,7 @@ public class ProfessorBehavior extends ActorBehavior {
 
         dialogues = new ArrayList<>();
 
-        if (firstInteraction) {
+        if (!player.hasInventory()) {
             // Ottieni dialogo introduttivo dal database
             Dialogue introDialogue = DialogueDb.getDialogue("professor_intro");
             dialogues.add(introDialogue);
@@ -48,8 +47,6 @@ public class ProfessorBehavior extends ActorBehavior {
             player.initInventory();
             player.setToCatch(toCatch);
 
-            // Segna l'interazione iniziale come completata
-            firstInteraction = false;
         } else {
             // Ottieni dialogo post-intro dal database
             Dialogue postIntroDialogue = DialogueDb.getDialogue("professor_post_intro");
@@ -62,11 +59,11 @@ public class ProfessorBehavior extends ActorBehavior {
             for (String pokemon : team) {
                 if (!toCatch.get(pokemon)) {
                     // Pokémon non catturato: mostra dialogo e assegna ricompensa
-                    Dialogue newCatchDialogue = DialogueDb.getDialogue("professor_new_catch");
+                    Dialogue newCatchDialogue = DialogueDb.getDialogue("new_pokemon_reward");
                     dialogues.add(newCatchDialogue);
                 } else {
                     // Pokémon già catturato: mostra dialogo alternativo e assegna ricompensa
-                    Dialogue repeatCatchDialogue = DialogueDb.getDialogue("professor_repeat_catch");
+                    Dialogue repeatCatchDialogue = DialogueDb.getDialogue("regular_reward");
                     dialogues.add(repeatCatchDialogue);
                 }
             }
@@ -79,6 +76,7 @@ public class ProfessorBehavior extends ActorBehavior {
 
     @Override
     public void update(float delta) {
-
+        getActor().update(delta);
     }
+
 }

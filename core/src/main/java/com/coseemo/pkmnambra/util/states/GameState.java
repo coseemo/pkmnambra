@@ -1,12 +1,9 @@
 package com.coseemo.pkmnambra.util.states;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.utils.Json;
-import com.badlogic.gdx.utils.JsonReader;
-import com.badlogic.gdx.utils.JsonValue;
 import com.coseemo.pkmnambra.Main;
 import com.coseemo.pkmnambra.characters.Player;
 import com.coseemo.pkmnambra.maplogic.World;
+
 
 public class GameState {
     private static GameState instance; // Singleton instance
@@ -17,6 +14,8 @@ public class GameState {
     private ScreenManager screenManager;
     private ResourceManager resourceManager;
     private EventManager eventManager;
+    private static final String SAVE_FILE = "saves/save.json";
+
 
     private GameState() {}
 
@@ -39,43 +38,7 @@ public class GameState {
         this.eventManager = new EventManager();
     }
 
-
-    // Salvataggio su file
-    public void saveToFile() {
-        Json json = new Json();
-
-        String playerData = json.toJson(this.getPlayerState().getPlayer());
-        // Salva il World senza riferimenti ciclici
-        String worldData = json.toJson(this.getMapState().getCurrentPlace());
-
-        Gdx.files.local("saves/save.json").writeString("{\"player\":" + playerData + ", \"world\":" + worldData + "}", false);
-        Gdx.app.log("GameState", "Partita salvata correttamente in " + "saves/");
-    }
-
-    // Caricamento da file
-    public GameState loadGame() {
-        String saveData = Gdx.files.local("save.json").readString(); // Leggi il file
-        Json json = new Json();
-        JsonValue root = new JsonReader().parse(saveData); // Parso i dati JSON
-
-        // Ricostruisci il Player
-        JsonValue playerData = root.get("player");
-        Player player = json.fromJson(Player.class, playerData.toString()); // Usa la stringa JSON
-
-        // Ricostruisci il World
-        JsonValue worldData = root.get("world");
-        World world = json.fromJson(World.class, worldData.toString());
-
-        // Ricostruisci GameState
-        GameState gameState = GameState.getInstance();
-        gameState.initialize(this.game, player, world);
-
-        return gameState;
-    }
-
-
-
-    // Getter per accedere alle proprietà
+        // Getter per accedere alle proprietà
     public Main getGame() {
         return game;
     }

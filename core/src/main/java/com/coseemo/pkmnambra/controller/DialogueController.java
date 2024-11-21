@@ -112,6 +112,10 @@ public class DialogueController extends InputAdapter {
         }
     }
 
+    public boolean isFinished(){
+        return dialogueBox.isFinished();
+    }
+
     public boolean isDialogueShowing() {
         return dialogueBox.isVisible();
     }

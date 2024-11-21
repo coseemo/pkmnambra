@@ -6,6 +6,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.coseemo.pkmnambra.capture.CaptureLogic;
 import com.coseemo.pkmnambra.capture.CaptureRenderer;
+import com.coseemo.pkmnambra.characters.Player;
 import com.coseemo.pkmnambra.controller.CaptureController;
 import com.coseemo.pkmnambra.pokemons.Pokemon;
 import com.coseemo.pkmnambra.util.states.GameState;
@@ -14,6 +15,7 @@ import com.coseemo.pkmnambra.util.Observer;
 public class CaptureScreen implements Screen, Observer {
     private final Game game;
     private final Pokemon pokemon;
+    private Player player;
     private final CaptureLogic captureLogic;
     private final CaptureController captureController;
     private final GameState gameState;
@@ -29,6 +31,7 @@ public class CaptureScreen implements Screen, Observer {
     public CaptureScreen(GameState gameState, Pokemon pokemon) {
         this.game = gameState.getGame();
         this.pokemon = pokemon;
+        this.player = gameState.getPlayerState().getPlayer();
         this.notExit = true;
         this.gameState = gameState;
         this.captureLogic = new CaptureLogic(pokemon, gameState);
@@ -95,16 +98,15 @@ public class CaptureScreen implements Screen, Observer {
 
     @Override
     public void dispose() {
+        gameState.getPlayerState().setPlayer(player);
         gameState.getEventManager().getEventNotifier().deregisterObserver(this);
         captureRenderer.dispose();
     }
 
     @Override
     public void update(String eventType) {
-        // Only process events if the capture logic is not in a disrupted state
-        if (captureLogic.isCaptureInterrupted()) {
-            return; // Skip processing if capture is interrupted
-        }
+
+        System.out.println(eventType);
 
         switch (eventType) {
             case "USE_STANDARDBAIT":
@@ -142,7 +144,6 @@ public class CaptureScreen implements Screen, Observer {
                 break;
             case "CAPTURE_SUCCESS":
                 handleCaptureSuccess();
-                gameState.getPlayerState().getPlayer().printTeam();
                 break;
             case "FLEE":
                 captureRenderer.updateStatusMessage("Better run!");
@@ -171,7 +172,8 @@ public class CaptureScreen implements Screen, Observer {
     }
 
     private void handleCaptureSuccess() {
-        if (gameState.getPlayerState().getPlayer().addPokemon(pokemon.getName())) {
+        System.out.println("gege");
+        if (player.addPokemon(pokemon.getName())) {
             captureRenderer.updateStatusMessage("You caught " + pokemon.getName() + "!!!");
             eventType = "CATCH_SUCC";
         } else {

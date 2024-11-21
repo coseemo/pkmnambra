@@ -41,6 +41,7 @@ public class MapObjectFactory {
 
     protected static WorldObject createStaticObject(String objectType, int x, int y, AssetManager assetManager) {
         TextureAtlas atlas = assetManager.get("assets/tiles/houses_packed/housespacked.atlas", TextureAtlas.class);
+        assetManager.finishLoading();
 
         switch (objectType.toLowerCase()) {
             case "house":
@@ -71,6 +72,7 @@ public class MapObjectFactory {
     // Refactor to use static asset manager
     protected static AnimatedPlaceObject createAnimatedObject(String objectType, int x, int y, AssetManager assetManager) {
         TextureAtlas atlas = assetManager.get("assets/tiles/tilespack/tilespack.atlas", TextureAtlas.class);
+        assetManager.finishLoading();
 
         switch (objectType.toLowerCase()) {
             case "water":
@@ -98,6 +100,7 @@ public class MapObjectFactory {
     private static TeleportObject createTeleportObject(int x, int y, String targetWorld, int targetX, int targetY, AssetManager assetManager) {
         TextureAtlas atlas = assetManager.get("assets/tiles/tilespack/tilespack.atlas", TextureAtlas.class);
         TextureRegion texture = atlas.findRegion("grass1");
+        assetManager.finishLoading();
 
         return new TeleportObject(x, y, targetWorld, targetX, targetY, texture,
             new GridPoint2[]{new GridPoint2(0, 0)});
@@ -107,6 +110,7 @@ public class MapObjectFactory {
     private static EncounterZoneObject createEncounterZone(int x, int y, EncounterType encounterType, AssetManager assetManager) {
         TextureAtlas atlas = assetManager.get("assets/tiles/tilespack/tilespack.atlas", TextureAtlas.class);
         TextureRegion texture = atlas.findRegion("grass");
+        assetManager.finishLoading();
 
         return new EncounterZoneObject(x, y, encounterType, texture,
             new GridPoint2[]{new GridPoint2(0, 0)});

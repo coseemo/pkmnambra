@@ -16,6 +16,8 @@ public class InteractionController extends InputAdapter {
     private final Actor a;
     private DialogueController dialogueController;
 
+    private boolean isInDialogue = false;
+
     public InteractionController(Actor a, DialogueController dialogueController) {
         this.a = a;
         this.dialogueController = dialogueController;
@@ -23,6 +25,9 @@ public class InteractionController extends InputAdapter {
 
     @Override
     public boolean keyUp(int keycode) {
+        if(isInDialogue){
+            return false;
+        }
 
         if (keycode == Keys.X) {
 
@@ -30,13 +35,16 @@ public class InteractionController extends InputAdapter {
             if (target.getActor() != null) {
                 Actor targetActor = target.getActor();
                 ActorBehavior actorBehavior = a.getWorld().getActorBehavior(targetActor);
+                targetActor.reface(DIRECTION.getOpposite(a.getFacing()));
                 List<Dialogue> dialogues = actorBehavior.interact((Player) a);
                 if (dialogues != null) {
-                    System.out.println("bibu");
-                    targetActor.reface(DIRECTION.getOpposite(a.getFacing()));
+                    isInDialogue = true;
                         for(Dialogue d : dialogues){
                             dialogueController.startDialogue(d);
                         }
+                    if (dialogueController.isFinished()){
+                        isInDialogue = false;
+                    }
                 }else {
                     System.out.println("dialogo vuoto");
                 }

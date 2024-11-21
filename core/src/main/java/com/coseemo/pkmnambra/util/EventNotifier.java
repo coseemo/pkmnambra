@@ -19,6 +19,7 @@ public class EventNotifier {
 
     // Metodo per notificare tutti gli osservatori registrati
     public void notifyObservers(String eventType) {
+
         for (Observer observer : observers) {
             observer.update(eventType);
         }

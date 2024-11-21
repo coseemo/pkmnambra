@@ -2,12 +2,17 @@ package com.coseemo.pkmnambra.util;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.coseemo.pkmnambra.Saver.SaveData;
 import com.coseemo.pkmnambra.characters.Actor;
-import com.coseemo.pkmnambra.characters.ActorBehavior;
+import com.coseemo.pkmnambra.characters.Player;
 import com.coseemo.pkmnambra.characters.ProfessorBehavior;
+import com.coseemo.pkmnambra.dialogue.DialogueDb;
+import com.coseemo.pkmnambra.dialogue.DialogueLoader;
 import com.coseemo.pkmnambra.maplogic.*;
 
 public class MapLoader {
@@ -34,7 +39,7 @@ public class MapLoader {
 
         // Create map and world
         TileMap tileMap = createTileMap(terrainData);
-        World world = new World(tileMap, assetManager);
+        World world = new World(fileName, tileMap, assetManager);
 
         // Load objects using the factory
         if (!objectData.isEmpty()) {
@@ -45,8 +50,6 @@ public class MapLoader {
         if (!npcData.isEmpty()) {
             loadNPCs(world, npcData, assetManager);
         }
-
-
 
         return world;
     }
@@ -113,12 +116,13 @@ public class MapLoader {
                 int y = Integer.parseInt(parts[2]);
 
                 if (npcType.equals("professor")) {
-                    AnimationSet professorAnimations = loadprof(assetManager);
-                    Actor professor = new Actor("Professor", world, x, y, professorAnimations);
 
+                    AnimationSet professorAnimations = loadMimi(assetManager);
+
+                    Actor professor = new Actor(npcType, world, x, y, professorAnimations);
                     ProfessorBehavior professorBehavior = new ProfessorBehavior(professor);
 
-                    world.addActor(professor, professorBehavior);
+                    world.addNPC(professorBehavior);
 
                     Gdx.app.log("MapLoader", "Added professor NPC at (" + x + ", " + y + ")");
                 }
@@ -128,7 +132,33 @@ public class MapLoader {
         }
     }
 
-    private static AnimationSet loadprof(AssetManager assetManager){
+    public static World loadMapFromSave(SaveData saveData, AssetManager assetManager) {
+
+        assetManager.load("assets/sprites/player_packed/mimipacked.atlas", TextureAtlas.class);
+        assetManager.load("assets/tiles/tilespack/tilespack.atlas", TextureAtlas.class);
+        assetManager.load("assets/tiles/sands_packed/sandspacked.atlas", TextureAtlas.class);
+        assetManager.load("assets/tiles/houses_packed/housespacked.atlas", TextureAtlas.class);
+        assetManager.load("assets/ui/uipack.atlas", TextureAtlas.class);
+        assetManager.load("assets/font/small_letters_font.fnt", BitmapFont.class);
+        assetManager.load("assets/tiles/tilespack/tilespack.atlas", TextureAtlas.class);
+        assetManager.setLoader(DialogueDb.class, new DialogueLoader(new InternalFileHandleResolver()));
+        assetManager.load("assets/dialogues/dialogues.xml", DialogueDb.class);
+        assetManager.finishLoading();
+
+        World world = loadMapAndObjects(saveData.mapFileName, assetManager);
+
+        // Ripristina il giocatore
+        Player player = new Player(world, saveData.playerData.x, saveData.playerData.y, loadMimi(assetManager));
+        player.setToCatch(saveData.playerData.toCatch);
+        player.setHasInventory(saveData.playerData.hasInventory);
+        player.getInventory().loadItems(saveData.playerData.inventory);
+        player.getTeam().addAll(saveData.playerData.team);
+        world.addPlayer(player);
+
+        return world;
+    }
+
+    private static AnimationSet loadMimi(AssetManager assetManager){
         TextureAtlas atlas = assetManager.get("assets/sprites/player_packed/mimipacked.atlas", TextureAtlas.class);
         return new AnimationSet(
             new Animation<>(0.3f / 2f, atlas.findRegions("mimi_walking_east"), Animation.PlayMode.LOOP_PINGPONG),

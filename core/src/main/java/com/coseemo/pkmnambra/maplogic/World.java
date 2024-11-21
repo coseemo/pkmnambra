@@ -2,44 +2,38 @@ package com.coseemo.pkmnambra.maplogic;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.math.GridPoint2;
-import com.coseemo.pkmnambra.characters.ActorBehavior;
-import com.coseemo.pkmnambra.characters.ActorObserver;
-import com.coseemo.pkmnambra.characters.Actor;
+import com.coseemo.pkmnambra.characters.*;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.Objects;
 
 public class World implements ActorObserver {
+
+    private String name;
     private TileMap map;
-    private final List<Actor> actors;
-    private HashMap<Integer, ActorBehavior> brains;
+    private Player player;
+    private List<ActorBehavior> npcs;
     private final List<WorldObject> objects;
 
 
-    public World(TileMap tileMap, AssetManager assetManager) {
+    public World(String name, TileMap tileMap, AssetManager assetManager) {
+        this.name = name;
         this.map = tileMap;
-        this.actors = new CopyOnWriteArrayList<>();
-        this.objects = new CopyOnWriteArrayList<>();
-        this.brains = new HashMap<Integer, ActorBehavior>();
-    }
-
-    public World() {
-        this.actors = new ArrayList<>();
         this.objects = new ArrayList<>();
+        this.npcs = new ArrayList<>();
     }
 
-    public void addActor(Actor a) {
+    public void addPlayer(Player a) {
         map.getTile(a.getX(), a.getY()).setActor(a);
-        actors.add(a);
+        player = a;
     }
 
-    public void addActor(Actor a, ActorBehavior b) {
-        int key = a.hashCode();
-        addActor(a);
-        brains.put(key, b);
-        System.out.println(brains);
+    public void addNPC(ActorBehavior b) {
+        int key = b.getActor().hashCode();
+        map.getTile(b.getActor().getX(), b.getActor().getY()).setActor(b.getActor());
+        npcs.add(b);
+        System.out.println(npcs);
     }
 
     public void addObject(WorldObject o) {
@@ -51,33 +45,38 @@ public class World implements ActorObserver {
     }
 
     public void removeActor(Actor a) {
-        int key = a.hashCode();
         map.getTile(a.getX(), a.getY()).setActor(null);
-        actors.remove(a);
 
-        brains.remove(key);
+        if(a instanceof Player){
+            player = null;
+        }else{
+            npcs.remove(getActorBehavior(a));
+        }
+
     }
 
     public void update(float delta) {
 
-        for (Actor a : actors) {
-            int key = a.hashCode();
-            if (brains.containsKey(key)) {
-                brains.get(key).update(delta);
-            }
-            a.update(delta);
+        player.update(delta);
+
+        for (ActorBehavior b : npcs) {
+            b.update(delta);
         }
         for (WorldObject o : objects) {
             o.update(delta);
         }
     }
 
-    public TileMap getMap() {
-        return map;
+    public ActorBehavior getActorBehavior(Actor a){
+        int i = 0;
+        while(!Objects.equals(npcs.get(i).getActor().getName(), a.getName())){
+            i++;
+        }
+        return npcs.get(i);
     }
 
-    public List<Actor> getActors() {
-        return actors;
+    public TileMap getMap() {
+        return map;
     }
 
     public List<WorldObject> getWorldObjects() {
@@ -86,7 +85,6 @@ public class World implements ActorObserver {
 
     @Override
     public void actorMoved(Actor a, DIRECTION direction, int x, int y) {
-
     }
 
     @Override
@@ -99,10 +97,20 @@ public class World implements ActorObserver {
 
     }
 
-    public ActorBehavior getActorBehavior(Actor a){
-        int key = a.hashCode();
-        System.out.println(key);
-        return brains.get(key);
+    public ActorBehavior[] getNPCs() {
+        ActorBehavior[] npcss = new ActorBehavior[npcs.size()];
+        int i = 0;
+        for(ActorBehavior b : npcs){
+            npcss[i] = b;
+        }
+        return npcss;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public Player getPlayer(){
+        return player;
+    }
 }

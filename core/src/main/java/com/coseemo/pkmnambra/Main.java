@@ -19,12 +19,18 @@ import com.coseemo.pkmnambra.util.states.GameState;
 
 public class Main extends Game {
 
+    private AssetManager assetManager;
+
     @Override
     public void create() {
         Gdx.graphics.setVSync(false); // Abilita VSync
         Gdx.graphics.setForegroundFPS(60); // Imposta il frame rate a 60 FPS
-
+        assetManager = new AssetManager();
         // Avvia la schermata di gioco
         setScreen(new PressXScreen(this));
+    }
+
+    public AssetManager getAssetManager() {
+        return assetManager;
     }
 }

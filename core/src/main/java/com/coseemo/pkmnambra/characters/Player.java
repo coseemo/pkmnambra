@@ -1,11 +1,11 @@
 package com.coseemo.pkmnambra.characters;
 
 import com.coseemo.pkmnambra.items.Inventory;
-import com.coseemo.pkmnambra.items.Item;
 import com.coseemo.pkmnambra.maplogic.World;
 import com.coseemo.pkmnambra.util.AnimationSet;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -18,7 +18,9 @@ public class Player extends Actor {
 
     public Player(World place, int x, int y, AnimationSet animations) {
         super("Player", place, x, y, animations);
+        this.toCatch = new HashMap<>();
         this.team = new ArrayList<>();
+        this.inventory = new Inventory();
         this.hasInventory = false;
     }
 
@@ -27,12 +29,12 @@ public class Player extends Actor {
     }
 
     // Metodo per aggiungere un oggetto all'inventario
-    public void addItem(Item item) {
+    public void addItem(String item) {
         inventory.addItem(item);
     }
 
     // Metodo per rimuovere un oggetto dall'inventario
-    public boolean removeItem(Item item) {
+    public boolean removeItem(String item) {
         return inventory.removeItem(item);
     }
 
@@ -52,7 +54,8 @@ public class Player extends Actor {
         if (!isTeamFull()) {
             team.add(name);
             if (toCatch.containsKey(name)) {
-                toCatch.put(name, true);
+                toCatch.replace(name, false);
+                System.out.println("Depennato");
             }
             return true; // Pokémon aggiunto con successo
         } else {
@@ -79,12 +82,12 @@ public class Player extends Actor {
         }
     }
 
+
     protected void initInventory() {
-        this.inventory = new Inventory(100);
         setHasInventory(true);
     }
 
-    protected void setToCatch(Map<String, Boolean> toCatch) {
+    public void setToCatch(Map<String, Boolean> toCatch) {
         this.toCatch = toCatch;
     }
 
@@ -93,12 +96,10 @@ public class Player extends Actor {
     }
 
     protected void clearTeam(){
-        for(String string : team){
-            team.remove(string);
-        }
+        team = new ArrayList<>();
     }
 
-    public boolean isHasInventory() {
+    public boolean hasInventory() {
         return hasInventory;
     }
 
