@@ -1,9 +1,12 @@
 package com.coseemo.pkmnambra.capture;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
@@ -11,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.coseemo.pkmnambra.items.Item;
+import com.coseemo.pkmnambra.pokemons.Pokemon;
 import com.coseemo.pkmnambra.ui.OptionBox;
 import com.coseemo.pkmnambra.util.EventNotifier;
 import com.coseemo.pkmnambra.util.states.GameState;
@@ -30,16 +34,22 @@ public class CaptureRenderer {
     private final Texture pokemonSprite;
     private final Texture mimiSprite;
 
-    public CaptureRenderer() {
+    public CaptureRenderer(Pokemon pokemon, GameState gameState) {
 
-        this.gameState = GameState.getInstance();
-        stage = new Stage(new ScreenViewport());
-        batch = new SpriteBatch();
-        background = new Texture(Gdx.files.internal("assets/background/beach.png"));
-        pokemonSprite = new Texture(Gdx.files.internal("assets/sprites/pokemonbattle/parasect.png"));
-        mimiSprite = new Texture(Gdx.files.internal("assets/sprites/pokemonbattle/mimi.png"));
+        this.gameState = gameState;
+        this.stage = new Stage(new ScreenViewport());
+        this.batch = new SpriteBatch();
+        this.background = new Texture(Gdx.files.internal("assets/background/beach.png"));
+        this.pokemonSprite = new Texture(Gdx.files.internal("assets/sprites/pokemonbattle/" +
+            pokemon.getName() +".png"));
+        this.mimiSprite = new Texture(Gdx.files.internal("assets/sprites/pokemonbattle/mimi.png"));
 
-        skin = SkinGenerator.generateSkin(gameState.getAssetManager());
+        AssetManager assetManager = gameState.getResourceManager().getAssetManager();
+        assetManager.load("assets/ui/uipack.atlas", TextureAtlas.class);
+        assetManager.load("assets/font/small_letters_font.fnt", BitmapFont.class);
+        assetManager.finishLoading();
+
+        skin = SkinGenerator.generateSkin(gameState.getResourceManager().getAssetManager());
 
         root = new Table();
         root.setFillParent(true);
@@ -59,7 +69,8 @@ public class CaptureRenderer {
         // Expand the space above the right menu
         container.add().expandY();
         // Add the right menu to the bottom-right
-        container.add(createRightMainMenu(gameState.getEventNotifier())).right().bottom().padRight(10f).padBottom(10f);
+        container.add(createRightMainMenu(gameState.getEventManager().
+            getEventNotifier())).right().bottom().padRight(10f).padBottom(10f);
     }
 
     private Table createRightMainMenu(EventNotifier eventNotifier) {
@@ -102,9 +113,10 @@ public class CaptureRenderer {
         optionBox.clearChoices();
 
         // Aggiungi solo gli oggetti della categoria specificata
-        for (Item item : gameState.getPlayer().getInventory().getItemList()) {
+        for (Item item : gameState.getPlayerState().getPlayer().getInventory().getItemList()) {
             if (item.getCategory().equalsIgnoreCase(category)) {
-                optionBox.addOption(item.getName() + " " + gameState.getPlayer().getInventory().getItemQuantity(item));
+                optionBox.addOption(item.getName() + " " +
+                    gameState.getPlayerState().getPlayer().getInventory().getItemQuantity(item));
             }
         }
 

@@ -3,102 +3,70 @@ package com.coseemo.pkmnambra.ui;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.utils.Align;
 
 public class DialogueBox extends Table {
+
     private String targetText = "";
     private float animTimer = 0f;
-    private final float TIME_PER_CHARACTER = 0.05f;
-    private STATE currentState = STATE.IDLE;
+    private float animationTotalTime = 0f;
+    private STATE state = STATE.IDLE;
+
     private final Label textLabel;
-    private boolean isTextComplete = false;
 
     private enum STATE {
         ANIMATING,
-        IDLE
+        IDLE,
+        ;
     }
 
     public DialogueBox(Skin skin) {
         super(skin);
         this.setBackground("dialoguebox");
-
-        Label.LabelStyle style = new Label.LabelStyle();
-        style.font = skin.getFont("font");
-
-        textLabel = new Label("", style);
-        textLabel.setWrap(true);
-
-        this.add(textLabel)
-            .expand()
-            .fill()
-            .pad(10f);
-
-        this.setSize(300f, 50f);
+        textLabel = new Label("\n", skin);
+        this.add(textLabel).expand().align(Align.left).pad(5f);
     }
 
     public void animateText(String text) {
-        if (text == null || text.isEmpty()) {
-            System.err.println("Warning: Attempted to animate empty or null text");
-            return;
-        }
-
         targetText = text;
+        float TIME_PER_CHARACTER = 0.05f;
+        animationTotalTime = text.length()* TIME_PER_CHARACTER;
+        state = STATE.ANIMATING;
         animTimer = 0f;
-        currentState = STATE.ANIMATING;
-        isTextComplete = false;
-        textLabel.setText("");
+    }
+
+    public boolean isFinished() {
+        return state == STATE.IDLE;
+    }
+
+    private void setText(String text) {
+        if (!text.contains("\n")) {
+            text += "\n";
+        }
+        this.textLabel.setText(text);
     }
 
     @Override
     public void act(float delta) {
-        super.act(delta);
-
-        if (currentState == STATE.ANIMATING) {
+        if (state == STATE.ANIMATING) {
             animTimer += delta;
-            int charsToShow = (int) (animTimer / TIME_PER_CHARACTER);
-
-            if (charsToShow >= targetText.length()) {
-                // Animazione completata
-                textLabel.setText(targetText);
-                currentState = STATE.IDLE;
-                isTextComplete = true;
-            } else {
-                // Mostra i caratteri progressivamente
-                textLabel.setText(targetText.substring(0, charsToShow));
+            if (animTimer > animationTotalTime) {
+                state = STATE.IDLE;
+                animTimer = animationTotalTime;
+            }
+            StringBuilder actuallyDisplayedText = new StringBuilder();
+            int charactersToDisplay = (int)((animTimer/animationTotalTime)*targetText.length());
+            for (int i = 0; i < charactersToDisplay; i++) {
+                actuallyDisplayedText.append(targetText.charAt(i));
+            }
+            if (!actuallyDisplayedText.toString().equals(textLabel.getText().toString())) {
+                setText(actuallyDisplayedText.toString());
             }
         }
     }
 
-    public void completeAnimation() {
-        if (currentState == STATE.ANIMATING) {
-            textLabel.setText(targetText);
-            currentState = STATE.IDLE;
-            isTextComplete = true;
-        }
-    }
-
-    public boolean isAnimating() {
-        return currentState == STATE.ANIMATING;
-    }
-
-    public boolean isTextComplete() {
-        return isTextComplete;
-    }
-
-    public void reset() {
-        currentState = STATE.IDLE;
-        animTimer = 0f;
-        targetText = "";
-        isTextComplete = false;
-        textLabel.setText("");
-    }
-
     @Override
     public float getPrefWidth() {
-        return 300f;
-    }
-
-    @Override
-    public float getPrefHeight() {
-        return 50f;
+        return 200f;
     }
 }

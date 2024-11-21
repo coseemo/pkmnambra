@@ -6,7 +6,7 @@ import com.coseemo.pkmnambra.items.CaptureItems.CaptureItemFactory;
 public class Slakoth extends Pokemon {
 
     public Slakoth() {
-        super("Slakoth", 18.0f, 10.0f); // Valori di base aggiornati
+        super("Slakoth", 35.0f, 10.0f); // Valori di base aggiornati
     }
 
     @Override

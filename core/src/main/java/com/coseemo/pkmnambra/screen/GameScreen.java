@@ -4,36 +4,33 @@ import com.badlogic.gdx.*;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.coseemo.pkmnambra.Main;
 import com.coseemo.pkmnambra.camera.Camera;
 import com.coseemo.pkmnambra.characters.Player;
 import com.coseemo.pkmnambra.controller.*;
 import com.coseemo.pkmnambra.dialogue.DialogueDb;
 import com.coseemo.pkmnambra.dialogue.DialogueLoader;
-import com.coseemo.pkmnambra.events.EventManager;
-import com.coseemo.pkmnambra.maplogic.Place;
+import com.coseemo.pkmnambra.maplogic.World;
 import com.coseemo.pkmnambra.screen.render.PlaceRenderer;
 import com.coseemo.pkmnambra.util.*;
 import com.coseemo.pkmnambra.ui.DialogueBox;
 import com.coseemo.pkmnambra.ui.OptionBox;
-import com.coseemo.pkmnambra.dialogue.Dialogue;
 import com.coseemo.pkmnambra.util.states.GameState;
 
 import static com.coseemo.pkmnambra.items.CaptureItems.CaptureItemFactory.createItem;
 
 public class GameScreen implements Screen {
-    private Main game;
     private GameState gameState;
     private DialogueController dialogueController;
+    private InteractionController interactionController;
     private SpriteBatch batch;
     private Camera camera;
     private Skin skin;
@@ -41,77 +38,61 @@ public class GameScreen implements Screen {
     private int uiScale = 2;
     private PlaceRenderer placeRenderer;
     private PlayerController playerController;
-    private NPCController npcController;
     private InputMultiplexer multiplexer;
+
+    private Player player;
     private Stage uiStage;
     private Table root;
     private DialogueBox dialogueBox;
     private OptionBox optionsBox;
-    private Dialogue dialogue;
-    private EventManager eventManager;
 
     public GameScreen(GameState gameState) {
 
-        gameState.setCurrentScreen(this);
-        this.game = gameState.getGame();
-        this.gameState = GameState.getInstance();
-        eventManager = new EventManager(gameState);
+        this.gameState = gameState;
+        this.player = gameState.getPlayerState().getPlayer();
+
+        gameState.getScreenManager().setCurrentScreen(this);
+
+
         camera = new Camera();
         gameViewport = new ScreenViewport();
-        AssetManager assetManager = gameState.getAssetManager();
-        TextureAtlas atlas = assetManager.get("assets/sprites/player_packed/mimipacked.atlas", TextureAtlas.class);
+
+        AssetManager assetManager = gameState.getResourceManager().getAssetManager();
+        assetManager.load("assets/sprites/player_packed/mimipacked.atlas", TextureAtlas.class);
+        assetManager.load("assets/tiles/tilespack/tilespack.atlas", TextureAtlas.class);
+        assetManager.load("assets/tiles/sands_packed/sandspacked.atlas", TextureAtlas.class);
+        assetManager.load("assets/tiles/houses_packed/housespacked.atlas", TextureAtlas.class);
+        assetManager.load("assets/ui/uipack.atlas", TextureAtlas.class);
+        assetManager.load("assets/font/small_letters_font.fnt", BitmapFont.class);
         assetManager.load("assets/tiles/tilespack/tilespack.atlas", TextureAtlas.class);
         assetManager.setLoader(DialogueDb.class, new DialogueLoader(new InternalFileHandleResolver()));
         assetManager.load("assets/dialogues/dialogues.xml", DialogueDb.class);
-        skin = SkinGenerator.generateSkin(assetManager);
         assetManager.finishLoading();
-
-        AnimationSet animations = new AnimationSet(
-            new Animation<>(0.3f / 2f, atlas.findRegions("mimi_walking_east"), Animation.PlayMode.LOOP_PINGPONG),
-            new Animation<>(0.3f / 2f, atlas.findRegions("mimi_walking_west"), Animation.PlayMode.LOOP_PINGPONG),
-            new Animation<>(0.3f / 2f, atlas.findRegions("mimi_walking_north"), Animation.PlayMode.LOOP_PINGPONG),
-            new Animation<>(0.3f / 2f, atlas.findRegions("mimi_walking_south"), Animation.PlayMode.LOOP_PINGPONG),
-            atlas.findRegion("mimi_standing_east"),
-            atlas.findRegion("mimi_standing_west"),
-            atlas.findRegion("mimi_standing_north"),
-            atlas.findRegion("mimi_standing_south")
-        );
-
-        // Inizializza o recupera lo stato di gioco
-        if (gameState.getCurrentPlace() == null) {
-            String currentPlace = "assets/maps/beach.txt";
-            Place place = MapLoader.loadMapAndObjects(currentPlace, gameState.getAssetManager());
-            Player player = new Player(place, 10, 10, animations);
-            place.addActor(player);
-            gameState.initializeGameState(player, place, game);
-        }
-
-        if (gameState.getCurrentPlace() != null && gameState.getCurrentPlace().getEvents() != null) {
-            eventManager.registerEvents(gameState.getCurrentPlace().getEvents());
-        }
-
+        skin = SkinGenerator.generateSkin(assetManager);
 
         initUI();
         multiplexer = new InputMultiplexer();
         batch = new SpriteBatch();
-        placeRenderer = new PlaceRenderer(assetManager, gameState.getCurrentPlace());
+        placeRenderer = new PlaceRenderer(gameState);
 
         this.dialogueController = new DialogueController(dialogueBox, optionsBox);
-        this.npcController = new NPCController(dialogueController);
-        this.playerController = new PlayerController(gameState.getPlayer());
+        this.interactionController = new InteractionController(player, dialogueController);
+        this.playerController = new PlayerController(player);
 
 
         // Configuriamo il multiplexer nell'ordine corretto
         multiplexer = new InputMultiplexer();
-        multiplexer.addProcessor(dialogueController);
-        multiplexer.addProcessor(npcController);
-        multiplexer.addProcessor(playerController);
+
+        multiplexer.addProcessor(0, dialogueController);
+        multiplexer.addProcessor(1, playerController);
+        multiplexer.addProcessor(2, interactionController);
 
         Gdx.input.setInputProcessor(multiplexer);
     }
 
     @Override
     public void show() {
+        gameState.saveToFile();
         Gdx.input.setInputProcessor(multiplexer);
     }
 
@@ -121,25 +102,17 @@ public class GameScreen implements Screen {
         Gdx.gl.glClearColor(0, 0, 0, 0);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        updateEvents();
-        Player player = gameState.getPlayer();
-        placeRenderer.getPlace().update(delta);
-
+        placeRenderer.getWorld().update(delta);
         dialogueController.update(delta);
         playerController.update(delta);
 
 
-        camera.update(player.getPlaceX() + 0.5f, player.getPlaceY() + 0.5f);
+        camera.update(player.getWorldX() + 0.5f, player.getWorldY() + 0.5f);
 
-        eventManager.checkEvents(player);
 
-        if (placeRenderer.getPlace() != gameState.getCurrentPlace()) {
-            Place newPlace = gameState.getCurrentPlace();
-            if (newPlace != null && newPlace.getEvents() != null) {
-                eventManager.clearEvents();
-                eventManager.registerEvents(newPlace.getEvents());
-            }
-            placeRenderer.setPlace(newPlace);
+        if (placeRenderer.getWorld() != gameState.getMapState().getCurrentPlace()) {
+            World newPlace = gameState.getMapState().getCurrentPlace();
+            placeRenderer.setWorld(newPlace);
         }
 
         // Debug keys
@@ -158,11 +131,7 @@ public class GameScreen implements Screen {
         placeRenderer.render(batch, camera);
         batch.end();
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.U)) {
-            dialogueBox.setVisible(true);  // Rendi visibile il DialogueBox
-            dialogueBox.animateText("Questo è un test del DialogueBox!");
-        }
-
+        uiStage.act(delta);
         uiStage.draw();
     }
 
@@ -191,20 +160,8 @@ public class GameScreen implements Screen {
         uiStage.dispose();
     }
 
-    private void updateEvents() {
-        if (gameState.getCurrentPlace() != placeRenderer.getPlace()) {
-            Place newPlace = gameState.getCurrentPlace();
-            eventManager.clearEvents();
-            eventManager.registerEvents(newPlace.getEvents());
-            placeRenderer.setPlace(newPlace);
-        }
-
-        // Controlla gli eventi alla posizione del giocatore
-        eventManager.checkEvents(gameState.getPlayer());
-    }
-
     private void openInventory() {
-        game.setScreen(new InventoryScreen(gameState));
+        gameState.getGame().setScreen(new InventoryScreen(gameState));
     }
 
     private void initUI() {

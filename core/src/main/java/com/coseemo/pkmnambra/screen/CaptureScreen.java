@@ -27,16 +27,16 @@ public class CaptureScreen implements Screen, Observer {
     private String eventType;
 
     public CaptureScreen(GameState gameState, Pokemon pokemon) {
-        gameState.setCurrentScreen(this);
         this.game = gameState.getGame();
         this.pokemon = pokemon;
         this.notExit = true;
-        this.gameState = GameState.getInstance();
-        this.captureLogic = new CaptureLogic(pokemon, this);
-        this.captureRenderer = new CaptureRenderer();
-        this.captureController = new CaptureController(captureRenderer.getOptionBox(), this);
+        this.gameState = gameState;
+        this.captureLogic = new CaptureLogic(pokemon, gameState);
+        this.captureRenderer = new CaptureRenderer(pokemon, gameState);
+        this.captureController = new CaptureController(captureRenderer.getOptionBox(), gameState);
 
-        gameState.getEventNotifier().registerObserver(this);
+        gameState.getScreenManager().setCurrentScreen(this);
+        gameState.getEventManager().getEventNotifier().registerObserver(this);
         Gdx.input.setInputProcessor(captureController);
 
         resetExitState();
@@ -95,8 +95,7 @@ public class CaptureScreen implements Screen, Observer {
 
     @Override
     public void dispose() {
-        gameState.getEventNotifier().deregisterObserver(this);
-        gameState.getPlayer().cancelMove();
+        gameState.getEventManager().getEventNotifier().deregisterObserver(this);
         captureRenderer.dispose();
     }
 
@@ -143,7 +142,7 @@ public class CaptureScreen implements Screen, Observer {
                 break;
             case "CAPTURE_SUCCESS":
                 handleCaptureSuccess();
-                gameState.getPlayer().printTeam();
+                gameState.getPlayerState().getPlayer().printTeam();
                 break;
             case "FLEE":
                 captureRenderer.updateStatusMessage("Better run!");
@@ -172,7 +171,7 @@ public class CaptureScreen implements Screen, Observer {
     }
 
     private void handleCaptureSuccess() {
-        if (gameState.getPlayer().addPokemon(pokemon.getName())) {
+        if (gameState.getPlayerState().getPlayer().addPokemon(pokemon.getName())) {
             captureRenderer.updateStatusMessage("You caught " + pokemon.getName() + "!!!");
             eventType = "CATCH_SUCC";
         } else {
@@ -199,7 +198,7 @@ public class CaptureScreen implements Screen, Observer {
         if (!notExit) {
             resetExitState();
             dispose();
-            gameState.changeScreen(new GameScreen(gameState));
+            gameState.getScreenManager().changeScreen(new GameScreen(gameState));
         }
     }
 

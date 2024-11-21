@@ -4,85 +4,139 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.coseemo.pkmnambra.items.Item;
 import com.coseemo.pkmnambra.util.states.GameState;
-import com.coseemo.pkmnambra.util.Observer;
-import com.coseemo.pkmnambra.util.SkinGenerator;
 
 import java.util.Map;
 
-public class InventoryScreen implements Screen, Observer {
-    private final Stage uiStage;
-    private Table root;
+public class InventoryScreen implements Screen {
+    private final SpriteBatch batch;
     private final GameState gameState;
-    private final Skin skin;
-    private final Game game; // Aggiungi un riferimento a Game
+    private final Game game;
+    private Texture backgroundTexture;
+    private BitmapFont font;
+    private BitmapFont titleFont;
+    private ShapeRenderer shapeRenderer;
 
     public InventoryScreen(GameState gameState) {
-        this.game = gameState.getGame(); // Inizializza il riferimento a Game
-        this.gameState = GameState.getInstance();
-        gameState.getEventNotifier().registerObserver(this);
-        uiStage = new Stage(new ScreenViewport());
-        skin = SkinGenerator.generateSkin(gameState.getAssetManager());
+        this.game = gameState.getGame();
+        this.gameState = gameState;
 
-        initUI();
-    }
+        batch = new SpriteBatch();
+        font = new BitmapFont();  // Default font
+        titleFont = new BitmapFont();  // Title font (larger size)
+        shapeRenderer = new ShapeRenderer();
 
-    private void initUI() {
-        root = new Table();
-        root.setFillParent(true);
-        uiStage.addActor(root);
+        backgroundTexture = new Texture(Gdx.files.internal("assets/background/paper.jpg"));
+
+        // Scale fonts for larger text
+        font.getData().setScale(1.5f);
+        titleFont.getData().setScale(2f);
     }
 
     @Override
     public void show() {
-        updateInventoryDisplay();
+        Gdx.input.setInputProcessor(null);  // Disable input processor to avoid unwanted interactions
     }
 
-    private void updateInventoryDisplay() {
-        root.clear(); // Pulisci la tabella esistente
-        if (gameState.getPlayer().getInventory().getItemsWithQuantity().isEmpty()) {
-            Label emptyLabel = new Label("L'inventario è vuoto.", skin);
-            root.add(emptyLabel).center();
-        } else {
-            // Recupera gli oggetti e le loro quantità
-            Map<Item, Integer> itemsWithQuantity = gameState.getPlayer().getInventory().getItemsWithQuantity();
+    @Override
+    public void render(float delta) {
+        // Clear the screen
+        Gdx.gl.glClearColor(0.5f, 0.7f, 1, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-            // Mostra ogni oggetto una sola volta con la quantità
+        // Draw background
+        batch.begin();
+        if (backgroundTexture != null) {
+            batch.draw(backgroundTexture, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        }
+
+        // Draw the inventory and catch list
+        drawInventory();
+        drawCatchList();
+
+        batch.end();
+
+        // Handle exiting the inventory
+        if (Gdx.input.isKeyJustPressed(Keys.Z)) {
+            game.setScreen(new GameScreen(gameState));
+        }
+    }
+
+    private void drawInventory() {
+        float x = 50;
+        float y = Gdx.graphics.getHeight() - 50; // Start near the top of the screen
+        float lineHeight = 40; // Increased line spacing for larger text
+
+        // Draw Inventory Title
+        titleFont.setColor(Color.BLACK);
+        titleFont.draw(batch, "INVENTORY", x, y);
+        y -= 60;
+
+        // Draw Inventory Items
+        Map<Item, Integer> itemsWithQuantity = gameState.getPlayerState().getPlayer().getInventory().getItemsWithQuantity();
+        font.setColor(Color.BLACK);
+        if (itemsWithQuantity.isEmpty()) {
+            font.draw(batch, "Is empty.", x, y);
+        } else {
             for (Map.Entry<Item, Integer> entry : itemsWithQuantity.entrySet()) {
                 Item item = entry.getKey();
                 int count = entry.getValue();
-                Label itemLabel = new Label(item.getName() + ": " + item.getDescription() + " (Quantità: " + count + ")", skin);
-                root.add(itemLabel).expandX().pad(10);
-                root.row();
+                String itemText = item.getName() + ":" + count;
+                font.draw(batch, itemText, x, y);
+                y -= lineHeight;
             }
         }
     }
 
+    private void drawCatchList() {
+        float x = (float) Gdx.graphics.getWidth() / 2 + 50;  // Position the catch list on the right
+        float y = Gdx.graphics.getHeight() - 50;
+        float lineHeight = 40; // Increased line spacing for larger text
 
-    @Override
-    public void render(float delta) {
-        // Gestisci l'uscita dall'inventario
-        if (Gdx.input.isKeyJustPressed(Keys.Z)) { // Puoi cambiare ESCAPE con un altro tasto
+        // Draw Catch List Title
+        titleFont.setColor(Color.BLACK);
+        titleFont.draw(batch, "TO CATCH", x, y);
+        y -= 60;
 
-            game.setScreen(new GameScreen(gameState)); // Torna al GameScreen o alla schermata principale
+        // Draw Catch List
+        Map<String, Boolean> toCatchMap = gameState.getPlayerState().getPlayer().getToCatch();
+        font.setColor(Color.BLACK);
+        if (toCatchMap == null || toCatchMap.isEmpty()) {
+            font.draw(batch, "No Pokémon to catch.", x, y);
+        } else {
+            for (Map.Entry<String, Boolean> entry : toCatchMap.entrySet()) {
+                String pokemonName = entry.getKey();
+                boolean caught = entry.getValue();
+
+                // Draw Pokémon name
+                float textWidth = font.getScaleX() * pokemonName.length() * 10; // Estimate text width
+                font.draw(batch, pokemonName, x, y);
+
+                // Draw strikethrough if not caught
+                if (caught) {
+                    batch.end(); // End batch to switch to ShapeRenderer
+                    shapeRenderer.begin(ShapeRenderer.ShapeType.Filled); // Use Filled for thicker line
+                    shapeRenderer.setColor(Color.RED);
+                    shapeRenderer.rectLine(x, y - 10, x + textWidth, y - 10, 4); // Thicker red line
+                    shapeRenderer.end();
+                    batch.begin(); // Restart batch for further drawing
+                }
+
+                y -= lineHeight;
+            }
         }
-
-        Gdx.gl.glClearColor(0.5f, 0.7f, 1, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        uiStage.act(delta);
-        uiStage.draw();
     }
 
     @Override
     public void resize(int width, int height) {
-        uiStage.getViewport().update(width, height, true);
+        // Handle resize (if needed)
     }
 
     @Override
@@ -99,11 +153,12 @@ public class InventoryScreen implements Screen, Observer {
 
     @Override
     public void dispose() {
-        uiStage.dispose();
-    }
-
-    @Override
-    public void update(String eventType) {
-
+        batch.dispose();
+        font.dispose();
+        titleFont.dispose();
+        shapeRenderer.dispose();
+        if (backgroundTexture != null) {
+            backgroundTexture.dispose();
+        }
     }
 }

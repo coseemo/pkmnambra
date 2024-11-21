@@ -11,19 +11,18 @@ public class CaptureLogic {
     private final Pokemon currentPokemon;
     private final EventNotifier eventNotifier;
     private final Player player;
-    private CaptureScreen captureScreen;
     private float captureProbability;
     private float angerLevel;
     private boolean captureInterrupted;
+    private GameState gameState;
 
 
-    public CaptureLogic(Pokemon pokemon, CaptureScreen captureScreen) {
+    public CaptureLogic(Pokemon pokemon, GameState gameState) {
 
         this.currentPokemon = pokemon;
-        GameState gameState = GameState.getInstance();
-        this.eventNotifier = gameState.getEventNotifier();
-        this.captureScreen = captureScreen;
-        this.player = gameState.getPlayer();
+        this.gameState = gameState;
+        this.eventNotifier = gameState.getEventManager().getEventNotifier();
+        this.player = gameState.getPlayerState().getPlayer();
         this.captureInterrupted = false;
         this.captureProbability = pokemon.getBaseCaptureRate();
         this.angerLevel = pokemon.getBaseAngerLevel();
@@ -75,6 +74,7 @@ public class CaptureLogic {
         } else if (Math.random() <= 0.10) {
             endBattleWithMessage("POKEMON_FLED");
         }
+        increaseAngerLevel(5);
     }
 
     private void endBattleWithMessage(String message) {
@@ -95,14 +95,6 @@ public class CaptureLogic {
 
     public void increaseAngerOverTime() {
         angerLevel = Math.min(100, angerLevel + 5);
-    }
-
-    public void dispose() {
-        captureScreen = null;
-    }
-
-    public void setCaptureInterrupted(boolean interrupted) {
-        this.captureInterrupted = interrupted;
     }
 
     public boolean isCaptureInterrupted() {

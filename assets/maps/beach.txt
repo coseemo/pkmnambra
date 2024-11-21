@@ -26,12 +26,11 @@ flower 3 4 true
 flower 2 4 true
 flower 3 5 true
 flower 2 5 true
-
-EVENTS:
-
-encounter 11 11 1.0
-teleport 14 14 assets/maps/lab.txt 2 2
+teleport 6 4 lab 4 1
+encounter 11 11 BEACH
 
 NPCS:
 
-PROFESSOR 11 11 ProfessorOak
+professor 2 2
+
+

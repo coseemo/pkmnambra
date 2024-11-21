@@ -1,11 +1,11 @@
 package com.coseemo.pkmnambra.maplogic;
 
-import com.coseemo.pkmnambra.characters.logic.Actor;
+import com.coseemo.pkmnambra.characters.Actor;
 
 public class Tile {
     private TERRAIN terrain;
     private Actor actor;
-    private PlaceObject object;
+    private WorldObject object;
 
     public Tile(TERRAIN terrain) {
         this.terrain = terrain;
@@ -27,11 +27,31 @@ public class Tile {
         this.terrain = terrain;
     }
 
-    public PlaceObject getObject() {
+    public WorldObject getObject() {
         return object;
     }
 
-    public void setObject(PlaceObject object) {
+    public void setObject(WorldObject object) {
         this.object = object;
+    }
+
+    public void actorStep(Actor a) {
+        // Gestisce gli effetti quando un attore si muove su questo tile
+        switch (terrain) {
+            case SAND_2:
+
+                break;
+            default:
+                break;
+        }
+
+        // Se c'è un oggetto, notifica anche lui
+        if (object != null) {
+            object.onActorStep(a);
+        }
+    }
+
+    public boolean actorBeforeStep(Actor a) {
+        return true;
     }
 }

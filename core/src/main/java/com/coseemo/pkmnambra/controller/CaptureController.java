@@ -19,12 +19,13 @@ public class CaptureController extends InputAdapter {
     private final EventNotifier eventNotifier;
     private boolean mustPress;
     private boolean isInInventoryMenu = false;
+    private GameState gameState;
 
-    public CaptureController(OptionBox optionBox, CaptureScreen captureScreen) {
+    public CaptureController(OptionBox optionBox, GameState gameState) {
         this.optionBox = optionBox;
-        GameState gameState = GameState.getInstance();
-        this.eventNotifier = gameState.getEventNotifier();
-        this.inventory = gameState.getPlayer().getInventory();
+        this.gameState = gameState;
+        this.eventNotifier = gameState.getEventManager().getEventNotifier();
+        this.inventory = gameState.getPlayerState().getPlayer().getInventory();
         this.mustPress = false;
     }
 

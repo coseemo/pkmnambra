@@ -2,16 +2,17 @@ package com.coseemo.pkmnambra.controller;
 
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
-import com.coseemo.pkmnambra.characters.logic.Actor;
+import com.coseemo.pkmnambra.characters.Actor;
+import com.coseemo.pkmnambra.characters.Player;
 import com.coseemo.pkmnambra.maplogic.DIRECTION;
 
 public class PlayerController extends InputAdapter {
-    private Actor player;
-    private boolean[] buttonPress;
-    private float[] pressTimer;
+    private final Player player;
+    private final boolean[] buttonPress;
+    private final float[] pressTimer;
+    private final float WALK_REFACE_TRESHOLD = 0.15f;
 
-    private float WALK_REFACE_TRESHOLD = 0.2f;
-    public PlayerController(Actor player) {
+    public PlayerController(Player player) {
         this.player = player;
 
         buttonPress = new boolean[DIRECTION.values().length];
@@ -43,7 +44,6 @@ public class PlayerController extends InputAdapter {
 
     @Override
     public boolean keyUp(int keycode){
-
         if(keycode == Keys.UP)
             releaseDirection(DIRECTION.NORTH);
         if(keycode == Keys.DOWN)
@@ -63,12 +63,12 @@ public class PlayerController extends InputAdapter {
     }
 
     public void update(float delta){
-
         for (DIRECTION dir : DIRECTION.values()) {
             if (buttonPress[dir.ordinal()]) {
                 updateDirection(dir, delta);
             }
         }
+
     }
 
     private void updateDirection(DIRECTION dir, float delta){
@@ -92,4 +92,5 @@ public class PlayerController extends InputAdapter {
             player.reface(dir);
         }
     }
+
 }

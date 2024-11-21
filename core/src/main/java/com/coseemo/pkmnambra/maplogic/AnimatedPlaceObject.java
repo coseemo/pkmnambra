@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.GridPoint2;
 
-public class AnimatedPlaceObject extends PlaceObject {
+public class AnimatedPlaceObject extends WorldObject {
     private final Animation<TextureRegion> animation;
     private float stateTime;
     private boolean isAnimating;

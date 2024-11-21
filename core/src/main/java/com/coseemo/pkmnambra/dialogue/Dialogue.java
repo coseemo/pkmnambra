@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class Dialogue {
 
-    private final Map<Integer, DialogueNode> nodes = new HashMap<Integer, DialogueNode>();
+    private Map<Integer, DialogueNode> nodes = new HashMap<Integer, DialogueNode>();
 
     public DialogueNode getNode(int id) {
         return nodes.get(id);
@@ -22,5 +22,4 @@ public class Dialogue {
     public int size() {
         return nodes.size();
     }
-
 }

@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Dialogues>
     <!-- Dialogo introduttivo -->
-    <dialogue name="init">
+    <dialogue name="professor_intro">
         <linear id="0" text="Welcome! I'm Professor Oak, a Pokemon researcher.">
             <pointer target="1"/>
         </linear>
         <linear id="1" text="I need your help with an important research project.">
             <pointer target="2"/>
         </linear>
-        <linear id="2" text="I'm studying these specific Pokemon species and their behavior.">
+        <linear id="2" text="I'm studying these specific Pokemon species.">
             <pointer target="3"/>
         </linear>
-        <linear id="3" text="Press 'I' to see the list of Pokemon I need you to catch.">
+        <linear id="3" text="Press 'Z' to see the list of Pokemon I need you to catch.">
             <pointer target="4"/>
         </linear>
-        <linear id="4" text="For each new Pokemon you bring me, I'll reward you handsomely!">
+        <linear id="4" text="For each new Pokemon you bring me, I'll reward you!">
             <pointer target="5"/>
         </linear>
-        <linear id="5" text="Take this items with you in this adventure. You'll need them.">
+        <linear id="5" text="Take this items with you in this adventure.">
             <pointer target="6"/>
         </linear>
         <linear id="6" text="Are you ready to help advance Pokemon research?"/>
@@ -28,21 +28,21 @@
         <linear id="0" text="Oh, I see your team is empty at the moment.">
             <pointer target="1"/>
         </linear>
-        <linear id="1" text="Come back when you've caught some of the Pokemon I'm researching!">
+        <linear id="1" text="Come back when you've caught something!">
             <pointer target="2"/>
         </linear>
-        <linear id="2" text="Remember to check your research list with 'I' if you need a reminder."/>
+        <linear id="2" text="Remember to check your research list."/>
     </dialogue>
 
     <!-- Dialogo post introduzione -->
     <dialogue name="professor_post_intro">
-        <linear id="0" text="Ah, you're back! Let's see what Pokemon you've brought.">
+        <linear id="0" text="Ah, you're back! Let's see what you've brought.">
             <pointer target="1"/>
         </linear>
-        <linear id="1" text="Remember, I'm especially interested in species you haven't caught before!">
+        <linear id="1" text="I'm interested in species you haven't caught before!">
             <pointer target="2"/>
         </linear>
-        <linear id="2" text="Keep up the good work, and come back when you have more discoveries!"/>
+        <linear id="2" text="Keep up the good work!"/>
     </dialogue>
 
     <!-- Dialogo vicino al completamento -->
