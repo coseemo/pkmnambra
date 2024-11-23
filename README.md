@@ -1,6 +1,6 @@
 #pkmnambra
 
-Progetto per l'esame di Ingegneria del Software.
+progetto per l'esame di Ingegneria del Software.
 RPG ispirato alla modalità safari dei giochi pokemon.
 
 #feature
@@ -28,9 +28,12 @@ RPG ispirato alla modalità safari dei giochi pokemon.
 - eseguito principalmente su factory, observer e singleton
 
 
-https://github.com/user-attachments/assets/ba5e0219-5c43-4884-9110-dd0e754caa32
+#video di presentazione
 
 
-https://github.com/user-attachments/assets/913cf568-38d0-4260-970c-4e514851109b
+https://github.com/user-attachments/assets/caf4bdf1-b958-4e8a-86ca-b8fd0988e937
+
+
+https://github.com/user-attachments/assets/6c222f24-223e-4291-bcfb-effbc609c473
 
 
