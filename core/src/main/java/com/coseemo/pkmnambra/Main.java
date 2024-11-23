@@ -3,19 +3,7 @@ package com.coseemo.pkmnambra;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
-import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.coseemo.pkmnambra.characters.Player;
-import com.coseemo.pkmnambra.dialogue.DialogueDb;
-import com.coseemo.pkmnambra.dialogue.DialogueLoader;
-import com.coseemo.pkmnambra.maplogic.World;
-import com.coseemo.pkmnambra.screen.GameScreen;
 import com.coseemo.pkmnambra.screen.PressXScreen;
-import com.coseemo.pkmnambra.util.AnimationSet;
-import com.coseemo.pkmnambra.util.MapLoader;
-import com.coseemo.pkmnambra.util.states.GameState;
 
 public class Main extends Game {
 

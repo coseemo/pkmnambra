@@ -4,15 +4,18 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
+import com.coseemo.pkmnambra.actors.Actor;
 import com.coseemo.pkmnambra.capture.CaptureLogic;
 import com.coseemo.pkmnambra.capture.CaptureRenderer;
-import com.coseemo.pkmnambra.characters.Player;
+import com.coseemo.pkmnambra.actors.Player;
 import com.coseemo.pkmnambra.controller.CaptureController;
-import com.coseemo.pkmnambra.pokemons.Pokemon;
-import com.coseemo.pkmnambra.util.states.GameState;
-import com.coseemo.pkmnambra.util.Observer;
+import com.coseemo.pkmnambra.pokemonfactory.Pokemon;
+import com.coseemo.pkmnambra.singleton.GameState;
+import com.coseemo.pkmnambra.captureobserver.CaptureObserver;
 
-public class CaptureScreen implements Screen, Observer {
+public class CaptureScreen implements Screen, CaptureObserver {
     private final Game game;
     private final Pokemon pokemon;
     private Player player;
@@ -24,9 +27,11 @@ public class CaptureScreen implements Screen, Observer {
     private boolean keyPressed;
     private float exitTimer;
     private static final float EXIT_DELAY = 0.05f; // Delay before changing screen
-
     private final CaptureRenderer captureRenderer;
     private String eventType;
+    private final Viewport viewport;
+    private static final float VIRTUAL_WIDTH = 1280;  // Set your desired virtual width
+    private static final float VIRTUAL_HEIGHT = 700;
 
     public CaptureScreen(GameState gameState, Pokemon pokemon) {
         this.game = gameState.getGame();
@@ -38,20 +43,24 @@ public class CaptureScreen implements Screen, Observer {
         this.captureRenderer = new CaptureRenderer(pokemon, gameState);
         this.captureController = new CaptureController(captureRenderer.getOptionBox(), gameState);
 
+        this.viewport = new FitViewport(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
+
         gameState.getScreenManager().setCurrentScreen(this);
         gameState.getEventManager().getEventNotifier().registerObserver(this);
-        Gdx.input.setInputProcessor(captureController);
 
         resetExitState();
     }
 
     @Override
     public void show() {
-        // Actions to perform when the screen is shown
+        Gdx.input.setInputProcessor(captureController);
+        viewport.update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), true);
     }
 
     @Override
     public void render(float delta) {
+        viewport.apply();
+
         captureRenderer.render(delta);
         updateCaptureUI();
 
@@ -80,7 +89,7 @@ public class CaptureScreen implements Screen, Observer {
 
     @Override
     public void resize(int width, int height) {
-        // Handle viewport resizing if necessary
+        viewport.update(width, height, true);
     }
 
     @Override
@@ -93,7 +102,11 @@ public class CaptureScreen implements Screen, Observer {
 
     @Override
     public void hide() {
-        Gdx.input.setInputProcessor(null); // Remove input processor when hiding
+        gameState.getMapState().getCurrentPlace().removeActor(player);
+        player.setCoords(gameState.getPlayerState().getSafeX(), gameState.getPlayerState().getSafeY());
+        player.setState(Actor.ACTOR_STATE.STANDING);
+        gameState.getMapState().getCurrentPlace().addPlayer(player);
+        Gdx.input.setInputProcessor(null);
     }
 
     @Override
@@ -200,7 +213,7 @@ public class CaptureScreen implements Screen, Observer {
         if (!notExit) {
             resetExitState();
             dispose();
-            gameState.getScreenManager().changeScreen(new GameScreen(gameState));
+            gameState.changeScreen(new GameScreen(gameState));
         }
     }
 

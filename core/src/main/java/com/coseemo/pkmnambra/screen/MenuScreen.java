@@ -9,21 +9,20 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.coseemo.pkmnambra.Main;
-import com.coseemo.pkmnambra.Saver.SaveData;
-import com.coseemo.pkmnambra.Saver.SaveManager;
-import com.coseemo.pkmnambra.characters.Player;
+import com.coseemo.pkmnambra.savemanager.SaveData;
+import com.coseemo.pkmnambra.actors.Player;
 import com.coseemo.pkmnambra.dialogue.DialogueDb;
 import com.coseemo.pkmnambra.dialogue.DialogueLoader;
-import com.coseemo.pkmnambra.maplogic.World;
+import com.coseemo.pkmnambra.actorobserver.World;
+import com.coseemo.pkmnambra.savemanager.SaveManager;
 import com.coseemo.pkmnambra.util.AnimationSet;
-import com.coseemo.pkmnambra.util.MapLoader;
-import com.coseemo.pkmnambra.util.states.GameState;
+import com.coseemo.pkmnambra.savemanager.MapLoader;
+import com.coseemo.pkmnambra.singleton.GameState;
 
 import java.io.IOException;
 
 public class MenuScreen implements Screen {
     private final Game game;
-
     AssetManager assetManager;
     private SpriteBatch batch;
     private BitmapFont font;
@@ -33,7 +32,7 @@ public class MenuScreen implements Screen {
     public MenuScreen(Game game) {
         this.game = game;
         batch = new SpriteBatch();
-        font = new BitmapFont(); // Puoi usare un font personalizzato
+        font = new BitmapFont();
         this.assetManager = ((Main) game).getAssetManager();
 
     }
@@ -108,7 +107,9 @@ public class MenuScreen implements Screen {
         AssetManager assetManager = new AssetManager();
         assetManager.load("assets/sprites/player_packed/mimipacked.atlas", TextureAtlas.class);
         assetManager.load("assets/tiles/tilespack/tilespack.atlas", TextureAtlas.class);
+        assetManager.load("assets/tiles/runtiles_packed/runtilespacked.atlas", TextureAtlas.class);
         assetManager.load("assets/tiles/sands_packed/sandspacked.atlas", TextureAtlas.class);
+        assetManager.load("assets/sprites/professorpacked/professorpacked.atlas", TextureAtlas.class);
         assetManager.load("assets/tiles/houses_packed/housespacked.atlas", TextureAtlas.class);
         assetManager.load("assets/ui/uipack.atlas", TextureAtlas.class);
         assetManager.load("assets/font/small_letters_font.fnt", BitmapFont.class);

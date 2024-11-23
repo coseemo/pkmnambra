@@ -2,20 +2,18 @@ package com.coseemo.pkmnambra.controller;
 
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
-import com.coseemo.pkmnambra.characters.Player;
-import com.coseemo.pkmnambra.items.Inventory;
-import com.coseemo.pkmnambra.items.Item;
-import com.coseemo.pkmnambra.screen.CaptureScreen;
+import com.coseemo.pkmnambra.actors.Player;
+import com.coseemo.pkmnambra.itemfactory.Item;
 import com.coseemo.pkmnambra.ui.OptionBox;
-import com.coseemo.pkmnambra.util.EventNotifier;
-import com.coseemo.pkmnambra.util.states.GameState;
+import com.coseemo.pkmnambra.captureobserver.CaptureEventNotifier;
+import com.coseemo.pkmnambra.singleton.GameState;
 
 import java.util.List;
 
 public class CaptureController extends InputAdapter {
     private final OptionBox optionBox;
     private Player player;
-    private final EventNotifier eventNotifier;
+    private final CaptureEventNotifier eventNotifier;
     private boolean mustPress;
     private boolean isInInventoryMenu = false;
     private GameState gameState;

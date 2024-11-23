@@ -2,7 +2,8 @@ package com.coseemo.pkmnambra.controller;
 
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
-import com.coseemo.pkmnambra.characters.Player;
+import com.coseemo.pkmnambra.actors.Actor;
+import com.coseemo.pkmnambra.actors.Player;
 import com.coseemo.pkmnambra.maplogic.DIRECTION;
 
 public class PlayerController extends InputAdapter {
@@ -30,6 +31,12 @@ public class PlayerController extends InputAdapter {
     }
     @Override
     public boolean keyDown(int keycode){
+
+        if(player.getState() == Actor.ACTOR_STATE.STILL){
+            resetButtonsAndTimers();
+            return true;
+        }
+
         if(keycode == Keys.UP)
             buttonPress[DIRECTION.NORTH.ordinal()] = true;
         if(keycode == Keys.DOWN)
@@ -55,7 +62,7 @@ public class PlayerController extends InputAdapter {
         return false;
     }
 
-    private void resetButtonsAndTimers() {
+    public void resetButtonsAndTimers() {
         for (DIRECTION dir : DIRECTION.values()) {
             buttonPress[dir.ordinal()] = false;
             pressTimer[dir.ordinal()] = 0f;
@@ -63,6 +70,12 @@ public class PlayerController extends InputAdapter {
     }
 
     public void update(float delta){
+
+        if (player.getState() == Actor.ACTOR_STATE.STILL) {
+            resetButtonsAndTimers(); // Resetta ogni input attivo
+            return;
+        }
+
         for (DIRECTION dir : DIRECTION.values()) {
             if (buttonPress[dir.ordinal()]) {
                 updateDirection(dir, delta);

@@ -13,18 +13,19 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.coseemo.pkmnambra.Saver.SaveManager;
+import com.coseemo.pkmnambra.actors.Actor;
 import com.coseemo.pkmnambra.camera.Camera;
-import com.coseemo.pkmnambra.characters.Player;
+import com.coseemo.pkmnambra.actors.Player;
 import com.coseemo.pkmnambra.controller.*;
 import com.coseemo.pkmnambra.dialogue.DialogueDb;
 import com.coseemo.pkmnambra.dialogue.DialogueLoader;
-import com.coseemo.pkmnambra.maplogic.World;
-import com.coseemo.pkmnambra.screen.render.PlaceRenderer;
+import com.coseemo.pkmnambra.actorobserver.World;
+import com.coseemo.pkmnambra.savemanager.SaveManager;
+import com.coseemo.pkmnambra.render.PlaceRenderer;
 import com.coseemo.pkmnambra.util.*;
 import com.coseemo.pkmnambra.ui.DialogueBox;
 import com.coseemo.pkmnambra.ui.OptionBox;
-import com.coseemo.pkmnambra.util.states.GameState;
+import com.coseemo.pkmnambra.singleton.GameState;
 
 import java.io.IOException;
 
@@ -60,6 +61,8 @@ public class GameScreen implements Screen {
         AssetManager assetManager = gameState.getResourceManager().getAssetManager();
         assetManager.load("assets/sprites/player_packed/mimipacked.atlas", TextureAtlas.class);
         assetManager.load("assets/tiles/tilespack/tilespack.atlas", TextureAtlas.class);
+        assetManager.load("assets/tiles/runtiles_packed/runtilespacked.atlas", TextureAtlas.class);
+        assetManager.load("assets/sprites/professorpacked/professorpacked.atlas", TextureAtlas.class);
         assetManager.load("assets/tiles/sands_packed/sandspacked.atlas", TextureAtlas.class);
         assetManager.load("assets/tiles/houses_packed/housespacked.atlas", TextureAtlas.class);
         assetManager.load("assets/ui/uipack.atlas", TextureAtlas.class);
@@ -92,6 +95,8 @@ public class GameScreen implements Screen {
 
     @Override
     public void show() {
+        playerController.resetButtonsAndTimers();
+        player.setState(Actor.ACTOR_STATE.STANDING);
         Gdx.input.setInputProcessor(multiplexer);
     }
 
@@ -164,6 +169,10 @@ public class GameScreen implements Screen {
 
     @Override
     public void hide() {
+        gameState.getPlayerState().setSafeCoords(player.getX(), player.getY());
+        playerController.resetButtonsAndTimers();
+        player.setState(Actor.ACTOR_STATE.STILL);
+        Gdx.input.setInputProcessor(null);
     }
 
     @Override

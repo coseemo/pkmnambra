@@ -1,15 +1,14 @@
 package com.coseemo.pkmnambra.capture;
 
-import com.coseemo.pkmnambra.characters.Player;
-import com.coseemo.pkmnambra.pokemons.Pokemon;
-import com.coseemo.pkmnambra.screen.CaptureScreen;
-import com.coseemo.pkmnambra.util.EventNotifier;
-import com.coseemo.pkmnambra.util.states.GameState;
+import com.coseemo.pkmnambra.actors.Player;
+import com.coseemo.pkmnambra.pokemonfactory.Pokemon;
+import com.coseemo.pkmnambra.captureobserver.CaptureEventNotifier;
+import com.coseemo.pkmnambra.singleton.GameState;
 
 
 public class CaptureLogic {
     private final Pokemon currentPokemon;
-    private EventNotifier eventNotifier;
+    private CaptureEventNotifier eventNotifier;
     private final Player player;
     private float captureProbability;
     private float angerLevel;
@@ -68,12 +67,12 @@ public class CaptureLogic {
     }
 
     public void handlePokemonReaction() {
+        increaseAngerLevel(5);
         if (angerLevel >= 100) {
             endBattleWithMessage("POKEMON_ANGER");
         } else if (Math.random() <= 0.10) {
             endBattleWithMessage("POKEMON_FLED");
         }
-        increaseAngerLevel(5);
     }
 
     private void endBattleWithMessage(String message) {

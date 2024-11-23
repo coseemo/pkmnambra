@@ -21,16 +21,360 @@ S1 S1 S1 S1 S1 S1 S1 S1 S1 S1 S1 S1 S1 S1 S1 S1 S1 S1 S1 S1
 
 OBJECTS:
 
-house 13 13 false
-flower 3 4 true
-flower 2 4 true
-flower 3 5 true
-flower 2 5 true
-teleport 6 4 lab 4 1
-encounter 11 11 BEACH
+topleft 4 15
+middleleft 4 14
+middleleft 4 13
+middleleft 4 12
+middleleft 4 11
+middleleft 4 10
+middleleft 4 9
+middleleft 4 8
+middleleft 4 7
+middleleft 4 6
+middleleft 4 5
+backleft 4 4
+
+topcenter 5 15
+topcenter 6 15
+topcenter 7 15
+topcenter 8 15
+topcenter 9 15
+topcenter 10 15
+topcenter 11 15
+topcenter 12 15
+topcenter 13 15
+topcenter 14 15
+righttop 15 15
+
+rightcenter 15 14
+rightcenter 15 13
+rightcenter 15 12
+rightcenter 15 11
+rightcenter 15 10
+rightcenter 15 9
+rightcenter 15 8
+rightcenter 15 7
+rightcenter 15 6
+rightcenter 15 5
+backright 15 4
+
+backcenter 14 4
+backcenter 13 4
+backcenter 12 4
+backcenter 11 4
+backcenter 10 4
+backcenter 9 4
+backcenter 8 4
+backcenter 7 4
+backcenter 6 4
+backcenter 5 4
+
+encounter 11 7 BEACH
+encounter 12 6 BEACH
+encounter 12 7 BEACH
+encounter 12 8 BEACH
+encounter 13 7 BEACH
+
+
+
+flower 10 13 true
+flower 12 13 true
+flower 11 13 true
+flower 11 12 true
+flower 11 14 true
+
+palml 14 14 false
+
+palmr 4 10 false
+lab 5 10 false
+palml 9 10 false
+teleport 7 11 lab 4 1
+
+
+water 0 0 true
+water 0 1 true
+water 0 2 true
+water 0 3 true
+water 0 4 true
+water 0 5 true
+water 0 6 true
+water 0 7 true
+water 0 8 true
+water 0 9 true
+water 0 10 true
+water 0 11 true
+water 0 12 true
+water 0 13 true
+water 0 14 true
+water 0 15 true
+water 0 16 true
+water 0 17 true
+
+water 1 0 true
+water 1 1 true
+water 1 2 true
+water 1 3 true
+water 1 4 true
+water 1 5 true
+water 1 6 true
+water 1 7 true
+water 1 8 true
+water 1 9 true
+water 1 10 true
+water 1 11 true
+water 1 12 true
+water 1 13 true
+water 1 14 true
+water 1 15 true
+water 1 16 true
+water 1 17 true
+
+water 2 0 true
+water 2 1 true
+water 2 2 true
+water 2 3 true
+water 2 4 true
+water 2 5 true
+water 2 6 true
+water 2 7 true
+water 2 8 true
+water 2 9 true
+water 2 10 true
+water 2 11 true
+water 2 12 true
+water 2 13 true
+water 2 14 true
+water 2 15 true
+water 2 16 true
+water 2 17 true
+
+
+water 3 0 true
+water 3 1 true
+water 3 2 true
+water 3 3 true
+water 3 4 true
+water 3 5 true
+water 3 6 true
+water 3 7 true
+water 3 8 true
+water 3 9 true
+water 3 10 true
+water 3 11 true
+water 3 12 true
+water 3 13 true
+water 3 14 true
+water 3 15 true
+water 3 16 true
+water 3 17 true
+
+
+water 16 0 true
+water 16 1 true
+water 16 2 true
+water 16 3 true
+water 16 4 true
+water 16 5 true
+water 16 6 true
+water 16 7 true
+water 16 8 true
+water 16 9 true
+water 16 10 true
+water 16 11 true
+water 16 12 true
+water 16 13 true
+water 16 14 true
+water 16 15 true
+water 16 16 true
+water 16 17 true
+
+water 17 0 true
+water 17 1 true
+water 17 2 true
+water 17 3 true
+water 17 4 true
+water 17 5 true
+water 17 6 true
+water 17 7 true
+water 17 8 true
+water 17 9 true
+water 17 10 true
+water 17 11 true
+water 17 12 true
+water 17 13 true
+water 17 14 true
+water 17 15 true
+water 17 16 true
+water 17 17 true
+
+water 18 0 true
+water 18 1 true
+water 18 2 true
+water 18 3 true
+water 18 4 true
+water 18 5 true
+water 18 6 true
+water 18 7 true
+water 18 8 true
+water 18 9 true
+water 18 10 true
+water 18 11 true
+water 18 12 true
+water 18 13 true
+water 18 14 true
+water 18 15 true
+water 18 16 true
+water 18 17 true
+
+water 19 0 true
+water 19 1 true
+water 19 2 true
+water 19 3 true
+water 19 4 true
+water 19 5 true
+water 19 6 true
+water 19 7 true
+water 19 8 true
+water 19 9 true
+water 19 10 true
+water 19 11 true
+water 19 12 true
+water 19 13 true
+water 19 14 true
+water 19 15 true
+water 19 16 true
+water 19 17 true
+
+
+water 0 0 true
+water 1 0 true
+water 2 0 true
+water 3 0 true
+water 4 0 true
+water 5 0 true
+water 6 0 true
+water 7 0 true
+water 8 0 true
+water 9 0 true
+water 10 0 true
+water 11 0 true
+water 12 0 true
+water 13 0 true
+water 14 0 true
+water 15 0 true
+water 16 0 true
+water 17 0 true
+water 18 0 true
+water 19 0 true
+
+water 0 1 true
+water 1 1 true
+water 2 1 true
+water 3 1 true
+water 4 1 true
+water 5 1 true
+water 6 1 true
+water 7 1 true
+water 8 1 true
+water 9 1 true
+water 10 1 true
+water 11 1 true
+water 12 1 true
+water 13 1 true
+water 14 1 true
+water 15 1 true
+water 16 1 true
+water 17 1 true
+water 18 1 true
+water 19 1 true
+
+water 0 2 true
+water 1 2 true
+water 2 2 true
+water 3 2 true
+water 4 2 true
+water 5 2 true
+water 6 2 true
+water 7 2 true
+water 8 2 true
+water 9 2 true
+water 10 2 true
+water 11 2 true
+water 12 2 true
+water 13 2 true
+water 14 2 true
+water 15 2 true
+water 16 2 true
+water 17 2 true
+water 18 2 true
+water 19 2 true
+
+water 0 3 true
+water 1 3 true
+water 2 3 true
+water 3 3 true
+water 4 3 true
+water 5 3 true
+water 6 3 true
+water 7 3 true
+water 8 3 true
+water 9 3 true
+water 10 3 true
+water 11 3 true
+water 12 3 true
+water 13 3 true
+water 14 3 true
+water 15 3 true
+water 16 3 true
+water 17 3 true
+water 18 3 true
+water 19 3 true
+
+water 0 16 true
+water 1 16 true
+water 2 16 true
+water 3 16 true
+water 4 16 true
+water 5 16 true
+water 6 16 true
+water 7 16 true
+water 8 16 true
+water 9 16 true
+water 10 16 true
+water 11 16 true
+water 12 16 true
+water 13 16 true
+water 14 16 true
+water 15 16 true
+water 16 16 true
+water 17 16 true
+water 18 16 true
+water 19 16 true
+
+water 0 17 true
+water 1 17 true
+water 2 17 true
+water 3 17 true
+water 4 17 true
+water 5 17 true
+water 6 17 true
+water 7 17 true
+water 8 17 true
+water 9 17 true
+water 10 17 true
+water 11 17 true
+water 12 17 true
+water 13 17 true
+water 14 17 true
+water 15 17 true
+water 16 17 true
+water 17 17 true
+water 18 17 true
+water 19 17 true
+
+
 
 NPCS:
 
-professor 2 2
 
 

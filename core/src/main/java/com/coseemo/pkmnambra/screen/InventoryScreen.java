@@ -10,9 +10,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.coseemo.pkmnambra.characters.Player;
-import com.coseemo.pkmnambra.items.Item;
-import com.coseemo.pkmnambra.util.states.GameState;
+import com.coseemo.pkmnambra.actors.Player;
+import com.coseemo.pkmnambra.itemfactory.Item;
+import com.coseemo.pkmnambra.singleton.GameState;
 
 import java.util.Map;
 
@@ -30,60 +30,74 @@ public class InventoryScreen implements Screen {
         this.game = gameState.getGame();
         this.gameState = gameState;
 
+        // Creo il batch e gli strumenti di rendering
         batch = new SpriteBatch();
-        font = new BitmapFont();  // Default font
-        titleFont = new BitmapFont();  // Title font (larger size)
+        font = new BitmapFont();  // Font predefinito
+        titleFont = new BitmapFont();  // Font per i titoli
         shapeRenderer = new ShapeRenderer();
 
+        // Imposto lo sfondo
         backgroundTexture = new Texture(Gdx.files.internal("assets/background/paper.jpg"));
 
-        // Scale fonts for larger text
+        // Ridimensiono i font
         font.getData().setScale(1.5f);
         titleFont.getData().setScale(2f);
     }
 
     @Override
     public void show() {
+        // Disabilito l'input per evitare interazioni indesiderate
         Gdx.input.setInputProcessor(null);
         player = gameState.getPlayerState().getPlayer();
-        // Disable input processor to avoid unwanted interactions
+    }
+
+    @Override
+    public void resize(int width, int height) {
+        // Adatto il rendering alle dimensioni dello schermo
+        batch.getProjectionMatrix().setToOrtho2D(0, 0, width, height);
+        shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
     }
 
     @Override
     public void render(float delta) {
-        // Clear the screen
+        // Pulisco lo schermo
         Gdx.gl.glClearColor(0.5f, 0.7f, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        // Draw background
+        // Inizio il rendering
         batch.begin();
+
+        // Disegno lo sfondo
         if (backgroundTexture != null) {
             batch.draw(backgroundTexture, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         }
 
-        // Draw the inventory and catch list
+        // Disegno le varie sezioni
         drawInventory();
         drawCatchList();
+        drawTeam();
 
+        // Termino il rendering del batch
         batch.end();
 
-        // Handle exiting the inventory
+        // Gestisco l'uscita dall'inventario premendo Z
         if (Gdx.input.isKeyJustPressed(Keys.Z)) {
             game.setScreen(new GameScreen(gameState));
         }
     }
 
     private void drawInventory() {
+        // Posiziono l'inventario sulla sinistra
         float x = 50;
-        float y = Gdx.graphics.getHeight() - 50; // Start near the top of the screen
-        float lineHeight = 40; // Increased line spacing for larger text
+        float y = Gdx.graphics.getHeight() - 50; // Parto vicino al bordo superiore
+        float lineHeight = 40; // Spaziatura tra le righe
 
-        // Draw Inventory Title
+        // Disegno il titolo "Inventario"
         titleFont.setColor(Color.BLACK);
         titleFont.draw(batch, "INVENTORY", x, y);
         y -= 60;
 
-        // Draw Inventory Items
+        // Disegno gli oggetti dell'inventario
         Map<Item, Integer> itemsWithQuantity = gameState.getPlayerState().getPlayer().getInventory().getItems();
         font.setColor(Color.BLACK);
         if (itemsWithQuantity.isEmpty()) {
@@ -92,24 +106,24 @@ public class InventoryScreen implements Screen {
             for (Map.Entry<Item, Integer> entry : itemsWithQuantity.entrySet()) {
                 Item item = entry.getKey();
                 int count = entry.getValue();
-                String itemText = item.getName() + ":" + count;
-                font.draw(batch, itemText, x, y);
+                font.draw(batch, item.getName() + ": " + count, x, y);
                 y -= lineHeight;
             }
         }
     }
 
     private void drawCatchList() {
-        float x = (float) Gdx.graphics.getWidth() / 2 + 50;  // Position the catch list on the right
+        // Posiziono la lista dei Pokémon da catturare sulla destra
+        float x = Gdx.graphics.getWidth() - 300;
         float y = Gdx.graphics.getHeight() - 50;
-        float lineHeight = 40; // Increased line spacing for larger text
+        float lineHeight = 40;
 
-        // Draw Catch List Title
+        // Disegno il titolo "To Catch"
         titleFont.setColor(Color.BLACK);
         titleFont.draw(batch, "TO CATCH", x, y);
         y -= 60;
 
-        // Draw Catch List
+        // Disegno la lista dei Pokémon
         Map<String, Boolean> toCatchMap = gameState.getPlayerState().getPlayer().getToCatch();
         font.setColor(Color.BLACK);
         if (toCatchMap == null || toCatchMap.isEmpty()) {
@@ -119,18 +133,17 @@ public class InventoryScreen implements Screen {
                 String pokemonName = entry.getKey();
                 boolean caught = entry.getValue();
 
-                // Draw Pokémon name
-                float textWidth = font.getScaleX() * pokemonName.length() * 10; // Estimate text width
+                // Disegno il nome del Pokémon
                 font.draw(batch, pokemonName, x, y);
 
-                // Only draw the red line if the Pokémon is in the player's team (i.e., captured)
+                // Disegno una linea rossa se il Pokémon non è stato catturato
                 if (!caught) {
-                    batch.end(); // End batch to switch to ShapeRenderer
-                    shapeRenderer.begin(ShapeRenderer.ShapeType.Filled); // Use Filled for thicker line
+                    batch.end(); // Termino il batch per usare ShapeRenderer
+                    shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
                     shapeRenderer.setColor(Color.RED);
-                    shapeRenderer.rectLine(x, y - 10, x + textWidth, y - 10, 4); // Thicker red line
+                    shapeRenderer.rectLine(x, y - 10, x + font.getScaleX() * pokemonName.length() * 10, y - 10, 4);
                     shapeRenderer.end();
-                    batch.begin(); // Restart batch for further drawing
+                    batch.begin(); // Riprendo il batch per disegni successivi
                 }
 
                 y -= lineHeight;
@@ -138,26 +151,43 @@ public class InventoryScreen implements Screen {
         }
     }
 
+    private void drawTeam() {
+        // Posiziono la squadra in basso al centro dello schermo
+        float y = 70; // Altezza dei Pokémon
+        float screenWidth = Gdx.graphics.getWidth();
+        float spacing = 150; // Spaziatura tra i Pokémon
+        float startX = (screenWidth - (spacing * player.getTeam().size())) / 2; // Calcolo la posizione iniziale
 
-    @Override
-    public void resize(int width, int height) {
-        // Handle resize (if needed)
+        // Disegno il titolo "Squadra"
+        titleFont.setColor(Color.BLACK);
+        titleFont.draw(batch, "SQUADRA", screenWidth / 2f - 60, y + 40);
+
+        // Disegno i Pokémon
+        font.setColor(Color.BLACK);
+        for (String pokemon : player.getTeam()) {
+            font.draw(batch, pokemon, startX, y);
+            startX += spacing; // Sposto a destra per il prossimo Pokémon
+        }
     }
 
     @Override
     public void pause() {
+        // Non faccio nulla in pausa
     }
 
     @Override
     public void resume() {
+        // Non faccio nulla nel resume
     }
 
     @Override
     public void hide() {
+        // Non faccio nulla nel hide
     }
 
     @Override
     public void dispose() {
+        // Libero le risorse
         batch.dispose();
         font.dispose();
         titleFont.dispose();

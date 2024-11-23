@@ -13,11 +13,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.coseemo.pkmnambra.items.Item;
-import com.coseemo.pkmnambra.pokemons.Pokemon;
+import com.coseemo.pkmnambra.itemfactory.Item;
+import com.coseemo.pkmnambra.pokemonfactory.Pokemon;
 import com.coseemo.pkmnambra.ui.OptionBox;
-import com.coseemo.pkmnambra.util.EventNotifier;
-import com.coseemo.pkmnambra.util.states.GameState;
+import com.coseemo.pkmnambra.captureobserver.CaptureEventNotifier;
+import com.coseemo.pkmnambra.singleton.GameState;
 import com.coseemo.pkmnambra.util.SkinGenerator;
 
 public class CaptureRenderer {
@@ -73,7 +73,7 @@ public class CaptureRenderer {
             getEventNotifier())).right().bottom().padRight(10f).padBottom(10f);
     }
 
-    private Table createRightMainMenu(EventNotifier eventNotifier) {
+    private Table createRightMainMenu(CaptureEventNotifier eventNotifier) {
         Table rightMainMenuTable = new Table();
 
 

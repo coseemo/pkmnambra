@@ -58,7 +58,7 @@ configure(subprojects) {
 
 subprojects {
   version = '$projectVersion'
-  ext.appName = 'pokemoncolosseum'
+  ext.appName = 'pokemonambra'
   repositories {
     mavenCentral()
     maven { url 'https://s01.oss.sonatype.org' }
@@ -70,4 +70,4 @@ subprojects {
   }
 }
 
-eclipse.project.name = 'pokemoncolosseum' + '-parent'
+eclipse.project.name = 'pokemonambra' + '-parent'

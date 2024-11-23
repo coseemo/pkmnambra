@@ -13,9 +13,25 @@ dependencies {
   api "com.github.tommyettinger:kryo-cringe:$kryoCringeVersion"
   api "com.kotcrab.vis:vis-ui:$visUiVersion"
 
+  testImplementation "com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion"
+  testImplementation "com.badlogicgames.gdx:gdx:$gdxVersion"
+  testImplementation 'org.junit.jupiter:junit-jupiter:5.10.0'
+
+
+
   implementation 'com.google.code.gson:gson:2.10.1'
 
   if(enableGraalNative == 'true') {
     implementation "io.github.berstanio:gdx-svmhelper-annotations:$graalHelperVersion"
+  }
+
+  test {
+    useJUnitPlatform()
+
+    testLogging {
+      events "PASSED", "FAILED", "SKIPPED" // Mostra i risultati di tutti i test
+      exceptionFormat "full" // Dettagli sugli errori
+      showStandardStreams = true // Mostra output di System.out e System.err
+    }
   }
 }

@@ -2,12 +2,12 @@ package com.coseemo.pkmnambra.controller;
 
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
-import com.coseemo.pkmnambra.characters.Actor;
-import com.coseemo.pkmnambra.characters.ActorBehavior;
-import com.coseemo.pkmnambra.characters.Player;
+import com.coseemo.pkmnambra.actors.Actor;
+import com.coseemo.pkmnambra.actors.ActorBehavior;
+import com.coseemo.pkmnambra.actors.Player;
 import com.coseemo.pkmnambra.dialogue.Dialogue;
 import com.coseemo.pkmnambra.maplogic.DIRECTION;
-import com.coseemo.pkmnambra.maplogic.Tile;
+import com.coseemo.pkmnambra.map.Tile;
 
 import java.util.List;
 
