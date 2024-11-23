@@ -34,14 +34,13 @@ public class CaptureRenderer {
     private final Texture pokemonSprite;
     private final Texture mimiSprite;
 
+    // Costruttore che inizializza gli oggetti e carica le risorse
     public CaptureRenderer(Pokemon pokemon, GameState gameState) {
-
         this.gameState = gameState;
         this.stage = new Stage(new ScreenViewport());
         this.batch = new SpriteBatch();
         this.background = new Texture(Gdx.files.internal("assets/background/beach.png"));
-        this.pokemonSprite = new Texture(Gdx.files.internal("assets/sprites/pokemonbattle/" +
-            pokemon.getName() +".png"));
+        this.pokemonSprite = new Texture(Gdx.files.internal("assets/sprites/pokemonbattle/" + pokemon.getName() + ".png"));
         this.mimiSprite = new Texture(Gdx.files.internal("assets/sprites/pokemonbattle/mimi.png"));
 
         AssetManager assetManager = gameState.getResourceManager().getAssetManager();
@@ -55,28 +54,24 @@ public class CaptureRenderer {
         root.setFillParent(true);
         stage.addActor(root);
 
-        // Create a container table for better positioning
+        // Creo una tabella contenitore per una migliore disposizione
         Table container = new Table();
         container.setFillParent(true);
         stage.addActor(container);
 
-        // Add the left section to the top-left
+        // Aggiungo la sezione Pokémon a sinistra in alto
         container.add(createLeftPokemonSection()).left().top().padLeft(10f).padTop(10f);
         container.add().expandX();
 
-        // Create a new row for the right menu
+        // Creo una nuova riga per il menu a destra
         container.row();
-        // Expand the space above the right menu
         container.add().expandY();
-        // Add the right menu to the bottom-right
-        container.add(createRightMainMenu(gameState.getEventManager().
-            getEventNotifier())).right().bottom().padRight(10f).padBottom(10f);
+        container.add(createRightMainMenu(gameState.getEventManager().getEventNotifier())).right().bottom().padRight(10f).padBottom(10f);
     }
 
+    // Creo il menu principale a destra con le opzioni
     private Table createRightMainMenu(CaptureEventNotifier eventNotifier) {
         Table rightMainMenuTable = new Table();
-
-
         optionBox = new OptionBox(skin);
         optionBox.addOption("Throw Bait");
         optionBox.addOption("Use Perfume");
@@ -84,121 +79,105 @@ public class CaptureRenderer {
         optionBox.addOption("Use PokeBall");
         optionBox.addOption("Run Away");
 
-        // Reduced width and height for the option box
         rightMainMenuTable.add(optionBox).width(150).height(200);
         return rightMainMenuTable;
     }
 
+    // Crea il menu secondario per aggiornare le opzioni dell'inventario
     private Table createSecondaryRightMenu() {
         Table rightSecondaryMenuTable = new Table();
-
-        // Controllo per evitare duplicati di opzioni
         if (optionBox == null) {
             optionBox = new OptionBox(skin);
         } else {
             optionBox.clearChoices();
         }
 
-        // Aggiungiamo qui le opzioni dinamicamente tramite `updateInventoryOptions`
         rightSecondaryMenuTable.add(optionBox).width(150).height(200);
         return rightSecondaryMenuTable;
     }
 
-    // Metodo per aggiornare l'optionBox con gli oggetti dell'inventario
+    // Aggiorno le opzioni dell'optionBox in base alla categoria di oggetti
     public void updateInventoryOptions(String category) {
         if (optionBox == null) {
             optionBox = new OptionBox(skin);
         }
-
         optionBox.clearChoices();
 
-        // Aggiungi solo gli oggetti della categoria specificata
         for (Item item : gameState.getPlayerState().getPlayer().getInventory().getItems().keySet()) {
             if (item.getCategory().equalsIgnoreCase(category)) {
-                optionBox.addOption(item.getName() + " " +
-                    gameState.getPlayerState().getPlayer().getInventory().getItems().get(item));
+                optionBox.addOption(item.getName() + " " + gameState.getPlayerState().getPlayer().getInventory().getItems().get(item));
             }
         }
 
-        optionBox.setVisible(!optionBox.getChoices().isEmpty()); // Mostra il menu solo se ci sono elementi
+        optionBox.setVisible(!optionBox.getChoices().isEmpty());
     }
 
+    // Crea la sezione sinistra con le barre di stato e messaggi
     private Table createLeftPokemonSection() {
         Table leftPokemonTable = new Table();
-
-        // Box for the status bars and messages - reduced size
         Table statusBarBox = new Table();
         statusBarBox.setBackground(skin.getDrawable("battleinfobox"));
-        statusBarBox.pad(10f); // Reduced padding
+        statusBarBox.pad(10f);
 
-        // Add the bars and status message
         createCaptureProbabilityBar(statusBarBox);
         createAngerLevelBar(statusBarBox);
         createStatusMessageLabel(statusBarBox);
 
-        // Reduced width and height for the status box
         leftPokemonTable.add(statusBarBox).width(180).height(120);
         return leftPokemonTable;
     }
 
+    // Crea la barra di probabilità di cattura
     private void createCaptureProbabilityBar(Table statusBarBox) {
         captureProbabilityBar = new ProgressBar(0, 100, 1, false, createProgressBarStyle("green"));
-        statusBarBox.add(new Label("Capture:", skin)).padBottom(2f).left(); // Shortened label
+        statusBarBox.add(new Label("Capture:", skin)).padBottom(2f).left();
         statusBarBox.row();
-        statusBarBox.add(captureProbabilityBar).width(150).height(15).pad(2f).left().row(); // Reduced dimensions
+        statusBarBox.add(captureProbabilityBar).width(150).height(15).pad(2f).left().row();
     }
 
+    // Crea la barra del livello di rabbia
     private void createAngerLevelBar(Table statusBarBox) {
         angerLevelBar = new ProgressBar(0, 100, 1, false, createProgressBarStyle("red"));
-        statusBarBox.add(new Label("Anger:", skin)).padBottom(2f).left(); // Shortened label
+        statusBarBox.add(new Label("Anger:", skin)).padBottom(2f).left();
         statusBarBox.row();
-        statusBarBox.add(angerLevelBar).width(150).height(15).pad(2f).left().row(); // Reduced dimensions
+        statusBarBox.add(angerLevelBar).width(150).height(15).pad(2f).left().row();
     }
 
+    // Crea l'etichetta per i messaggi di stato
     private void createStatusMessageLabel(Table statusBarBox) {
         statusMessageLabel = new Label("", skin);
-        statusMessageLabel.setWrap(false); // Impedisce il wrapping del testo
-        statusMessageLabel.setWidth(160); // Imposta larghezza fissa
-        statusMessageLabel.setHeight(40); // Imposta altezza fissa
+        statusMessageLabel.setWrap(false);
+        statusMessageLabel.setWidth(160);
+        statusMessageLabel.setHeight(40);
         statusBarBox.row();
-        statusBarBox.add(statusMessageLabel).padTop(5f).left(); // Rimuovi la larghezza da qui
+        statusBarBox.add(statusMessageLabel).padTop(5f).left();
     }
 
-
+    // Crea lo stile per la barra di progresso
     private ProgressBar.ProgressBarStyle createProgressBarStyle(String color) {
         ProgressBar.ProgressBarStyle style = new ProgressBar.ProgressBarStyle();
         style.background = skin.getDrawable("hpbar_bar");
         style.knobBefore = skin.getDrawable(color);
-        style.knobBefore.setMinHeight(3); // Imposta l'altezza desiderata
+        style.knobBefore.setMinHeight(3);
         return style;
     }
 
+    // Metodo per renderizzare la schermata
     public void render(float delta) {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         batch.begin();
         batch.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        batch.draw(mimiSprite, -150, -80, mimiSprite.getWidth() * 0.5f, mimiSprite.getHeight() * 0.5f);
 
-        float spriteWidth = mimiSprite.getWidth() * 0.5f;
-        float spriteHeight = mimiSprite.getHeight() * 0.5f;
-        batch.draw(mimiSprite, -150, -80, spriteWidth, spriteHeight);
-
-        // Aggiungi qui l'ombra per il Pokémon
-        float spriteWidth1 = pokemonSprite.getWidth() * 3f;
-        float spriteHeight1 = pokemonSprite.getHeight() * 3f;
-
-        // Imposta la posizione dell'ombra (poco sotto lo sprite)
         float shadowX = 250;
-        float shadowY = 180; // Posiziona l'ombra sotto lo sprite, puoi regolare questa posizione
+        float shadowY = 180;
+        batch.setColor(0, 0, 0, 0.5f);
+        batch.draw(pokemonSprite, shadowX - pokemonSprite.getWidth() * 3f / 6, shadowY - pokemonSprite.getHeight() * 3f / 10, pokemonSprite.getWidth() * 3f, pokemonSprite.getHeight() * 3f / 3);
 
-        // Disegna l'ombra
-        batch.setColor(0, 0, 0, 0.5f); // Colore dell'ombra con trasparenza
-        batch.draw(pokemonSprite, shadowX - spriteWidth1 / 6, shadowY - spriteHeight1 / 10, spriteWidth1, spriteHeight1 / 3); // Dimensione dell'ombra
-
-        // Ripristina il colore per disegnare lo sprite
         batch.setColor(1, 1, 1, 1);
-        batch.draw(pokemonSprite, 200, 100, spriteWidth1, spriteHeight1);
+        batch.draw(pokemonSprite, 200, 100, pokemonSprite.getWidth() * 3f, pokemonSprite.getHeight() * 3f);
 
         batch.end();
 
@@ -206,7 +185,7 @@ public class CaptureRenderer {
         stage.draw();
     }
 
-    // Rest of the methods remain unchanged
+    // Pulisce le risorse
     public void dispose() {
         stage.dispose();
         batch.dispose();
@@ -214,14 +193,17 @@ public class CaptureRenderer {
         pokemonSprite.dispose();
     }
 
+    // Metodo per aggiornare la probabilità di cattura
     public void updateCaptureProbability(float value) {
         captureProbabilityBar.setValue(value);
     }
 
+    // Metodo per aggiornare il livello di rabbia
     public void updateAngerLevel(float value) {
         angerLevelBar.setValue(value);
     }
 
+    // Metodo per aggiornare il messaggio di stato
     public void updateStatusMessage(String message) {
         statusMessageLabel.setText(message);
     }

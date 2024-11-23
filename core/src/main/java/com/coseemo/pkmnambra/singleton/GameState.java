@@ -8,7 +8,7 @@ import com.coseemo.pkmnambra.screen.TransitionScreen;
 
 
 public class GameState {
-    private static GameState instance; // Singleton instance
+    private static GameState instance; // Istanza del Singleton
 
     private Main game;
     private PlayerState playerState;
@@ -50,7 +50,7 @@ public class GameState {
         }
     }
 
-        // Getter per accedere alle proprietà
+    // Getter per accedere alle proprietà
     public Main getGame() {
         return game;
     }

@@ -2,7 +2,6 @@ package com.coseemo.pkmnambra.actorobserver;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.math.GridPoint2;
-import com.coseemo.pkmnambra.actorobserver.ActorObserver;
 import com.coseemo.pkmnambra.actors.*;
 import com.coseemo.pkmnambra.map.TileMap;
 import com.coseemo.pkmnambra.maplogic.DIRECTION;
@@ -20,7 +19,6 @@ public class World implements ActorObserver {
     private List<ActorBehavior> npcs;
     private final List<WorldObject> objects;
 
-
     public World(String name, TileMap tileMap, AssetManager assetManager) {
         this.name = name;
         this.map = tileMap;
@@ -28,39 +26,40 @@ public class World implements ActorObserver {
         this.npcs = new ArrayList<>();
     }
 
+    // Aggiungo un giocatore al mondo
     public void addPlayer(Player a) {
         map.getTile(a.getX(), a.getY()).setActor(a);
         player = a;
     }
 
+    // Aggiungo un NPC al mondo
     public void addNPC(ActorBehavior b) {
         int key = b.getActor().hashCode();
         map.getTile(b.getActor().getX(), b.getActor().getY()).setActor(b.getActor());
         npcs.add(b);
-        System.out.println(npcs);
     }
 
+    // Aggiungo un oggetto al mondo
     public void addObject(WorldObject o) {
         for (GridPoint2 p : o.getTiles()) {
-            //System.out.println("\t Adding tile: "+p.x+", "+p.y);
-            map.getTile(o.getX()+p.x, o.getY()+p.y).setObject(o);
+            map.getTile(o.getX() + p.x, o.getY() + p.y).setObject(o);
         }
         objects.add(o);
     }
 
+    // Rimuovo un attore dal mondo
     public void removeActor(Actor a) {
         map.getTile(a.getX(), a.getY()).setActor(null);
 
-        if(a instanceof Player){
+        if (a instanceof Player) {
             player = null;
-        }else{
+        } else {
             npcs.remove(getActorBehavior(a));
         }
-
     }
 
+    // Aggiorno lo stato del mondo
     public void update(float delta) {
-
         player.update(delta);
 
         for (ActorBehavior b : npcs) {
@@ -71,50 +70,58 @@ public class World implements ActorObserver {
         }
     }
 
-    public ActorBehavior getActorBehavior(Actor a){
+    // Ottengo il comportamento di un attore
+    public ActorBehavior getActorBehavior(Actor a) {
         int i = 0;
-        while(!Objects.equals(npcs.get(i).getActor().getName(), a.getName())){
+        while (!Objects.equals(npcs.get(i).getActor().getName(), a.getName())) {
             i++;
         }
         return npcs.get(i);
     }
 
+    // Restituisco la mappa del mondo
     public TileMap getMap() {
         return map;
     }
 
+    // Restituisco gli oggetti del mondo
     public List<WorldObject> getWorldObjects() {
         return objects;
     }
 
+    // Metodi dell'interfaccia ActorObserver
     @Override
     public void actorMoved(Actor a, DIRECTION direction, int x, int y) {
+        // Non implementato
     }
 
     @Override
     public void attemptedMove(Actor a, DIRECTION direction) {
-
+        // Non implementato
     }
 
     @Override
     public void actorBeforeMoved(Actor a, DIRECTION direction) {
-
+        // Non implementato
     }
 
+    // Ottengo gli NPCs nel mondo
     public ActorBehavior[] getNPCs() {
         ActorBehavior[] npcss = new ActorBehavior[npcs.size()];
         int i = 0;
-        for(ActorBehavior b : npcs){
+        for (ActorBehavior b : npcs) {
             npcss[i] = b;
         }
         return npcss;
     }
 
+    // Restituisco il nome del mondo
     public String getName() {
         return name;
     }
 
-    public Player getPlayer(){
+    // Ottengo il giocatore
+    public Player getPlayer() {
         return player;
     }
 }

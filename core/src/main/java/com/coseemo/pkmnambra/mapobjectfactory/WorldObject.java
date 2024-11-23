@@ -2,7 +2,7 @@ package com.coseemo.pkmnambra.mapobjectfactory;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.GridPoint2;
-import com.coseemo.pkmnambra.actors.Actor;
+import com.coseemo.pkmnambra.actorobserver.Actor;
 import com.coseemo.pkmnambra.maplogic.YSortable;
 
 import java.util.ArrayList;

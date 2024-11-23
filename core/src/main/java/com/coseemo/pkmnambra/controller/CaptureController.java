@@ -27,14 +27,10 @@ public class CaptureController extends InputAdapter {
     }
 
     public boolean keyDown(int keycode) {
-
         if (mustPress) {
             return false;
-
         } else {
-
             switch (keycode) {
-
                 case Keys.UP:
                     optionBox.moveUp();
                     break;
@@ -85,18 +81,16 @@ public class CaptureController extends InputAdapter {
             return;
         }
 
-        // Controlla se l'utente ha selezionato "Back" per tornare al menu principale
         if (selectedIndex == optionBox.getChoices().size() - 1) {
             isInInventoryMenu = false;
             showMainOptions();
             return;
         }
 
-
         String selectedChoice = optionBox.getChoices().get(selectedIndex);
         Item selectedItem = null;
 
-        // Cerca l'oggetto selezionato in base al nome esatto
+        // Cerco l'oggetto selezionato in base al nome
         for (Item item : player.getInventory().getItems().keySet()) {
             if (selectedChoice.startsWith(item.getName())) {
                 selectedItem = item;
@@ -161,7 +155,7 @@ public class CaptureController extends InputAdapter {
             player.removeItem(selectedItem.getName());
         }
 
-        // Torna al menu principale dopo l'uso
+        // Torno al menu principale dopo l'uso
         isInInventoryMenu = false;
         showMainOptions();
     }
@@ -183,7 +177,8 @@ public class CaptureController extends InputAdapter {
         for (Item item : items) {
             optionBox.addOption(item.getName() + " x" + player.getInventory().getItems().get(item));
         }
-        // Aggiunge il tasto "Back" come ultima opzione per tornare al menu principale
+
+        // Aggiungo il tasto "Back" per tornare al menu principale
         optionBox.addOption("Back");
 
         optionBox.setVisible(true);

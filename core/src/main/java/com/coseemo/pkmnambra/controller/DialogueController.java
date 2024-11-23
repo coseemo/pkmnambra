@@ -8,7 +8,6 @@ import com.coseemo.pkmnambra.ui.OptionBox;
 
 import java.util.List;
 
-
 public class DialogueController extends InputAdapter {
 
     private DialogueTraverser traverser;
@@ -39,20 +38,20 @@ public class DialogueController extends InputAdapter {
         if (dialogueBox.isVisible() && !dialogueBox.isFinished()) {
             return false;
         }
-        if (traverser != null && keycode == Keys.X) { // continue through tree
+        if (traverser != null && keycode == Keys.X) { // continuo nel dialogo
             DialogueNode thisNode = traverser.getNode();
 
-            if (thisNode instanceof LinearDialogueNode)  {
-                LinearDialogueNode node = (LinearDialogueNode)thisNode;
-                if (node.getPointers().isEmpty()) { // dead end, since no pointers
-                    traverser = null;				// end dialogue
+            if (thisNode instanceof LinearDialogueNode) {
+                LinearDialogueNode node = (LinearDialogueNode) thisNode;
+                if (node.getPointers().isEmpty()) { // non ci sono altre opzioni, fine del dialogo
+                    traverser = null;
                     dialogueBox.setVisible(false);
                 } else {
-                    progress(0); // progress through first pointer
+                    progress(0); // passo al primo puntatore
                 }
             }
-            if (thisNode instanceof ChoiceDialogueNode)  {
-                ChoiceDialogueNode node = (ChoiceDialogueNode)thisNode;
+            if (thisNode instanceof ChoiceDialogueNode) {
+                ChoiceDialogueNode node = (ChoiceDialogueNode) thisNode;
                 progress(optionBox.getIndex());
             }
 
@@ -75,17 +74,13 @@ public class DialogueController extends InputAdapter {
         dialogueBox.setVisible(true);
         optionBox.setVisible(false);
 
-        System.out.println("bimu");
-
-
-
         DialogueNode nextNode = traverser.getNode();
         if (nextNode instanceof LinearDialogueNode) {
-            LinearDialogueNode node = (LinearDialogueNode)nextNode;
+            LinearDialogueNode node = (LinearDialogueNode) nextNode;
             dialogueBox.animateText(node.getText());
         }
         if (nextNode instanceof ChoiceDialogueNode) {
-            ChoiceDialogueNode node = (ChoiceDialogueNode)nextNode;
+            ChoiceDialogueNode node = (ChoiceDialogueNode) nextNode;
             dialogueBox.animateText(node.getText());
             optionBox.clear();
             for (String s : node.getLabels()) {
@@ -99,11 +94,11 @@ public class DialogueController extends InputAdapter {
         DialogueNode nextNode = traverser.getNextNode(index);
 
         if (nextNode instanceof LinearDialogueNode) {
-            LinearDialogueNode node = (LinearDialogueNode)nextNode;
+            LinearDialogueNode node = (LinearDialogueNode) nextNode;
             dialogueBox.animateText(node.getText());
         }
         if (nextNode instanceof ChoiceDialogueNode) {
-            ChoiceDialogueNode node = (ChoiceDialogueNode)nextNode;
+            ChoiceDialogueNode node = (ChoiceDialogueNode) nextNode;
             dialogueBox.animateText(node.getText());
             optionBox.clearChoices();
             for (String s : node.getLabels()) {
@@ -112,7 +107,7 @@ public class DialogueController extends InputAdapter {
         }
     }
 
-    public boolean isFinished(){
+    public boolean isFinished() {
         return dialogueBox.isFinished();
     }
 

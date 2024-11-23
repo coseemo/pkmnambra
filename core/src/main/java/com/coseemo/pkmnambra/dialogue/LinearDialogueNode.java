@@ -7,7 +7,7 @@ public class LinearDialogueNode extends DialogueNode {
 
     private String text;
     private int id;
-    private List<Integer> pointers = new ArrayList<Integer>();
+    private List<Integer> pointers = new ArrayList<>();
 
     public LinearDialogueNode(String text, int id) {
         super(text, id);
@@ -15,6 +15,7 @@ public class LinearDialogueNode extends DialogueNode {
         this.id = id;
     }
 
+    // Imposto il puntatore al prossimo nodo
     public void setPointer(int id) {
         pointers.add(id);
     }
@@ -32,5 +33,4 @@ public class LinearDialogueNode extends DialogueNode {
     public List<Integer> getPointers() {
         return pointers;
     }
-
 }

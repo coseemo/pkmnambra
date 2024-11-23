@@ -13,51 +13,48 @@ public class Inventory {
         this.items = new HashMap<>();
     }
 
-    // Aggiungi un oggetto all'inventario usando una stringa
+    // Aggiungo un oggetto all'inventario usando una stringa
     public void addItem(String itemName) {
         try {
-            // Usa la fabbrica per creare l'oggetto
+            // Creo l'oggetto tramite la fabbrica
             Item item = CaptureItemFactory.createItem(itemName);
 
-            // Ottieni la quantità attuale dell'oggetto, o 0 se non è presente
+            // Recupero la quantità attuale dell'oggetto, o 0 se non presente
             int currentCount = items.getOrDefault(item, 0);
 
-            // Aggiungi o aggiorna la quantità dell'oggetto
+            // Aggiungo o aggiorno la quantità dell'oggetto
             items.put(item, currentCount + 1);
-            System.out.println(item.getName() + " è stato aggiunto all'inventario. Quantità attuale: " + (currentCount + 1));
         } catch (IllegalArgumentException e) {
-            System.out.println("Errore: Tipo di oggetto sconosciuto - " + itemName);
+            // Gestisco l'errore nel caso di un oggetto sconosciuto
         }
     }
 
+    // Rimuovo un oggetto dall'inventario
     public boolean removeItem(String itemName) {
         try {
-            // Usa la fabbrica per trovare l'oggetto corrispondente
+            // Trovo l'oggetto tramite la fabbrica
             Item item = CaptureItemFactory.createItem(itemName);
 
             if (!items.containsKey(item)) {
-                System.out.println(itemName + " non è presente nell'inventario.");
                 return false;
             }
 
             int currentCount = items.get(item);
             if (currentCount > 1) {
-                // Decrementa la quantità
+                // Decremento la quantità
                 items.put(item, currentCount - 1);
-                System.out.println(item.getName() + " è stato usato. Quantità rimanente: " + (currentCount - 1));
             } else {
-                // Rimuovi l'oggetto
+                // Rimuovo l'oggetto
                 items.remove(item);
-                System.out.println(item.getName() + " è stato completamente rimosso dall'inventario.");
             }
             return true;
         } catch (IllegalArgumentException e) {
-            System.out.println("Errore: Tipo di oggetto sconosciuto - " + itemName);
+            // Gestisco l'errore nel caso di un oggetto sconosciuto
             return false;
         }
     }
 
-    // Restituisce una mappa col nome dello strumento e la quantità
+    // Restituisco una mappa con il nome dello strumento e la sua quantità
     public Map<String, Integer> getInventorySummary() {
         return items.entrySet().stream()
             .collect(Collectors.toMap(
@@ -66,42 +63,42 @@ public class Inventory {
             ));
     }
 
-    // Carica l'inventario da una mappa nome-quantità
+    // Carico gli oggetti nell'inventario da una mappa nome-quantità
     public void loadItems(Map<String, Integer> inventory) {
-        items.clear(); // Svuota l'inventario attuale
+        items.clear(); // Svuoto l'inventario attuale
         inventory.forEach((itemName, quantity) -> {
             try {
-                // Usa la fabbrica per creare l'oggetto
+                // Creo l'oggetto tramite la fabbrica
                 Item item = CaptureItemFactory.createItem(itemName);
 
-                // Aggiungi l'oggetto con la quantità specificata
+                // Aggiungo l'oggetto con la quantità specificata
                 items.put(item, quantity);
             } catch (IllegalArgumentException e) {
-                System.out.println("Errore: Tipo di oggetto sconosciuto durante il caricamento - " + itemName);
+                // Gestisco l'errore nel caso di un oggetto sconosciuto
             }
         });
     }
 
-    // Mostra gli oggetti con le quantità
+    // Mostro gli oggetti con le loro quantità
     public void showInventory() {
         if (items.isEmpty()) {
-            System.out.println("L'inventario è vuoto.");
+            // Se l'inventario è vuoto, lo indico
         } else {
-            System.out.println("Oggetti nell'inventario:");
-            items.forEach((item, quantity) ->
-                System.out.println("- " + item.getName() + ": " + quantity)
-            );
+            items.forEach((item, quantity) -> {
+                // Mostro ogni oggetto con la sua quantità
+            });
         }
     }
 
+    // Restituisco la mappa degli oggetti
     public Map<Item, Integer> getItems() {
         return items;
     }
 
+    // Restituisco gli oggetti per categoria
     public List<Item> getItemsByCategory(String category) {
-        return items.keySet().stream() // Ottieni tutti gli oggetti nell'inventario
-            .filter(item -> item.getCategory().equalsIgnoreCase(category)) // Filtra per categoria
-            .collect(Collectors.toList()); // Raccogli il risultato in una lista
+        return items.keySet().stream()
+            .filter(item -> item.getCategory().equalsIgnoreCase(category))
+            .collect(Collectors.toList());
     }
-
 }

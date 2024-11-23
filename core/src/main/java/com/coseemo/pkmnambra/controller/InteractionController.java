@@ -2,7 +2,7 @@ package com.coseemo.pkmnambra.controller;
 
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
-import com.coseemo.pkmnambra.actors.Actor;
+import com.coseemo.pkmnambra.actorobserver.Actor;
 import com.coseemo.pkmnambra.actors.ActorBehavior;
 import com.coseemo.pkmnambra.actors.Player;
 import com.coseemo.pkmnambra.dialogue.Dialogue;
@@ -25,13 +25,12 @@ public class InteractionController extends InputAdapter {
 
     @Override
     public boolean keyUp(int keycode) {
-        if(isInDialogue){
+        if (isInDialogue) {
             return false;
         }
 
         if (keycode == Keys.X) {
-
-            Tile target = a.getWorld().getMap().getTile(a.getX()+a.getFacing().getDx(), a.getY()+a.getFacing().getDy());
+            Tile target = a.getWorld().getMap().getTile(a.getX() + a.getFacing().getDx(), a.getY() + a.getFacing().getDy());
             if (target.getActor() != null) {
                 Actor targetActor = target.getActor();
                 ActorBehavior actorBehavior = a.getWorld().getActorBehavior(targetActor);
@@ -39,21 +38,16 @@ public class InteractionController extends InputAdapter {
                 List<Dialogue> dialogues = actorBehavior.interact((Player) a);
                 if (dialogues != null) {
                     isInDialogue = true;
-                        for(Dialogue d : dialogues){
-                            dialogueController.startDialogue(d);
-                        }
-                    if (dialogueController.isFinished()){
+                    for (Dialogue d : dialogues) {
+                        dialogueController.startDialogue(d);
+                    }
+                    if (dialogueController.isFinished()) {
                         isInDialogue = false;
                     }
-                }else {
-                    System.out.println("dialogo vuoto");
                 }
-            }else{
-                System.out.println("non c'è l'actor");
             }
             return false;
         }
         return false;
     }
-
 }

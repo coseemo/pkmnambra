@@ -4,10 +4,13 @@ import com.badlogic.gdx.*;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.coseemo.pkmnambra.Main;
 import com.coseemo.pkmnambra.savemanager.SaveData;
 import com.coseemo.pkmnambra.actors.Player;
@@ -23,47 +26,67 @@ import java.io.IOException;
 
 public class MenuScreen implements Screen {
     private final Game game;
-    AssetManager assetManager;
-    private SpriteBatch batch;
+    private final AssetManager assetManager;
+    private final SpriteBatch batch;
     private BitmapFont font;
-    private String[] options = {"New Game", "Load Game"};
+    private final String[] options = {"New Game", "Load Game"};
     private int selectedIndex = 0;
+    private Texture background;
+    private Viewport viewport;
 
     public MenuScreen(Game game) {
         this.game = game;
-        batch = new SpriteBatch();
-        font = new BitmapFont();
+        this.batch = new SpriteBatch();
         this.assetManager = ((Main) game).getAssetManager();
 
+        // Carico lo sfondo
+        this.background = new Texture(Gdx.files.internal("assets/background/amber.png"));
+
+        // Inizializzo il viewport per il ridimensionamento
+        this.viewport = new FitViewport(800, 600);
+
+        // Creazione e scalatura del font
+        this.font = new BitmapFont();
+        this.font.getData().setScale(2f); // Scritte più grandi
     }
 
     @Override
     public void show() {
+        // Nessuna azione necessaria quando lo schermo viene mostrato
     }
 
     @Override
     public void render(float delta) {
-        // Clear dello schermo
+        // Pulizia dello schermo
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        // Input per spostarsi tra le opzioni
+        // Aggiorno il viewport
+        viewport.apply();
+        batch.setProjectionMatrix(viewport.getCamera().combined);
+
+        // Disegno lo sfondo
+        batch.begin();
+        batch.draw(background, 0, 0, viewport.getWorldWidth(), viewport.getWorldHeight());
+        batch.end();
+
+        // Gestione input
         if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
             selectedIndex = (selectedIndex - 1 + options.length) % options.length;
         } else if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
             selectedIndex = (selectedIndex + 1) % options.length;
         } else if (Gdx.input.isKeyJustPressed(Input.Keys.X)) {
             if (selectedIndex == 0) {
-                game.setScreen(new TransitionScreen(game, this, new GameScreen(loadall())));
+                game.setScreen(new TransitionScreen(game, this, new GameScreen(loadAllAssets())));
             } else {
-                SaveData saveData = null;
+                SaveData saveData;
                 try {
                     saveData = SaveManager.loadGame();
                 } catch (IOException e) {
-                    throw new RuntimeException(e);
+                    throw new RuntimeException("Errore durante il caricamento del salvataggio", e);
                 }
 
-                GameState gameState = loadall();
+                GameState gameState = loadAllAssets();
                 World world = MapLoader.loadMapFromSave(saveData, assetManager);
 
                 gameState.initialize((Main) game, world.getPlayer(), world);
@@ -71,39 +94,52 @@ public class MenuScreen implements Screen {
             }
         }
 
-        // Disegno delle opzioni
+        // Disegno le opzioni del menu
         batch.begin();
         for (int i = 0; i < options.length; i++) {
             if (i == selectedIndex) {
-                font.setColor(1, 1, 0, 1); // Evidenziato
+                font.setColor(0, 0, 1, 1); // Evidenzio l'opzione selezionata
             } else {
                 font.setColor(1, 1, 1, 1);
             }
-            font.draw(batch, options[i], Gdx.graphics.getWidth() / 2f, Gdx.graphics.getHeight() / 2f - i * 30);
+            font.draw(batch, options[i], viewport.getWorldWidth() / 2f + 100, viewport.getWorldHeight() / 2f - i * 50);
         }
         batch.end();
     }
 
     @Override
-    public void resize(int width, int height) {}
+    public void resize(int width, int height) {
+        // Aggiorno il viewport con le nuove dimensioni
+        viewport.update(width, height, true);
+    }
 
     @Override
-    public void pause() {}
+    public void pause() {
+        // Nessuna azione necessaria in pausa
+    }
 
     @Override
-    public void resume() {}
+    public void resume() {
+        // Nessuna azione necessaria al ripristino
+    }
 
     @Override
-    public void hide() {}
+    public void hide() {
+        // Nessuna azione necessaria quando lo schermo viene nascosto
+    }
 
     @Override
     public void dispose() {
+        // Rilascio le risorse
         batch.dispose();
         font.dispose();
+        background.dispose();
     }
 
-    public GameState loadall(){
-        // Inizializza AssetManager
+    /**
+     * Carico tutte le risorse necessarie.
+     */
+    public GameState loadAllAssets() {
         AssetManager assetManager = new AssetManager();
         assetManager.load("assets/sprites/player_packed/mimipacked.atlas", TextureAtlas.class);
         assetManager.load("assets/tiles/tilespack/tilespack.atlas", TextureAtlas.class);
@@ -133,7 +169,7 @@ public class MenuScreen implements Screen {
         World start = MapLoader.loadMapAndObjects("assets/maps/beach.txt", assetManager);
         Player player = new Player(start, 10, 10, animations);
         start.addPlayer(player);
-        // Inizializza GameState
+
         GameState gameState = GameState.getInstance();
         gameState.initialize((Main) game, player, start);
         return gameState;

@@ -72,7 +72,7 @@
 
     <!-- Dialogo premio nuovo Pokémon -->
     <dialogue name="new_pokemon_reward">
-        <linear id="0" text="Excellent! This is the first time you've brought me this Pokémon!">
+        <linear id="0" text="Excellent! This is the first time you've caught this pokemon!">
             <pointer target="1"/>
         </linear>
         <linear id="1" text=" Here's a reward for your effort! Keep up the great work!"/>

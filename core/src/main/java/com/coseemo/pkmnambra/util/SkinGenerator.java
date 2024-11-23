@@ -24,7 +24,7 @@ public class SkinGenerator {
             throw new GdxRuntimeException("uipack.atlas was not loaded");
         }
 
-        // Ottieni l'atlas UI
+        // Ottiengo l'atlas UI
         TextureAtlas uiAtlas = assetManager.get("assets/ui/uipack.atlas");
 
         // Registrazione di vari NinePatch per le UI
@@ -38,7 +38,7 @@ public class SkinGenerator {
         battleinfobox.setPadLeft((int) battleinfobox.getTopHeight());
         skin.add("battleinfobox", battleinfobox);
 
-        // Aggiungi le texture come TextureRegion
+        // Aggiungo le texture come TextureRegion
         skin.add("arrow", uiAtlas.findRegion("arrow"), TextureRegion.class);
         skin.add("hpbar_side", uiAtlas.findRegion("hpbar_side"), TextureRegion.class);
         skin.add("hpbar_bar", uiAtlas.findRegion("hpbar_bar"), TextureRegion.class);

@@ -1,10 +1,9 @@
-package com.coseemo.pkmnambra.actors;
+package com.coseemo.pkmnambra.actorobserver;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Interpolation;
-import com.coseemo.pkmnambra.actorobserver.ActorObserver;
+import com.coseemo.pkmnambra.actors.Player;
 import com.coseemo.pkmnambra.map.Tile;
-import com.coseemo.pkmnambra.actorobserver.World;
 import com.coseemo.pkmnambra.dialogue.Dialogue;
 import com.coseemo.pkmnambra.maplogic.*;
 import com.coseemo.pkmnambra.util.AnimationSet;
@@ -12,29 +11,29 @@ import com.coseemo.pkmnambra.util.AnimationSet;
 import java.util.Objects;
 
 public class Actor implements YSortable {
+
+    private String name;
     private World world;
     private Dialogue dialogue;
+    private ActorObserver observer;
+
     private int x, y; // Coordinate attuali
     private DIRECTION facing; // Direzione del personaggio
     private float worldX, worldY; // Posizione per interpolazione
     private int srcX, srcY, destX, destY; // Coordinate per il movimento
     private float animTimer; // Timer per l'animazione
-    private final float WALK_TIME_PER_TILE = 0.2f;
-    private final float REFACE_TIME = 0.1f;
-    private float walkTimer;
+    private float walkTimer; // Timer per il cammino
     private boolean moveRequestThisFrame; // Richiesta di movimento
-    private AnimationSet animations;
-    private ActorObserver observer;
-    private ACTOR_STATE state;
-    private boolean visible;
-
-    private String name;
-
+    private boolean visible; // Visibilità dell'attore
+    private ACTOR_STATE state; // Stato dell'attore
+    private AnimationSet animations; // Animazioni dell'attore
+    private static final float WALK_TIME_PER_TILE = 0.2f;
+    private static final float REFACE_TIME = 0.1f;
 
     public Actor(String name, World world, int x, int y, AnimationSet animations) {
         this.name = name;
-        this.observer = world;
         this.world = world;
+        this.observer = world;
         this.x = x;
         this.y = y;
         this.worldX = x;
@@ -44,8 +43,7 @@ public class Actor implements YSortable {
         this.facing = DIRECTION.EAST;
     }
 
-    public Actor() {
-    }
+    public Actor() {}
 
     public enum ACTOR_STATE {
         WALKING,
@@ -55,9 +53,10 @@ public class Actor implements YSortable {
     }
 
     public boolean move(DIRECTION dir) {
-
         if (state == ACTOR_STATE.WALKING) {
-            if (facing == dir) moveRequestThisFrame = true;
+            if (facing == dir) {
+                moveRequestThisFrame = true;
+            }
             return false;
         }
 
@@ -66,10 +65,10 @@ public class Actor implements YSortable {
             return false;
         }
 
-        // Notifica prima del movimento
+        // Notifico prima del movimento
         observer.actorBeforeMoved(this, dir);
 
-        // Controlla se il tile permette il movimento
+        // Controllo del movimento sul tile
         if (!world.getMap().getTile(x + dir.getDx(), y + dir.getDy()).actorBeforeStep(this)) {
             observer.attemptedMove(this, dir);
             return false;
@@ -77,50 +76,51 @@ public class Actor implements YSortable {
 
         initializeMove(dir);
 
-        // Remove actor from current tile
+        // Rimuovo l'attore dal tile attuale
         world.getMap().getTile(x, y).setActor(null);
 
-        // Update coordinates but don't check events yet
+        // Aggiorno le coordinate senza controllare eventi
         x += dir.getDx();
         y += dir.getDy();
         world.getMap().getTile(x, y).setActor(this);
 
-        // Notifica il tile del movimento
+        // Notifico il tile del movimento
         world.getMap().getTile(x, y).actorStep(this);
 
-        // Notifica l'observer del movimento completato
+        // Notifico l'osservatore
         observer.actorMoved(this, dir, x, y);
 
         return true;
     }
 
     private boolean canMove(DIRECTION dir) {
-
-        if(state == ACTOR_STATE.STILL){
+        if (state == ACTOR_STATE.STILL) {
             return false;
         }
 
         int targetX = x + dir.getDx();
         int targetY = y + dir.getDy();
 
-        // Verifica prima se le coordinate sono all'interno dei limiti della mappa
+        // Verifico se le coordinate sono all'interno dei limiti della mappa
         if (targetX < 0 || targetX >= world.getMap().getWidth() ||
             targetY < 0 || targetY >= world.getMap().getHeight()) {
             return false;
         }
 
-        // Ora possiamo essere sicuri che getTile non restituirà null
+        // Ottengo il tile di destinazione
         Tile targetTile = world.getMap().getTile(targetX, targetY);
         if (targetTile == null) {
             return false;
         }
 
-        // Controllo degli attori e degli oggetti sul tile
+        // Controllo attori e oggetti sul tile
         return targetTile.getActor() == null &&
             (targetTile.getObject() == null || targetTile.getObject().isWalkable());
     }
+
     private void initializeMove(DIRECTION dir) {
-        if(state == ACTOR_STATE.STILL) return;
+        if (state == ACTOR_STATE.STILL) return;
+
         this.facing = dir;
         this.srcX = x;
         this.srcY = y;
@@ -132,40 +132,23 @@ public class Actor implements YSortable {
         this.state = ACTOR_STATE.WALKING;
     }
 
-    private boolean playerHasMoved() {
-        return worldX != x || worldY != y;
-    }
-
     private void finishMove() {
-        // Update position first
         this.worldY = destY;
         this.worldX = destX;
 
-        // Reset delle coordinate di movimento
-        this.srcX = this.x;
-        this.srcY = this.y;
-        this.destX = this.x;
-        this.destY = this.y;
+        this.srcX = x;
+        this.srcY = y;
+        this.destX = x;
+        this.destY = y;
 
-        // Notifica il tile del completamento del movimento
         world.getMap().getTile(x, y).actorStep(this);
 
-        // Then change state to standing
         state = ACTOR_STATE.STANDING;
         animTimer = 0f;
     }
 
-    public Dialogue getDialogue() {
-        return dialogue;
-    }
-
-    protected void setDialogue(Dialogue dialogue) {
-        this.dialogue = dialogue;
-    }
-
     public void update(float delta) {
-
-        if(state == ACTOR_STATE.STILL){
+        if (state == ACTOR_STATE.STILL) {
             worldX = x;
             worldY = y;
             return;
@@ -181,6 +164,7 @@ public class Actor implements YSortable {
             if (animTimer > WALK_TIME_PER_TILE) {
                 float leftOverTime = animTimer - WALK_TIME_PER_TILE;
                 finishMove();
+
                 if (moveRequestThisFrame) {
                     if (move(facing)) {
                         animTimer += leftOverTime;
@@ -193,13 +177,13 @@ public class Actor implements YSortable {
             }
         }
 
-
         if (state == ACTOR_STATE.REFACING) {
             animTimer += delta;
             if (animTimer > REFACE_TIME) {
                 state = ACTOR_STATE.STANDING;
             }
         }
+
         moveRequestThisFrame = false;
     }
 
@@ -255,7 +239,6 @@ public class Actor implements YSortable {
         this.worldX = targetX;
         this.worldY = targetY;
 
-        // Reset delle coordinate di interpolazione
         this.srcX = targetX;
         this.srcY = targetY;
         this.destX = targetX;
@@ -271,15 +254,12 @@ public class Actor implements YSortable {
     }
 
     public void changeWorld(World world, int newX, int newY) {
-        // Rimuove il giocatore dal mondo attuale
         this.world.removeActor(this);
-        // Sincronizza le coordinate e resetta il movimento
         this.setCoords(newX, newY);
 
         this.animTimer = 0f;
-        this.moveRequestThisFrame = false; // Resetta richieste di movimento
+        this.moveRequestThisFrame = false;
 
-        // Aggiunge il giocatore al nuovo mondo
         this.world = world;
         this.world.addPlayer((Player) this);
     }
@@ -315,12 +295,11 @@ public class Actor implements YSortable {
         Actor actor = (Actor) o;
         return getX() == actor.getX() &&
             getY() == actor.getY() &&
-            getName().equals(actor.getName()); // Use a unique identifier for actors.
+            getName().equals(actor.getName());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getX(), getY(), getName()); // Ensure consistency with equals.
+        return Objects.hash(getX(), getY(), getName());
     }
-
 }

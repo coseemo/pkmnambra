@@ -4,9 +4,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.MathUtils;
 import com.coseemo.pkmnambra.actors.Player;
-import com.coseemo.pkmnambra.actors.Actor;
+import com.coseemo.pkmnambra.actorobserver.Actor;
 import com.coseemo.pkmnambra.maplogic.EncounterType;
-import com.coseemo.pkmnambra.mapobjectfactory.WorldObject;
 import com.coseemo.pkmnambra.pokemonfactory.Pokemon;
 import com.coseemo.pkmnambra.pokemonfactory.PokemonFactory;
 import com.coseemo.pkmnambra.screen.CaptureScreen;
@@ -14,9 +13,6 @@ import com.coseemo.pkmnambra.singleton.GameState;
 
 public class EncounterZoneObject extends WorldObject {
     private final EncounterType encounterType;
-
-    private int safeX;
-    private int safeY;
     private float stepCounter = 0;
     private static final float STEPS_PER_CHECK = 4;
 
@@ -25,8 +21,6 @@ public class EncounterZoneObject extends WorldObject {
                                TextureRegion texture, GridPoint2[] tiles) {
         super(x, y, true, texture, 0.65f, 0.65f, tiles);
         this.encounterType = encounterType;
-        this.safeX = x;
-        this.safeY = y;
     }
 
     @Override

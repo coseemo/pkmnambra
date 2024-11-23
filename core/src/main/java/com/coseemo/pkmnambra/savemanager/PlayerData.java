@@ -9,10 +9,10 @@ import java.util.Map;
 
 public class PlayerData {
     public int x, y;
-    public Map<String, Integer> inventory; // Oggetti e quantità
-    public List<String> team;
-    public Map<String, Boolean> toCatch;
-    public boolean hasInventory;
+    public Map<String, Integer> inventory; // Gli oggetti e le loro quantità
+    public List<String> team; // Il team di creature del giocatore
+    public Map<String, Boolean> toCatch; // Gli obiettivi da catturare
+    public boolean hasInventory; // Indica se il giocatore ha l'inventario
 
     public static PlayerData fromPlayer(Player player) {
         PlayerData data = new PlayerData();

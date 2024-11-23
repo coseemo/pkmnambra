@@ -1,7 +1,5 @@
 package com.coseemo.pkmnambra.dialogue;
 
-import java.io.IOException;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetLoaderParameters;
@@ -12,7 +10,6 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.XmlReader;
 import com.badlogic.gdx.utils.XmlReader.Element;
-
 
 public class DialogueLoader extends AsynchronousAssetLoader<DialogueDb, DialogueLoader.DialogueDbParameter> {
 
@@ -25,19 +22,15 @@ public class DialogueLoader extends AsynchronousAssetLoader<DialogueDb, Dialogue
     @Override
     public void loadAsync(AssetManager asman, String filename, FileHandle file, DialogueDbParameter parameter) {
         XmlReader xr = new XmlReader();
-
-        Element root = null;
-        root = xr.parse(file.reader());
+        Element root = xr.parse(file.reader());
 
         if (!root.getName().equals("Dialogues")) {
-            System.err.println("Root node in "+filename+" is "+root.getName()+" expected Dialogues");
             Gdx.app.exit();
         }
 
         for (int i = 0; i < root.getChildCount(); i++) {
             Element loadDialogue = root.getChild(i);
             if (!loadDialogue.getName().equals("dialogue")) {
-                System.err.println("Found " + loadDialogue.getName() +"-element where expected dialogue-element in "+filename);
                 Gdx.app.exit();
             }
             String attrName = loadDialogue.getAttribute("name");
@@ -65,11 +58,8 @@ public class DialogueLoader extends AsynchronousAssetLoader<DialogueDb, Dialogue
             }
 
             diagDb.addTerrain(attrName, dialogue);
-            System.out.println("\t Loaded dialogue "+attrName);
         }
     }
-
-
 
     @Override
     public DialogueDb loadSync(AssetManager assetManager, String filename, FileHandle file, DialogueDbParameter parameter) {
@@ -82,5 +72,4 @@ public class DialogueLoader extends AsynchronousAssetLoader<DialogueDb, Dialogue
     }
 
     static public class DialogueDbParameter extends AssetLoaderParameters<DialogueDb> {}
-
 }

@@ -7,9 +7,8 @@ public class ChoiceDialogueNode extends DialogueNode {
 
     private String text;
     private int id;
-
-    private List<Integer> pointers = new ArrayList<Integer>();
-    private List<String> labels = new ArrayList<String>();
+    private List<Integer> pointers = new ArrayList<>();
+    private List<String> labels = new ArrayList<>();
 
     public ChoiceDialogueNode(String text, int id) {
         super(text, id);
@@ -17,6 +16,7 @@ public class ChoiceDialogueNode extends DialogueNode {
         this.id = id;
     }
 
+    // Aggiungo una scelta di dialogo con il relativo ID di destinazione
     public void addChoice(String text, int targetId) {
         pointers.add(targetId);
         labels.add(text);
@@ -39,5 +39,4 @@ public class ChoiceDialogueNode extends DialogueNode {
     public List<String> getLabels() {
         return labels;
     }
-
 }

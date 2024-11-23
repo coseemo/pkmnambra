@@ -6,7 +6,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.coseemo.pkmnambra.actors.Actor;
+import com.coseemo.pkmnambra.actorobserver.Actor;
 import com.coseemo.pkmnambra.capture.CaptureLogic;
 import com.coseemo.pkmnambra.capture.CaptureRenderer;
 import com.coseemo.pkmnambra.actors.Player;
@@ -22,105 +22,122 @@ public class CaptureScreen implements Screen, CaptureObserver {
     private final CaptureLogic captureLogic;
     private final CaptureController captureController;
     private final GameState gameState;
-    private boolean notExit;
-    private boolean waitingForKeyPress;
-    private boolean keyPressed;
-    private float exitTimer;
-    private static final float EXIT_DELAY = 0.05f; // Delay before changing screen
     private final CaptureRenderer captureRenderer;
-    private String eventType;
     private final Viewport viewport;
-    private static final float VIRTUAL_WIDTH = 1280;  // Set your desired virtual width
-    private static final float VIRTUAL_HEIGHT = 700;
 
+    private boolean notExit;  // Indica se la schermata deve continuare a essere visibile
+    private boolean waitingForKeyPress;  // Indica se si sta aspettando una pressione di tasto
+    private boolean keyPressed;  // Indica se il tasto è stato premuto
+    private float exitTimer;  // Timer per ritardare la chiusura della schermata
+
+    private static final float EXIT_DELAY = 0.05f; // Ritardo prima di cambiare schermata
+    private static final float VIRTUAL_WIDTH = 1280;  // Larghezza virtuale desiderata
+    private static final float VIRTUAL_HEIGHT = 700;  // Altezza virtuale desiderata
+
+    private String eventType;  // Tipo di evento per la cattura
+
+    // Costruttore della schermata di cattura
     public CaptureScreen(GameState gameState, Pokemon pokemon) {
         this.game = gameState.getGame();
         this.pokemon = pokemon;
         this.player = gameState.getPlayerState().getPlayer();
-        this.notExit = true;
-        this.gameState = gameState;
         this.captureLogic = new CaptureLogic(pokemon, gameState);
         this.captureRenderer = new CaptureRenderer(pokemon, gameState);
         this.captureController = new CaptureController(captureRenderer.getOptionBox(), gameState);
+        this.gameState = gameState;
 
         this.viewport = new FitViewport(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
 
+        // Registrazione della schermata e dell'osservatore dell'evento
         gameState.getScreenManager().setCurrentScreen(this);
         gameState.getEventManager().getEventNotifier().registerObserver(this);
 
-        resetExitState();
+        resetExitState();  // Inizializzazione dello stato di uscita
     }
 
     @Override
     public void show() {
+        // Imposta il processore di input per gestire gli eventi
         Gdx.input.setInputProcessor(captureController);
         viewport.update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), true);
     }
 
     @Override
     public void render(float delta) {
+        // Applica le modifiche alla visualizzazione
         viewport.apply();
 
+        // Rende la cattura e aggiorna l'interfaccia utente
         captureRenderer.render(delta);
         updateCaptureUI();
 
+        // Se stiamo aspettando una pressione di tasto, gestiamo la logica
         if (waitingForKeyPress) {
             handleKeyPress(delta);
         }
     }
 
     private void updateCaptureUI() {
+        // Aggiorna probabilità di cattura e livello di rabbia
         captureRenderer.updateCaptureProbability(captureLogic.getCaptureProbability());
         captureRenderer.updateAngerLevel(captureLogic.getAngerLevel());
     }
 
     private void handleKeyPress(float delta) {
+        // Attende che un tasto venga premuto per continuare
         if (!Gdx.input.isKeyPressed(Input.Keys.ANY_KEY) && !keyPressed) {
-            keyPressed = true; // Wait until a key is pressed
+            keyPressed = true; // Attende che venga premuto un tasto
         }
 
+        // Quando un tasto è premuto, inizia il timer per cambiare schermata
         if (keyPressed && Gdx.input.isKeyPressed(Input.Keys.ANY_KEY)) {
             exitTimer += delta;
             if (exitTimer >= EXIT_DELAY) {
-                changeScreen();
+                changeScreen();  // Cambia la schermata
             }
         }
     }
 
     @Override
     public void resize(int width, int height) {
+        // Ridimensiona la visualizzazione
         viewport.update(width, height, true);
     }
 
     @Override
     public void pause() {
+        // Non sono necessarie azioni particolari quando la schermata viene messa in pausa
     }
 
     @Override
     public void resume() {
+        // Non sono necessarie azioni particolari quando la schermata viene ripresa
     }
 
     @Override
     public void hide() {
+        // Rimuove il giocatore dal posto attuale e ripristina la sua posizione sicura
         gameState.getMapState().getCurrentPlace().removeActor(player);
         player.setCoords(gameState.getPlayerState().getSafeX(), gameState.getPlayerState().getSafeY());
         player.setState(Actor.ACTOR_STATE.STANDING);
         gameState.getMapState().getCurrentPlace().addPlayer(player);
-        Gdx.input.setInputProcessor(null);
+        Gdx.input.setInputProcessor(null);  // Rimuove il processore di input
     }
 
     @Override
     public void dispose() {
+        // Ripristina lo stato del giocatore e deregistra l'osservatore
         gameState.getPlayerState().setPlayer(player);
         gameState.getEventManager().getEventNotifier().deregisterObserver(this);
-        captureRenderer.dispose();
+        captureRenderer.dispose();  // Rilascia le risorse del renderer di cattura
     }
 
     @Override
     public void update(String eventType) {
-
         System.out.println(eventType);
+        this.eventType = eventType;
 
+        // Gestione degli eventi di cattura
         switch (eventType) {
             case "USE_STANDARDBAIT":
             case "USE_SPICYBAIT":
@@ -144,88 +161,96 @@ public class CaptureScreen implements Screen, CaptureObserver {
             case "USE_GREATBALL":
             case "USE_ULTRABALL":
             case "USE_MASTERBALL":
-                captureLogic.attemptCapture(getBallIndex(eventType));
+                captureLogic.attemptCapture(getBallIndex(eventType));  // Prova a catturare il Pokémon
                 break;
             case "CAPTURE_FAIL":
-                captureRenderer.updateStatusMessage(pokemon.getName() + " broke free!");
+                captureRenderer.updateStatusMessage(pokemon.getName() + " broke free!");  // Cattura fallita
                 break;
             case "POKEMON_FLED":
-                captureRenderer.updateStatusMessage(pokemon.getName() + " has fled.");
+                captureRenderer.updateStatusMessage(pokemon.getName() + " has fled.");  // Il Pokémon è fuggito
                 break;
             case "POKEMON_ANGER":
-                captureRenderer.updateStatusMessage(pokemon.getName() + " is too angry, run!");
+                captureRenderer.updateStatusMessage(pokemon.getName() + " is too angry, run!");  // Il Pokémon è troppo arrabbiato
                 break;
             case "CAPTURE_SUCCESS":
-                handleCaptureSuccess();
+                handleCaptureSuccess();  // Gestisce la cattura riuscita
                 break;
             case "FLEE":
-                captureRenderer.updateStatusMessage("Better run!");
+                captureRenderer.updateStatusMessage("Better run!");  // Il giocatore deve fuggire
                 break;
         }
-        this.eventType = eventType;
+
+        // Gestisce lo stato di uscita in base all'evento
         handleExitState(eventType);
     }
 
     private void handleBait(String eventType) {
+        // Gestisce l'uso dell'esca
         int baitIndex = getBaitIndex(eventType);
-        captureRenderer.updateStatusMessage("You used bait! ");
+        captureRenderer.updateStatusMessage("You used bait!");
         captureLogic.handleBait(baitIndex);
     }
 
     private void handlePerfume(String eventType) {
+        // Gestisce l'uso del profumo
         int perfumeIndex = getPerfumeIndex(eventType);
-        captureRenderer.updateStatusMessage("You used perfume! ");
+        captureRenderer.updateStatusMessage("You used perfume!");
         captureLogic.handlePerfume(perfumeIndex);
     }
 
     private void handleTrap(String eventType) {
+        // Gestisce l'uso di una trappola
         int trapIndex = getTrapIndex(eventType);
-        captureRenderer.updateStatusMessage("You set a trap! ");
+        captureRenderer.updateStatusMessage("You set a trap!");
         captureLogic.handleTrap(trapIndex);
     }
 
     private void handleCaptureSuccess() {
+        // Gestisce una cattura riuscita
         System.out.println("gege");
         if (player.addPokemon(pokemon.getName())) {
             captureRenderer.updateStatusMessage("You caught " + pokemon.getName() + "!!!");
-            eventType = "CATCH_SUCC";
+            eventType = "CATCH_SUCC";  // Successo nella cattura
         } else {
-            captureRenderer.updateStatusMessage("Team is full, go to prof!");
-            eventType = "CATCH_FULL";
+            captureRenderer.updateStatusMessage("Team is full, go to prof!");  // Il team è pieno
+            eventType = "CATCH_FULL";  // Il team è pieno
         }
     }
 
     private void handleExitState(String eventType) {
-        if (eventType.equals("POKEMON_FLED") ||
-            eventType.equals("POKEMON_ANGER") ||
-            eventType.equals("CAPTURE_SUCCESS") ||
-            eventType.equals("FLEE")) {
-            System.out.println(this.eventType);
+        // Gestisce lo stato di uscita in base agli eventi di cattura
+        if ("POKEMON_FLED".equals(eventType) ||
+            "POKEMON_ANGER".equals(eventType) ||
+            "CAPTURE_SUCCESS".equals(eventType) ||
+            "FLEE".equals(eventType)) {
             notExit = false;
-            waitingForKeyPress = true;
+            waitingForKeyPress = true;  // Attende la pressione di un tasto per uscire
             keyPressed = false;
             exitTimer = 0;
-            captureController.setMustPress(true);
+            captureController.setMustPress(true);  // Attiva la necessità di premere un tasto
         }
     }
 
     private void changeScreen() {
+        // Cambia la schermata se necessario
         if (!notExit) {
-            resetExitState();
-            dispose();
-            gameState.changeScreen(new GameScreen(gameState));
+            resetExitState();  // Ripristina lo stato di uscita
+            dispose();  // Rilascia le risorse
+            gameState.changeScreen(new GameScreen(gameState));  // Passa alla schermata di gioco
         }
     }
 
     private void resetExitState() {
+        // Ripristina lo stato di uscita
         captureController.setMustPress(false);
-        this.waitingForKeyPress = false;
-        this.keyPressed = false;
-        this.exitTimer = 0;
-        this.notExit = true;
+        waitingForKeyPress = false;
+        keyPressed = false;
+        exitTimer = 0;
+        notExit = true;
     }
 
     private int getBallIndex(String eventType) {
+        // Determina l'indice della palla in base all'evento
         switch (eventType) {
             case "USE_POKEBALL":
                 return 0;
@@ -241,6 +266,7 @@ public class CaptureScreen implements Screen, CaptureObserver {
     }
 
     private int getBaitIndex(String eventType) {
+        // Determina l'indice dell'esca in base all'evento
         switch (eventType) {
             case "USE_STANDARDBAIT":
                 return 0;
@@ -256,6 +282,7 @@ public class CaptureScreen implements Screen, CaptureObserver {
     }
 
     private int getPerfumeIndex(String eventType) {
+        // Determina l'indice del profumo in base all'evento
         switch (eventType) {
             case "USE_FLORALPERFUME":
                 return 0;
@@ -271,6 +298,7 @@ public class CaptureScreen implements Screen, CaptureObserver {
     }
 
     private int getTrapIndex(String eventType) {
+        // Determina l'indice della trappola in base all'evento
         switch (eventType) {
             case "USE_BASICTRAP":
                 return 0;
@@ -284,5 +312,4 @@ public class CaptureScreen implements Screen, CaptureObserver {
                 return -1;
         }
     }
-
 }

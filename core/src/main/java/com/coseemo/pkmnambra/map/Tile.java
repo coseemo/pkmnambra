@@ -1,6 +1,6 @@
 package com.coseemo.pkmnambra.map;
 
-import com.coseemo.pkmnambra.actors.Actor;
+import com.coseemo.pkmnambra.actorobserver.Actor;
 import com.coseemo.pkmnambra.maplogic.TERRAIN;
 import com.coseemo.pkmnambra.mapobjectfactory.WorldObject;
 

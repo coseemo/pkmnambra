@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.coseemo.pkmnambra.map.TileMap;
 import com.coseemo.pkmnambra.actorobserver.World;
-import com.coseemo.pkmnambra.actors.Actor;
+import com.coseemo.pkmnambra.actorobserver.Actor;
 import com.coseemo.pkmnambra.actors.Player;
 import com.coseemo.pkmnambra.actors.ProfessorBehavior;
 import com.coseemo.pkmnambra.dialogue.DialogueDb;
@@ -41,16 +41,16 @@ public class MapLoader {
         String terrainData = terrainSections[0].split(TERRAIN_MARKER)[1].trim();
         String objectData = terrainSections.length > 1 ? terrainSections[1].trim() : "";
 
-        // Create map and world
+        // Creo la mappa e il mondo
         TileMap tileMap = createTileMap(terrainData);
         World world = new World(fileName, tileMap, assetManager);
 
-        // Load objects using the factory
+        // Carico gli oggetti utilizzando la factory
         if (!objectData.isEmpty()) {
             loadObjects(world, objectData, assetManager);
         }
 
-        // Load NPCs con database dialoghi
+        // Carico gli NPC con il database dei dialoghi
         if (!npcData.isEmpty()) {
             loadNPCs(world, npcData, assetManager);
         }
@@ -90,17 +90,17 @@ public class MapLoader {
                 int x = Integer.parseInt(parts[1]);
                 int y = Integer.parseInt(parts[2]);
 
-                // Additional parameters for special objects
+                // Gestisco eventuali parametri aggiuntivi per oggetti speciali
                 String[] additionalParams = new String[parts.length - 3];
                 System.arraycopy(parts, 3, additionalParams, 0, parts.length - 3);
 
-                // Create object using factory and add to world
+                // Creo l'oggetto usando la factory e lo aggiungo al mondo
                 WorldObject object = MapObjectFactory.createObject(type, x, y, assetManager, additionalParams);
                 world.addObject(object);
 
-                Gdx.app.log("MapLoader", "Added object: " + type + " at (" + x + ", " + y + ")");
+                Gdx.app.log("MapLoader", "Aggiunto oggetto: " + type + " a (" + x + ", " + y + ")");
             } catch (Exception e) {
-                Gdx.app.error("MapLoader", "Error loading object: " + line, e);
+                Gdx.app.error("MapLoader", "Errore durante il caricamento dell'oggetto: " + line, e);
             }
         }
     }
@@ -128,21 +128,21 @@ public class MapLoader {
 
                     world.addNPC(professorBehavior);
 
-                    Gdx.app.log("MapLoader", "Added professor NPC at (" + x + ", " + y + ")");
+                    Gdx.app.log("MapLoader", "Aggiunto NPC professor a (" + x + ", " + y + ")");
                 }
             } catch (Exception e) {
-                Gdx.app.error("MapLoader", "Error loading NPC: " + line, e);
+                Gdx.app.error("MapLoader", "Errore durante il caricamento dell'NPC: " + line, e);
             }
         }
     }
 
     public static World loadMapFromSave(SaveData saveData, AssetManager assetManager) {
 
-      loadAsset(assetManager);
+        loadAsset(assetManager);
 
         World world = loadMapAndObjects(saveData.mapFileName, assetManager);
 
-        // Ripristina il giocatore
+        // Ripristino il giocatore
         Player player = new Player(world, saveData.playerData.x, saveData.playerData.y, loadMimi(assetManager));
         player.setToCatch(saveData.playerData.toCatch);
         player.setHasInventory(saveData.playerData.hasInventory);
@@ -153,7 +153,7 @@ public class MapLoader {
         return world;
     }
 
-    private static void loadAsset(AssetManager assetManager){
+    private static void loadAsset(AssetManager assetManager) {
         assetManager.load("assets/sprites/player_packed/mimipacked.atlas", TextureAtlas.class);
         assetManager.load("assets/tiles/tilespack/tilespack.atlas", TextureAtlas.class);
         assetManager.load("assets/tiles/sands_packed/sandspacked.atlas", TextureAtlas.class);
@@ -168,7 +168,7 @@ public class MapLoader {
         assetManager.finishLoading();
     }
 
-    private static AnimationSet loadMimi(AssetManager assetManager){
+    private static AnimationSet loadMimi(AssetManager assetManager) {
         TextureAtlas atlas = assetManager.get("assets/sprites/player_packed/mimipacked.atlas", TextureAtlas.class);
         return new AnimationSet(
             new Animation<>(0.3f / 2f, atlas.findRegions("mimi_walking_east"), Animation.PlayMode.LOOP_PINGPONG),
@@ -182,7 +182,7 @@ public class MapLoader {
         );
     }
 
-    private static AnimationSet loadProf(AssetManager assetManager){
+    private static AnimationSet loadProf(AssetManager assetManager) {
         TextureAtlas atlas = assetManager.get("assets/sprites/professorpacked/professorpacked.atlas", TextureAtlas.class);
         return new AnimationSet(
             new Animation<>(0.3f / 2f, atlas.findRegions("kukui_walking_east"), Animation.PlayMode.LOOP_PINGPONG),

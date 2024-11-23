@@ -2,8 +2,6 @@ package com.coseemo.pkmnambra.dialogue;
 
 import com.coseemo.pkmnambra.dialogue.DialogueNode.NODE_TYPE;
 
-import java.util.List;
-
 public class DialogueTraverser {
 
     private Dialogue dialogue;
@@ -14,6 +12,7 @@ public class DialogueTraverser {
         currentNode = dialogue.getNode(dialogue.getStart());
     }
 
+    // Ottengo il prossimo nodo di dialogo in base all'indice del puntatore
     public DialogueNode getNextNode(int pointerIndex) {
         if (currentNode.getPointers().isEmpty()) {
             return null;

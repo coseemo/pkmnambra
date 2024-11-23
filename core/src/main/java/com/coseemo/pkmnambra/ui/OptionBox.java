@@ -34,11 +34,11 @@ public class OptionBox extends Table {
         // Creiamo una nuova riga per la freccia e l'opzione
         Table optionRow = new Table();
         optionRow.add(selectorLabel).width(30).height(30).align(Align.center).padRight(5f); // Spazio tra la freccia e l'etichetta
-        optionRow.add(optionLabel).expandX().align(Align.left); // Espandi l'etichetta per occupare lo spazio
+        optionRow.add(optionLabel).expandX().align(Align.left); // Espando l'etichetta per occupare lo spazio
 
-        // Aggiungi la riga alla OptionBox
+        // Aggiungo la riga alla OptionBox
         this.add(optionRow).fillX().pad(5f);
-        this.row(); // Aggiungi una nuova riga per la prossima opzione
+        this.row(); // Aggiungo una nuova riga per la prossima opzione
 
         // Aggiorna la visibilità della freccia
         updateArrowVisibility();

@@ -9,7 +9,7 @@ public class TransitionScreen implements Screen {
     private final Screen fromScreen;
     private final Screen toScreen;
     private final Game game;
-    private float progress; // Valore da 0.0 a 1.0
+    private float progress;
     private boolean transitionComplete;
     private SpriteBatch batch;
     private BitmapFont font;
@@ -21,7 +21,7 @@ public class TransitionScreen implements Screen {
         this.progress = 0;
         this.transitionComplete = false;
         this.batch = new SpriteBatch();
-        this.font = new BitmapFont(); // Può essere personalizzata
+        this.font = new BitmapFont();
     }
 
     @Override
@@ -33,7 +33,7 @@ public class TransitionScreen implements Screen {
     @Override
     public void render(float delta) {
         // Aggiorna il progresso della transizione
-        progress += delta * 0.5f; // Modifica la velocità qui
+        progress += delta * 0.5f;
 
         if (progress < 0.5f) {
             fromScreen.render(delta); // Solo per la prima metà
@@ -47,9 +47,8 @@ public class TransitionScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 
-        // Disegna una schermata intermedia (ad esempio un fade)
         batch.begin();
-        font.draw(batch, "Transizione in corso...", Gdx.graphics.getWidth() / 2f, Gdx.graphics.getHeight() / 2f);
+        font.draw(batch, "Esplorando...", Gdx.graphics.getWidth() / 2f, Gdx.graphics.getHeight() / 2f);
         batch.end();
     }
     @Override

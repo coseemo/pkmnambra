@@ -5,12 +5,10 @@ import java.util.List;
 
 public class DialogueNode {
 
-    private final ArrayList<Integer> pointers = new ArrayList<Integer>();
-    private final ArrayList<String> labels = new ArrayList<String>();
-
+    private final ArrayList<Integer> pointers = new ArrayList<>();
+    private final ArrayList<String> labels = new ArrayList<>();
     private final String text;
     private final int id;
-
     private NODE_TYPE type;
 
     public enum NODE_TYPE {
@@ -25,6 +23,7 @@ public class DialogueNode {
         type = NODE_TYPE.END;
     }
 
+    // Aggiungo una scelta con il relativo ID
     public void addChoice(String option, int nodeId) {
         if (type == NODE_TYPE.LINEAR) {
             pointers.clear();
@@ -34,6 +33,7 @@ public class DialogueNode {
         type = NODE_TYPE.MULTIPLE_CHOICE;
     }
 
+    // Rendo il nodo lineare, assegnando un unico ID di destinazione
     public void makeLinear(int nodeId) {
         pointers.clear();
         labels.clear();

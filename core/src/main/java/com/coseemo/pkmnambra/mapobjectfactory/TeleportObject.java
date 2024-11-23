@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.GridPoint2;
 import com.coseemo.pkmnambra.actorobserver.World;
 import com.coseemo.pkmnambra.actors.Player;
-import com.coseemo.pkmnambra.actors.Actor;
+import com.coseemo.pkmnambra.actorobserver.Actor;
 import com.coseemo.pkmnambra.savemanager.MapLoader;
 import com.coseemo.pkmnambra.singleton.GameState;
 

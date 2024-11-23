@@ -2,6 +2,7 @@ package com.coseemo.pkmnambra.actors;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
+import com.coseemo.pkmnambra.actorobserver.Actor;
 import com.coseemo.pkmnambra.dialogue.*;
 import com.coseemo.pkmnambra.maplogic.DIRECTION;
 
@@ -117,13 +118,11 @@ public class ProfessorBehavior extends ActorBehavior {
             player.addItem("GreatBall");
         }
 
-        System.out.println("Ricompensa per nuovo Pokémon trovata. Restano " + remainingToCatch + " Pokémon da catturare.");
     }
 
     public void regularReward(Player player) {
         player.addItem("GreatBall");
         player.addItem("GreatBall");
         player.addItem("FloralPerfume");
-        System.out.println("Ricompensa regolare assegnata: 1 GreatBall e 1 FloralPerfume.");
     }
 }

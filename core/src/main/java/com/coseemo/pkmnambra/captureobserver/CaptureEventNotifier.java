@@ -1,31 +1,29 @@
 package com.coseemo.pkmnambra.captureobserver;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 public class CaptureEventNotifier {
-    // Utilizzo di CopyOnWriteArrayList per thread safety e sicurezza durante la modifica
-    private final List<CaptureObserver> observers = new CopyOnWriteArrayList<>();
+    private final List<CaptureObserver> observers = new ArrayList<>();
 
-    // Metodo per registrare un osservatore
+    // Registra un osservatore
     public void registerObserver(CaptureObserver observer) {
         observers.add(observer);
     }
 
-    // Metodo per de-registrare un osservatore
+    // Deregistra un osservatore
     public void deregisterObserver(CaptureObserver observer) {
         observers.remove(observer);
     }
 
-    // Metodo per notificare tutti gli osservatori registrati
+    // Notifica tutti gli osservatori registrati
     public void notifyObservers(String eventType) {
-
         for (CaptureObserver observer : observers) {
             observer.update(eventType);
         }
     }
 
-    // Metodo per rimuovere tutti gli osservatori, utile per la pulizia completa
+    // Pulisce la lista degli osservatori
     public void clearObservers() {
         observers.clear();
     }

@@ -11,6 +11,5 @@ public class Bait extends CaptureItem {
     @Override
     public void use() {
         System.out.println("Using " + getName() + getCapturePhrase());
-        // Logica di cattura con il valore effectValue
     }
 }
