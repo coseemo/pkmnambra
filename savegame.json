@@ -1,1 +1,1 @@
-{"mapFileName":"assets/maps/beach.txt","playerData":{"x":7,"y":8,"inventory":{"BasicTrap":4,"GreatBall":3,"FloralPerfume":4,"StandardBait":5,"Pokeball":4},"team":[],"toCatch":{"Slakoth":true,"Bellossom":true,"Parasect":true,"Exeggutor":false},"hasInventory":true}}
+{"mapFileName":"assets/maps/beach.txt","playerData":{"x":7,"y":8,"inventory":{"BasicTrap":2,"GreatBall":3,"FloralPerfume":1,"StandardBait":4,"Pokeball":1},"team":[],"toCatch":{"Slakoth":true,"Bellossom":false,"Parasect":true,"Exeggutor":true},"hasInventory":true}}

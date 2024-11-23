@@ -16,9 +16,6 @@ dependencies {
   testImplementation "com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion"
   testImplementation "com.badlogicgames.gdx:gdx:$gdxVersion"
   testImplementation 'org.junit.jupiter:junit-jupiter:5.10.0'
-
-
-
   implementation 'com.google.code.gson:gson:2.10.1'
 
   if(enableGraalNative == 'true') {

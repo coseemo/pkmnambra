@@ -168,7 +168,7 @@ public class InventoryScreen implements Screen {
 
         // Disegno il titolo "Squadra"
         titleFont.setColor(Color.BLACK);
-        titleFont.draw(batch, "SQUADRA", screenWidth / 2f - 60, y + 40);
+        titleFont.draw(batch, "TEAM", screenWidth / 2f - 60, y + 40);
 
         // Disegno ogni Pokémon della squadra
         font.setColor(Color.BLACK);

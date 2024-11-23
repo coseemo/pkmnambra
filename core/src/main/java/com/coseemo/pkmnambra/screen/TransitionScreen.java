@@ -48,7 +48,7 @@ public class TransitionScreen implements Screen {
 
 
         batch.begin();
-        font.draw(batch, "Esplorando...", Gdx.graphics.getWidth() / 2f, Gdx.graphics.getHeight() / 2f);
+        font.draw(batch, "Exploring...", Gdx.graphics.getWidth() / 2f, Gdx.graphics.getHeight() / 2f);
         batch.end();
     }
     @Override
