@@ -1,6 +1,6 @@
 #pkmnambra
 
-Progetto per l'esame di Ingegneria del Software.
+progetto per l'esame di Ingegneria del Software.
 RPG ispirato alla modalità safari dei giochi pokemon.
 
 #feature
@@ -28,9 +28,22 @@ RPG ispirato alla modalità safari dei giochi pokemon.
 - eseguito principalmente su factory, observer e singleton
 
 
-https://github.com/user-attachments/assets/ba5e0219-5c43-4884-9110-dd0e754caa32
+#video di presentazione
+
+il video mostra i seguenti momenti di gioco:
+- l'avvio di una nuova partita
+- il primo dialogo col professore (non è stato possibile trovare una skin adatta)
+- il sistema di cattura
+- lo schermo d'inventario con aggiornamento lista pokemon da catturare
+- il salvataggio di gioco (non notificato in quanto basta premere S)
+- il caricamento da file di salvataggio precedente (per mostrare la coerenza dei dati salvati)
+
+[ATTENZIONE: se il video non entra in riproduzione, ricaricare la pagina e premere play SENZA skippare a parti del video successive; questo dovrebbe risolvere il problema]
 
 
-https://github.com/user-attachments/assets/913cf568-38d0-4260-970c-4e514851109b
+https://github.com/user-attachments/assets/caf4bdf1-b958-4e8a-86ca-b8fd0988e937
+
+
+https://github.com/user-attachments/assets/6c222f24-223e-4291-bcfb-effbc609c473
 
 
