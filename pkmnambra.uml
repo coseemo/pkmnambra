@@ -1,0 +1,1090 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>C:/Users/cosim/IdeaProjects/ambra/core/src/main/java/com/coseemo/pkmnambra</OriginalElement>
+  <nodes>
+    <node x="435.0" y="3288.5">com.coseemo.pkmnambra.maplogic.WorldObjectYComparator</node>
+    <node x="145.0" y="3718.0">com.coseemo.pkmnambra.ui.DialogueBox</node>
+    <node x="540.0" y="7080.5">com.coseemo.pkmnambra.maplogic.YSortable</node>
+    <node x="968.0" y="2538.0">com.coseemo.pkmnambra.camera.Camera</node>
+    <node x="1385.5" y="6278.0">com.coseemo.pkmnambra.maplogic.TERRAIN</node>
+    <node x="601.0" y="3682.0">com.coseemo.pkmnambra.savemanager.MapLoader</node>
+    <node x="2136.5" y="3814.0">com.coseemo.pkmnambra.singleton.EventManager</node>
+    <node x="3538.2605454628574" y="3359.3246507920962">com.coseemo.pkmnambra.screen.CaptureScreen</node>
+    <node x="5443.0" y="834.0">com.coseemo.pkmnambra.savemanager.PlayerData</node>
+    <node x="3107.0458600010465" y="3770.784456772736">com.coseemo.pkmnambra.capture.CaptureLogic</node>
+    <node x="-139.5" y="3790.0">com.coseemo.pkmnambra.dialogue.DialogueTraverser</node>
+    <node x="-109.0" y="3178.0">com.coseemo.pkmnambra.controller.DialogueController</node>
+    <node x="-183.5" y="4990.0">com.coseemo.pkmnambra.dialogue.DialogueLoader</node>
+    <node x="1373.5" y="3766.0">com.coseemo.pkmnambra.singleton.MapState</node>
+    <node x="-115.5" y="2550.0">com.coseemo.pkmnambra.controller.InteractionController</node>
+    <node x="1095.5" y="3718.0">com.coseemo.pkmnambra.ui.OptionBox</node>
+    <node x="3698.922581491222" y="2021.6502773865745">com.coseemo.pkmnambra.pokemonfactory.Pokemon</node>
+    <node x="5249.0" y="-210.0">com.coseemo.pkmnambra.inventory.ITEMSS</node>
+    <node x="4057.0" y="1772.5">com.coseemo.pkmnambra.pokemonfactory.Ludicolo</node>
+    <node x="926.4263981526583" y="6552.097665468938">com.coseemo.pkmnambra.actorobserver.ActorObserver</node>
+    <node x="3097.0" y="1772.5">com.coseemo.pkmnambra.pokemonfactory.Toucannon</node>
+    <node x="1111.0" y="1518.0">com.coseemo.pkmnambra.screen.GameScreen</node>
+    <node x="1056.0" y="4822.0">com.coseemo.pkmnambra.actors.Player</node>
+    <node x="1283.5" y="2382.0">com.coseemo.pkmnambra.screen.InventoryScreen</node>
+    <node x="1629.0" y="5508.5">com.coseemo.pkmnambra.itemfactory.KeyItem</node>
+    <node x="2735.5" y="3670.0">com.coseemo.pkmnambra.screen.TransitionScreen</node>
+    <node x="1830.5" y="3094.0">com.coseemo.pkmnambra.singleton.GameState</node>
+    <node x="1842.5" y="846.0">com.coseemo.pkmnambra.maplogic.EncounterType</node>
+    <node x="5448.5" y="-538.0">com.coseemo.pkmnambra.savemanager.SaveManager</node>
+    <node x="1953.5" y="-538.0">com.coseemo.pkmnambra.Main</node>
+    <node x="2857.0" y="1772.5">com.coseemo.pkmnambra.pokemonfactory.Slakoth</node>
+    <node x="-144.0" y="5434.0">com.coseemo.pkmnambra.dialogue.LinearDialogueNode</node>
+    <node x="785.0" y="4222.0">com.coseemo.pkmnambra.actors.LimitedWalkingBehavior</node>
+    <node x="4927.5" y="5028.5">com.coseemo.pkmnambra.itemfactory.Pokeball</node>
+    <node x="4108.5" y="-535.5">com.coseemo.pkmnambra.Settings</node>
+    <node x="-172.5" y="7078.0">com.coseemo.pkmnambra.dialogue.Dialogue</node>
+    <node x="-290.0" y="726.0">com.coseemo.pkmnambra.screen.MenuScreen</node>
+    <node x="1615.5" y="3742.0">com.coseemo.pkmnambra.singleton.PlayerState</node>
+    <node x="5474.0" y="-3.5">com.coseemo.pkmnambra.savemanager.SaveData</node>
+    <node x="4616.0" y="-571.5">com.coseemo.pkmnambra.mapobjectfactory.MapObjectFactory</node>
+    <node x="3337.0" y="1772.5">com.coseemo.pkmnambra.pokemonfactory.Pyukumuku</node>
+    <node x="3107.0458600010465" y="4367.234239519725">com.coseemo.pkmnambra.captureobserver.CaptureEventNotifier</node>
+    <node x="2187.0" y="-78.0">com.coseemo.pkmnambra.mapobjectfactory.EncounterZoneObject</node>
+    <node x="4924.0" y="-66.0">com.coseemo.pkmnambra.mapobjectfactory.AnimatedPlaceObject</node>
+    <node x="4297.0" y="1772.5">com.coseemo.pkmnambra.pokemonfactory.Raichu</node>
+    <node x="250.0" y="2454.0">com.coseemo.pkmnambra.render.PlaceRenderer</node>
+    <node x="5070.5" y="5028.5">com.coseemo.pkmnambra.itemfactory.Bait</node>
+    <node x="4788.5" y="5028.5">com.coseemo.pkmnambra.itemfactory.Perfume</node>
+    <node x="3973.4752309246687" y="3542.7844567727357">com.coseemo.pkmnambra.capture.CaptureRenderer</node>
+    <node x="3577.0" y="1772.5">com.coseemo.pkmnambra.pokemonfactory.Parasect</node>
+    <node x="1677.0" y="-54.0">com.coseemo.pkmnambra.inventory.CATEGORY</node>
+    <node x="1629.0" y="6230.0">com.coseemo.pkmnambra.itemfactory.Item</node>
+    <node x="1853.5" y="3802.0">com.coseemo.pkmnambra.singleton.ResourceManager</node>
+    <node x="2617.0" y="1772.5">com.coseemo.pkmnambra.pokemonfactory.Bellossom</node>
+    <node x="5228.0" y="-511.5">com.coseemo.pkmnambra.util.TexturePackerTool</node>
+    <node x="5019.5" y="5458.0">com.coseemo.pkmnambra.itemfactory.CaptureItem</node>
+    <node x="5210.5" y="5028.5">com.coseemo.pkmnambra.itemfactory.Trap</node>
+    <node x="3817.0" y="1772.5">com.coseemo.pkmnambra.pokemonfactory.Exeggutor</node>
+    <node x="3126.319915740971" y="3359.3246507920962">com.coseemo.pkmnambra.controller.CaptureController</node>
+    <node x="1236.0" y="7030.0">com.coseemo.pkmnambra.dialogue.ChoiceDialogueNode</node>
+    <node x="5192.5" y="6038.0">com.coseemo.pkmnambra.mapobjectfactory.WorldObject</node>
+    <node x="1910.0" y="-294.0">com.coseemo.pkmnambra.screen.PressXScreen</node>
+    <node x="1361.5" y="5386.0">com.coseemo.pkmnambra.map.Tile</node>
+    <node x="785.0" y="5720.0">com.coseemo.pkmnambra.actorobserver.World</node>
+    <node x="2464.0" y="3790.0">com.coseemo.pkmnambra.singleton.ScreenManager</node>
+    <node x="4777.0" y="1772.5">com.coseemo.pkmnambra.pokemonfactory.Ursaring</node>
+    <node x="660.0" y="2454.0">com.coseemo.pkmnambra.controller.PlayerController</node>
+    <node x="5084.5" y="4368.5">com.coseemo.pkmnambra.itemfactory.CaptureItemFactory</node>
+    <node x="184.5" y="7406.0">com.coseemo.pkmnambra.maplogic.DIRECTION</node>
+    <node x="999.0" y="5422.0">com.coseemo.pkmnambra.inventory.Inventory</node>
+    <node x="-285.0" y="7394.0">com.coseemo.pkmnambra.dialogue.DialogueNode</node>
+    <node x="785.0" y="4990.0">com.coseemo.pkmnambra.actors.ActorBehavior</node>
+    <node x="467.0" y="4294.0">com.coseemo.pkmnambra.actors.ProfessorBehavior</node>
+    <node x="510.76685159105" y="5720.0">com.coseemo.pkmnambra.actorobserver.Actor</node>
+    <node x="3611.6398314819417" y="4454.705787598211">com.coseemo.pkmnambra.captureobserver.CaptureObserver</node>
+    <node x="4335.0" y="-511.5">com.coseemo.pkmnambra.util.SkinGenerator</node>
+    <node x="1382.5" y="4966.0">com.coseemo.pkmnambra.map.TileMap</node>
+    <node x="104.0" y="5482.0">com.coseemo.pkmnambra.dialogue.DialogueDb</node>
+    <node x="4605.5" y="4294.0">com.coseemo.pkmnambra.mapobjectfactory.TeleportObject</node>
+    <node x="130.0" y="7090.0">com.coseemo.pkmnambra.util.AnimationSet</node>
+    <node x="3656.0" y="1193.7307197796904">com.coseemo.pkmnambra.pokemonfactory.PokemonFactory</node>
+    <node x="4537.0" y="1772.5">com.coseemo.pkmnambra.pokemonfactory.Crabrawler</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.coseemo.pkmnambra.pokemonfactory.PokemonFactory" target="com.coseemo.pkmnambra.pokemonfactory.Pyukumuku" relationship="CREATE">
+      <point x="-127.5" y="-15.0" />
+      <point x="3446.0" y="1210.2307197796904" />
+      <point x="0.0" y="-67.5" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.screen.GameScreen" target="com.coseemo.pkmnambra.singleton.GameState" relationship="TO_ONE">
+      <point x="-15.0" y="320.0" />
+      <point x="1251.0" y="2914.0" />
+      <point x="3446.0" y="2914.0" />
+      <point x="3446.0" y="3034.0" />
+      <point x="1986.0" y="3034.0" />
+      <point x="0.0" y="-224.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.controller.DialogueController" target="com.coseemo.pkmnambra.ui.DialogueBox" relationship="TO_ONE">
+      <point x="115.0" y="-15.0" />
+      <point x="189.0" y="3303.0" />
+      <point x="189.0" y="3333.0" />
+      <point x="160.0" y="3333.0" />
+      <point x="-86.0" y="-140.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.screen.MenuScreen" target="com.coseemo.pkmnambra.dialogue.DialogueLoader" relationship="CREATE">
+      <point x="-27.0" y="212.0" />
+      <point x="-201.0" y="3070.0" />
+      <point x="-176.0" y="3070.0" />
+      <point x="-176.0" y="4413.0" />
+      <point x="104.0" y="4413.0" />
+      <point x="-2.0" y="-68.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.mapobjectfactory.EncounterZoneObject" target="com.coseemo.pkmnambra.mapobjectfactory.WorldObject" relationship="GENERALIZATION">
+      <point x="0.0" y="116.0" />
+      <point x="2326.0" y="362.5" />
+      <point x="5391.0" y="362.5" />
+      <point x="5391.0" y="3162.0" />
+      <point x="5410.5" y="3162.0" />
+      <point x="104.5" y="-320.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.dialogue.DialogueLoader" target="com.coseemo.pkmnambra.dialogue.DialogueDb" relationship="CREATE">
+      <point x="5.5" y="68.0" />
+      <point x="-154.5" y="-56.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.actorobserver.World" target="com.coseemo.pkmnambra.actors.ActorBehavior" relationship="TO_MANY">
+      <point x="15.0" y="-248.0" />
+      <point x="54.5" y="68.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.Main" target="com.coseemo.pkmnambra.screen.PressXScreen" relationship="CREATE">
+      <point x="-60.0" y="56.0" />
+      <point x="0.0" y="-332.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.controller.CaptureController" target="com.coseemo.pkmnambra.actors.Player" relationship="TO_ONE">
+      <point x="8.425902933595353E-5" y="-163.99965079209642" />
+      <point x="3261.32" y="2974.0" />
+      <point x="1078.0" y="2974.0" />
+      <point x="1078.0" y="4337.0" />
+      <point x="2296.5" y="4337.0" />
+      <point x="2296.5" y="4719.0" />
+      <point x="1206.0" y="4719.0" />
+      <point x="0.0" y="-236.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.pokemonfactory.PokemonFactory" target="com.coseemo.pkmnambra.pokemonfactory.Bellossom" relationship="CREATE">
+      <point x="-127.5" y="0.0" />
+      <point x="2726.0" y="1225.2307197796904" />
+      <point x="0.0" y="-67.5" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.screen.GameScreen" target="com.coseemo.pkmnambra.render.PlaceRenderer" relationship="CREATE">
+      <point x="-155.0" y="30.0" />
+      <point x="506.0" y="1868.0" />
+      <point x="60.0" y="-164.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.inventory.Inventory" target="com.coseemo.pkmnambra.itemfactory.Item" relationship="TO_MANY">
+      <point x="0.0" y="116.0" />
+      <point x="1166.0" y="6455.5" />
+      <point x="-97.0" y="97.5" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.savemanager.MapLoader" target="com.coseemo.pkmnambra.util.AnimationSet" relationship="CREATE">
+      <point x="0.0" y="-176.0" />
+      <point x="786.0" y="3534.5" />
+      <point x="-223.0" y="3534.5" />
+      <point x="-223.0" y="6307.0" />
+      <point x="326.0" y="6307.0" />
+      <point x="0.0" y="-68.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.pokemonfactory.PokemonFactory" target="com.coseemo.pkmnambra.pokemonfactory.Exeggutor" relationship="CREATE">
+      <point x="120.0" y="31.5" />
+      <point x="-22.5" y="-67.5" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.pokemonfactory.Ursaring" target="com.coseemo.pkmnambra.pokemonfactory.Pokemon" relationship="GENERALIZATION">
+      <point x="0.0" y="67.5" />
+      <point x="4886.0" y="1965.0" />
+      <point x="3808.423" y="1965.0" />
+      <point x="4.185087777841545E-4" y="-164.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.singleton.EventManager" target="com.coseemo.pkmnambra.captureobserver.CaptureEventNotifier" relationship="CREATE">
+      <point x="-19.5" y="44.0" />
+      <point x="2266.5" y="4474.234579200001" />
+      <point x="-159.5" y="15.000339680275829" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.actors.ProfessorBehavior" target="com.coseemo.pkmnambra.dialogue.DialogueLoader" relationship="CREATE">
+      <point x="-139.0" y="0.0" />
+      <point x="-176.0" y="4398.0" />
+      <point x="-176.0" y="4413.0" />
+      <point x="104.0" y="4413.0" />
+      <point x="-2.0" y="-68.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.itemfactory.Perfume" target="com.coseemo.pkmnambra.itemfactory.CaptureItem" relationship="GENERALIZATION">
+      <point x="0.0" y="-31.5" />
+      <point x="4846.0" y="5006.0" />
+      <point x="5339.0" y="5006.0" />
+      <point x="5339.0" y="5538.0" />
+      <point x="106.5" y="0.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.pokemonfactory.PokemonFactory" target="com.coseemo.pkmnambra.pokemonfactory.Crabrawler" relationship="CREATE">
+      <point x="127.5" y="-30.0" />
+      <point x="4646.0" y="1195.2307197796904" />
+      <point x="0.0" y="-67.5" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.screen.CaptureScreen" target="com.coseemo.pkmnambra.capture.CaptureRenderer" relationship="TO_ONE">
+      <point x="137.0" y="-132.0" />
+      <point x="3906.807531203305" y="3691.3246507920962" />
+      <point x="3906.807531203305" y="3874.7844567727357" />
+      <point x="-183.5" y="0.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.pokemonfactory.Parasect" target="com.coseemo.pkmnambra.pokemonfactory.Pokemon" relationship="GENERALIZATION">
+      <point x="0.0" y="67.5" />
+      <point x="3686.0" y="1965.0" />
+      <point x="3808.423" y="1965.0" />
+      <point x="4.185087777841545E-4" y="-164.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.render.PlaceRenderer" target="com.coseemo.pkmnambra.actorobserver.World" relationship="TO_ONE">
+      <point x="0.0" y="164.0" />
+      <point x="446.0" y="2846.5" />
+      <point x="416.0" y="2846.5" />
+      <point x="416.0" y="5143.5" />
+      <point x="945.5" y="5143.5" />
+      <point x="0.0" y="-248.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.controller.CaptureController" target="com.coseemo.pkmnambra.singleton.GameState" relationship="TO_ONE">
+      <point x="135.0" y="3.492079035822826E-4" />
+      <point x="3446.0" y="3523.325" />
+      <point x="3446.0" y="3034.0" />
+      <point x="1986.0" y="3034.0" />
+      <point x="0.0" y="-224.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.pokemonfactory.PokemonFactory" target="com.coseemo.pkmnambra.pokemonfactory.Raichu" relationship="CREATE">
+      <point x="127.5" y="-15.0" />
+      <point x="4406.0" y="1210.2307197796904" />
+      <point x="0.0" y="-67.5" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.screen.GameScreen" target="com.coseemo.pkmnambra.ui.DialogueBox" relationship="TO_ONE">
+      <point x="-155.0" y="-30.0" />
+      <point x="189.0" y="1808.0" />
+      <point x="189.0" y="3333.0" />
+      <point x="160.0" y="3333.0" />
+      <point x="-86.0" y="-140.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.actorobserver.World" target="com.coseemo.pkmnambra.actors.ActorBehavior" relationship="CREATE">
+      <point x="-24.5" y="-248.0" />
+      <point x="15.0" y="68.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.itemfactory.Pokeball" target="com.coseemo.pkmnambra.itemfactory.CaptureItem" relationship="GENERALIZATION">
+      <point x="0.0" y="-31.5" />
+      <point x="4986.0" y="5006.0" />
+      <point x="5339.0" y="5006.0" />
+      <point x="5339.0" y="5538.0" />
+      <point x="106.5" y="0.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.screen.GameScreen" target="com.coseemo.pkmnambra.actors.Player" relationship="TO_ONE">
+      <point x="0.0" y="320.0" />
+      <point x="1266.0" y="2974.0" />
+      <point x="1078.0" y="2974.0" />
+      <point x="1078.0" y="4337.0" />
+      <point x="2296.5" y="4337.0" />
+      <point x="2296.5" y="4719.0" />
+      <point x="1206.0" y="4719.0" />
+      <point x="0.0" y="-236.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.capture.CaptureLogic" target="com.coseemo.pkmnambra.singleton.GameState" relationship="TO_ONE">
+      <point x="135.0" y="-4.5677273601540946E-4" />
+      <point x="3446.0" y="4006.784" />
+      <point x="3446.0" y="3034.0" />
+      <point x="1986.0" y="3034.0" />
+      <point x="0.0" y="-224.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.itemfactory.Bait" target="com.coseemo.pkmnambra.itemfactory.CaptureItem" relationship="GENERALIZATION">
+      <point x="0.0" y="-31.5" />
+      <point x="5126.0" y="5006.0" />
+      <point x="5339.0" y="5006.0" />
+      <point x="5339.0" y="5538.0" />
+      <point x="106.5" y="0.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.pokemonfactory.PokemonFactory" target="com.coseemo.pkmnambra.pokemonfactory.Slakoth" relationship="CREATE">
+      <point x="-127.5" y="15.0" />
+      <point x="2966.0" y="1240.2307197796904" />
+      <point x="0.0" y="-67.5" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.mapobjectfactory.TeleportObject" target="com.coseemo.pkmnambra.mapobjectfactory.WorldObject" relationship="GENERALIZATION">
+      <point x="100.5" y="-47.0" />
+      <point x="5391.0" y="4351.0" />
+      <point x="5391.0" y="3162.0" />
+      <point x="5410.5" y="3162.0" />
+      <point x="104.5" y="-320.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.render.PlaceRenderer" target="com.coseemo.pkmnambra.maplogic.WorldObjectYComparator" relationship="CREATE">
+      <point x="120.0" y="164.0" />
+      <point x="0.0" y="-31.5" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.mapobjectfactory.MapObjectFactory" target="com.coseemo.pkmnambra.mapobjectfactory.TeleportObject" relationship="CREATE">
+      <point x="290.0" y="49.0" />
+      <point x="5235.5" y="-431.0" />
+      <point x="5235.5" y="4336.0" />
+      <point x="100.5" y="-62.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.mapobjectfactory.TeleportObject" target="com.coseemo.pkmnambra.actors.Player" relationship="TO_ONE">
+      <point x="0.0" y="104.0" />
+      <point x="4706.0" y="4719.0" />
+      <point x="1206.0" y="4719.0" />
+      <point x="0.0" y="-236.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.singleton.GameState" target="com.coseemo.pkmnambra.singleton.PlayerState" relationship="CREATE">
+      <point x="0.0" y="224.0" />
+      <point x="1986.0" y="3772.5" />
+      <point x="110.5" y="-85.5" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.screen.GameScreen" target="com.coseemo.pkmnambra.ui.OptionBox" relationship="CREATE">
+      <point x="155.0" y="0.0" />
+      <point x="1572.0" y="1838.0" />
+      <point x="1572.0" y="3743.5" />
+      <point x="110.5" y="-114.5" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.screen.GameScreen" target="com.coseemo.pkmnambra.controller.DialogueController" relationship="CREATE">
+      <point x="-155.0" y="45.0" />
+      <point x="224.0" y="1883.0" />
+      <point x="224.0" y="3369.0" />
+      <point x="115.0" y="51.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.map.Tile" target="com.coseemo.pkmnambra.maplogic.TERRAIN" relationship="TO_ONE">
+      <point x="-15.0" y="152.0" />
+      <point x="-15.0" y="-80.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.dialogue.LinearDialogueNode" target="com.coseemo.pkmnambra.dialogue.DialogueNode" relationship="GENERALIZATION">
+      <point x="110.0" y="73.5" />
+      <point x="386.0" y="5611.5" />
+      <point x="386.0" y="6941.5" />
+      <point x="792.5" y="6941.5" />
+      <point x="792.5" y="7355.0" />
+      <point x="-189.0" y="7355.0" />
+      <point x="-15.0" y="-164.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.capture.CaptureLogic" target="com.coseemo.pkmnambra.actors.Player" relationship="TO_ONE">
+      <point x="1.399989532728796E-4" y="235.99954322726353" />
+      <point x="3242.046" y="4337.0" />
+      <point x="2296.5" y="4337.0" />
+      <point x="2296.5" y="4719.0" />
+      <point x="1206.0" y="4719.0" />
+      <point x="0.0" y="-236.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.screen.CaptureScreen" target="com.coseemo.pkmnambra.capture.CaptureLogic" relationship="TO_ONE">
+      <point x="-137.0" y="44.99954322726444" />
+      <point x="3471.592845741494" y="3868.3241940193607" />
+      <point x="3471.592845741494" y="4051.784" />
+      <point x="135.0" y="44.999543227263985" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.capture.CaptureLogic" target="com.coseemo.pkmnambra.pokemonfactory.Pokemon" relationship="TO_ONE">
+      <point x="135.0" y="14.999543227263985" />
+      <point x="3512.0" y="4021.784" />
+      <point x="3512.0" y="2185.65" />
+      <point x="-109.49958149122222" y="-2.7738657445297576E-4" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.singleton.GameState" target="com.coseemo.pkmnambra.Main" relationship="TO_ONE">
+      <point x="155.5" y="-15.0" />
+      <point x="2541.0" y="3303.0" />
+      <point x="2541.0" y="-482.0" />
+      <point x="132.5" y="0.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.actorobserver.World" target="com.coseemo.pkmnambra.map.TileMap" relationship="TO_ONE">
+      <point x="30.0" y="-248.0" />
+      <point x="975.5" y="5311.5" />
+      <point x="1466.0" y="5311.5" />
+      <point x="0.0" y="92.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.capture.CaptureRenderer" target="com.coseemo.pkmnambra.ui.OptionBox" relationship="CREATE">
+      <point x="147.52476907533128" y="-332.0" />
+      <point x="4304.5" y="2619.0" />
+      <point x="1572.0" y="2619.0" />
+      <point x="1572.0" y="3743.5" />
+      <point x="110.5" y="-114.5" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.singleton.GameState" target="com.coseemo.pkmnambra.singleton.ResourceManager" relationship="TO_ONE">
+      <point x="30.0" y="224.0" />
+      <point x="30.0" y="-56.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.controller.CaptureController" target="com.coseemo.pkmnambra.captureobserver.CaptureEventNotifier" relationship="TO_ONE">
+      <point x="-134.99991574097066" y="3.492079035822826E-4" />
+      <point x="3032.0" y="3523.325" />
+      <point x="3032.0" y="4459.234579200001" />
+      <point x="-159.5" y="3.396802758288686E-4" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.dialogue.Dialogue" target="com.coseemo.pkmnambra.dialogue.DialogueNode" relationship="TO_MANY">
+      <point x="0.0" y="80.0" />
+      <point x="-34.0" y="7316.0" />
+      <point x="-174.0" y="7316.0" />
+      <point x="0.0" y="-164.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.controller.InteractionController" target="com.coseemo.pkmnambra.actorobserver.Actor" relationship="TO_ONE">
+      <point x="-141.5" y="0.0" />
+      <point x="-307.5" y="2618.0" />
+      <point x="-307.5" y="5218.5" />
+      <point x="388.0" y="5218.5" />
+      <point x="388.0" y="5340.0" />
+      <point x="622.767" y="5340.0" />
+      <point x="-14.999851591049946" y="-572.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.actors.LimitedWalkingBehavior" target="com.coseemo.pkmnambra.actors.ActorBehavior" relationship="GENERALIZATION">
+      <point x="-121.0" y="0.0" />
+      <point x="765.0" y="4398.0" />
+      <point x="765.0" y="5058.0" />
+      <point x="-121.0" y="0.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.itemfactory.KeyItem" target="com.coseemo.pkmnambra.itemfactory.Item" relationship="GENERALIZATION">
+      <point x="0.0" y="31.5" />
+      <point x="1686.0" y="5610.0" />
+      <point x="3315.0" y="5610.0" />
+      <point x="3315.0" y="6358.0" />
+      <point x="97.0" y="0.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.screen.GameScreen" target="com.coseemo.pkmnambra.controller.DialogueController" relationship="TO_ONE">
+      <point x="-155.0" y="-15.0" />
+      <point x="209.0" y="1823.0" />
+      <point x="209.0" y="3318.0" />
+      <point x="115.0" y="0.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.itemfactory.CaptureItemFactory" target="com.coseemo.pkmnambra.itemfactory.Bait" relationship="CREATE">
+      <point x="-95.0" y="31.5" />
+      <point x="-15.0" y="-31.5" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.actors.Player" target="com.coseemo.pkmnambra.inventory.Inventory" relationship="CREATE">
+      <point x="-40.0" y="236.0" />
+      <point x="0.0" y="-116.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.screen.GameScreen" target="com.coseemo.pkmnambra.ui.DialogueBox" relationship="CREATE">
+      <point x="-75.0" y="320.0" />
+      <point x="1191.0" y="3490.5" />
+      <point x="224.0" y="3490.5" />
+      <point x="-22.0" y="-140.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.mapobjectfactory.AnimatedPlaceObject" target="com.coseemo.pkmnambra.mapobjectfactory.WorldObject" relationship="GENERALIZATION">
+      <point x="26.0" y="104.0" />
+      <point x="5092.0" y="362.5" />
+      <point x="5391.0" y="362.5" />
+      <point x="5391.0" y="3162.0" />
+      <point x="5410.5" y="3162.0" />
+      <point x="104.5" y="-320.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.render.PlaceRenderer" target="com.coseemo.pkmnambra.maplogic.YSortable" relationship="TO_MANY">
+      <point x="30.0" y="-164.0" />
+      <point x="476.0" y="-71.5" />
+      <point x="-322.5" y="-71.5" />
+      <point x="-322.5" y="7257.0" />
+      <point x="646.0" y="7257.0" />
+      <point x="0.0" y="79.5" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.actorobserver.Actor" target="com.coseemo.pkmnambra.actorobserver.ActorObserver" relationship="TO_ONE">
+      <point x="127.0" y="315.59766546893843" />
+      <point x="-160.5000000000001" y="0.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.pokemonfactory.Ludicolo" target="com.coseemo.pkmnambra.pokemonfactory.Pokemon" relationship="GENERALIZATION">
+      <point x="0.0" y="67.5" />
+      <point x="4166.0" y="1965.0" />
+      <point x="3808.423" y="1965.0" />
+      <point x="4.185087777841545E-4" y="-164.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.savemanager.SaveManager" target="com.coseemo.pkmnambra.savemanager.SaveData" relationship="CREATE">
+      <point x="0.0" y="56.0" />
+      <point x="0.0" y="-43.5" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.singleton.GameState" target="com.coseemo.pkmnambra.singleton.ScreenManager" relationship="CREATE">
+      <point x="155.5" y="30.0" />
+      <point x="2526.0" y="3348.0" />
+      <point x="-60.0" y="-68.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.dialogue.DialogueTraverser" target="com.coseemo.pkmnambra.dialogue.DialogueNode" relationship="TO_ONE">
+      <point x="-125.5" y="-15.0" />
+      <point x="-242.5" y="3843.0" />
+      <point x="-242.5" y="7316.0" />
+      <point x="-174.0" y="7316.0" />
+      <point x="0.0" y="-164.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.screen.PressXScreen" target="com.coseemo.pkmnambra.screen.MenuScreen" relationship="CREATE">
+      <point x="-116.0" y="-124.5" />
+      <point x="-174.0" y="-86.5" />
+      <point x="0.0" y="-212.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.dialogue.DialogueLoader" target="com.coseemo.pkmnambra.dialogue.DialogueDb" relationship="TO_ONE">
+      <point x="160.0" y="68.0" />
+      <point x="0.0" y="-56.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.savemanager.MapLoader" target="com.coseemo.pkmnambra.actors.Player" relationship="CREATE">
+      <point x="-185.0" y="157.5" />
+      <point x="-157.0" y="4015.5" />
+      <point x="-157.0" y="4147.0" />
+      <point x="1063.0" y="4147.0" />
+      <point x="-143.0" y="-236.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.mapobjectfactory.EncounterZoneObject" target="com.coseemo.pkmnambra.maplogic.EncounterType" relationship="TO_ONE">
+      <point x="-15.0" y="116.0" />
+      <point x="2311.0" y="938.0" />
+      <point x="123.5" y="0.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.singleton.PlayerState" target="com.coseemo.pkmnambra.actors.Player" relationship="TO_ONE">
+      <point x="0.0" y="116.0" />
+      <point x="1726.0" y="4337.0" />
+      <point x="2296.5" y="4337.0" />
+      <point x="2296.5" y="4719.0" />
+      <point x="1206.0" y="4719.0" />
+      <point x="0.0" y="-236.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.screen.GameScreen" target="com.coseemo.pkmnambra.controller.InteractionController" relationship="CREATE">
+      <point x="-155.0" y="-60.0" />
+      <point x="-65.5" y="1778.0" />
+      <point x="-91.5" y="-68.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.screen.MenuScreen" target="com.coseemo.pkmnambra.util.AnimationSet" relationship="CREATE">
+      <point x="-68.5" y="212.0" />
+      <point x="-242.5" y="2603.0" />
+      <point x="-223.0" y="2603.0" />
+      <point x="-223.0" y="6307.0" />
+      <point x="326.0" y="6307.0" />
+      <point x="0.0" y="-68.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.screen.GameScreen" target="com.coseemo.pkmnambra.camera.Camera" relationship="CREATE">
+      <point x="-147.5" y="320.0" />
+      <point x="52.5" y="-80.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.screen.GameScreen" target="com.coseemo.pkmnambra.controller.PlayerController" relationship="TO_ONE">
+      <point x="-155.0" y="60.0" />
+      <point x="806.0" y="1898.0" />
+      <point x="0.0" y="-164.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.controller.DialogueController" target="com.coseemo.pkmnambra.dialogue.DialogueTraverser" relationship="TO_ONE">
+      <point x="-20.0" y="140.0" />
+      <point x="0.0" y="-68.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.dialogue.DialogueLoader" target="com.coseemo.pkmnambra.dialogue.LinearDialogueNode" relationship="CREATE">
+      <point x="-140.0" y="68.0" />
+      <point x="0.0" y="-104.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.mapobjectfactory.MapObjectFactory" target="com.coseemo.pkmnambra.mapobjectfactory.WorldObject" relationship="CREATE">
+      <point x="290.0" y="-75.5" />
+      <point x="5706.5" y="-555.5" />
+      <point x="5706.5" y="6358.0" />
+      <point x="113.5" y="0.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.map.TileMap" target="com.coseemo.pkmnambra.map.Tile" relationship="TO_MANY">
+      <point x="50.0" y="92.0" />
+      <point x="30.0" y="-152.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.pokemonfactory.PokemonFactory" target="com.coseemo.pkmnambra.pokemonfactory.Parasect" relationship="CREATE">
+      <point x="-97.5" y="31.5" />
+      <point x="0.0" y="-67.5" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.singleton.GameState" target="com.coseemo.pkmnambra.singleton.EventManager" relationship="TO_ONE">
+      <point x="155.5" y="205.32499999999982" />
+      <point x="2271.0" y="3523.325" />
+      <point x="-15.0" y="-44.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.pokemonfactory.Slakoth" target="com.coseemo.pkmnambra.pokemonfactory.Pokemon" relationship="GENERALIZATION">
+      <point x="0.0" y="67.5" />
+      <point x="2966.0" y="1965.0" />
+      <point x="3808.423" y="1965.0" />
+      <point x="4.185087777841545E-4" y="-164.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.actorobserver.Actor" target="com.coseemo.pkmnambra.dialogue.Dialogue" relationship="TO_ONE">
+      <point x="-126.99985159105" y="0.0" />
+      <point x="448.0" y="6292.0" />
+      <point x="448.0" y="5416.5" />
+      <point x="-200.0" y="5416.5" />
+      <point x="-200.0" y="7158.0" />
+      <point x="-138.5" y="0.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.map.Tile" target="com.coseemo.pkmnambra.mapobjectfactory.WorldObject" relationship="TO_ONE">
+      <point x="0.0" y="152.0" />
+      <point x="1486.0" y="6003.0" />
+      <point x="5306.0" y="6003.0" />
+      <point x="0.0" y="-320.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.screen.CaptureScreen" target="com.coseemo.pkmnambra.capture.CaptureRenderer" relationship="CREATE">
+      <point x="137.0" y="0.0" />
+      <point x="3906.807531203305" y="3823.3246507920962" />
+      <point x="3906.807531203305" y="4006.7844567727357" />
+      <point x="-183.5" y="132.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.singleton.GameState" target="com.coseemo.pkmnambra.singleton.MapState" relationship="CREATE">
+      <point x="-155.5" y="15.0" />
+      <point x="1486.0" y="3333.0" />
+      <point x="0.0" y="-92.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.screen.GameScreen" target="com.coseemo.pkmnambra.screen.InventoryScreen" relationship="CREATE">
+      <point x="125.0" y="320.0" />
+      <point x="-15.0" y="-236.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.screen.InventoryScreen" target="com.coseemo.pkmnambra.screen.GameScreen" relationship="CREATE">
+      <point x="0.0" y="-236.0" />
+      <point x="1406.0" y="2366.0" />
+      <point x="1281.0" y="2366.0" />
+      <point x="15.0" y="320.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.mapobjectfactory.EncounterZoneObject" target="com.coseemo.pkmnambra.screen.CaptureScreen" relationship="CREATE">
+      <point x="15.0" y="116.0" />
+      <point x="2341.0" y="552.5" />
+      <point x="5092.0" y="552.5" />
+      <point x="5092.0" y="4040.824650792096" />
+      <point x="137.0" y="217.49999999999955" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.itemfactory.CaptureItemFactory" target="com.coseemo.pkmnambra.itemfactory.Perfume" relationship="CREATE">
+      <point x="-121.5" y="0.0" />
+      <point x="4831.0" y="4400.0" />
+      <point x="-15.0" y="-31.5" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.actorobserver.Actor" target="com.coseemo.pkmnambra.maplogic.DIRECTION" relationship="TO_ONE">
+      <point x="-126.99985159105" y="-15.0" />
+      <point x="480.0" y="6277.0" />
+      <point x="480.0" y="6881.5" />
+      <point x="1861.0" y="6881.5" />
+      <point x="1861.0" y="7558.0" />
+      <point x="141.5" y="0.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.pokemonfactory.PokemonFactory" target="com.coseemo.pkmnambra.pokemonfactory.Ursaring" relationship="CREATE">
+      <point x="0.0" y="-31.5" />
+      <point x="3783.5" y="1142.5" />
+      <point x="4886.0" y="1142.5" />
+      <point x="0.0" y="-67.5" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.screen.CaptureScreen" target="com.coseemo.pkmnambra.controller.CaptureController" relationship="TO_ONE">
+      <point x="-137.0" y="-441.5" />
+      <point x="3481.2298736114562" y="3381.8246507920962" />
+      <point x="3481.2298736114562" y="3565.2844567727357" />
+      <point x="135.0" y="41.95980598063943" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.actors.ProfessorBehavior" target="com.coseemo.pkmnambra.dialogue.Dialogue" relationship="TO_MANY">
+      <point x="-139.0" y="-15.0" />
+      <point x="448.0" y="4383.0" />
+      <point x="448.0" y="5416.5" />
+      <point x="-200.0" y="5416.5" />
+      <point x="-200.0" y="7158.0" />
+      <point x="-138.5" y="0.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.map.TileMap" target="com.coseemo.pkmnambra.map.Tile" relationship="CREATE">
+      <point x="35.0" y="92.0" />
+      <point x="15.0" y="-152.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.mapobjectfactory.WorldObject" target="com.coseemo.pkmnambra.maplogic.YSortable" relationship="REALIZATION">
+      <point x="0.0" y="320.0" />
+      <point x="5306.0" y="6780.0" />
+      <point x="1218.5" y="6780.0" />
+      <point x="1218.5" y="7160.0" />
+      <point x="106.0" y="0.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.actorobserver.Actor" target="com.coseemo.pkmnambra.maplogic.YSortable" relationship="REALIZATION">
+      <point x="127.0" y="0.0" />
+      <point x="908.926" y="6292.0" />
+      <point x="908.926" y="6780.0" />
+      <point x="1218.5" y="6780.0" />
+      <point x="1218.5" y="7160.0" />
+      <point x="106.0" y="0.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.dialogue.ChoiceDialogueNode" target="com.coseemo.pkmnambra.dialogue.DialogueNode" relationship="GENERALIZATION">
+      <point x="0.0" y="128.0" />
+      <point x="1346.0" y="7355.0" />
+      <point x="-189.0" y="7355.0" />
+      <point x="-15.0" y="-164.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.itemfactory.Trap" target="com.coseemo.pkmnambra.itemfactory.CaptureItem" relationship="GENERALIZATION">
+      <point x="0.0" y="-31.5" />
+      <point x="5266.0" y="5006.0" />
+      <point x="5339.0" y="5006.0" />
+      <point x="5339.0" y="5538.0" />
+      <point x="106.5" y="0.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.screen.GameScreen" target="com.coseemo.pkmnambra.ui.OptionBox" relationship="TO_ONE">
+      <point x="-30.0" y="320.0" />
+      <point x="1236.0" y="3064.0" />
+      <point x="1206.0" y="3064.0" />
+      <point x="0.0" y="-140.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.capture.CaptureLogic" target="com.coseemo.pkmnambra.captureobserver.CaptureEventNotifier" relationship="TO_ONE">
+      <point x="-134.99986000104673" y="-4.5677273601540946E-4" />
+      <point x="3032.0" y="4006.784" />
+      <point x="3032.0" y="4459.234579200001" />
+      <point x="-159.5" y="3.396802758288686E-4" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.savemanager.SaveData" target="com.coseemo.pkmnambra.savemanager.PlayerData" relationship="TO_ONE">
+      <point x="0.0" y="43.5" />
+      <point x="0.0" y="-104.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.screen.MenuScreen" target="com.coseemo.pkmnambra.screen.TransitionScreen" relationship="CREATE">
+      <point x="116.0" y="-109.5" />
+      <point x="2165.0" y="828.5" />
+      <point x="2165.0" y="3772.5" />
+      <point x="-110.5" y="-85.5" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.pokemonfactory.Crabrawler" target="com.coseemo.pkmnambra.pokemonfactory.Pokemon" relationship="GENERALIZATION">
+      <point x="0.0" y="67.5" />
+      <point x="4646.0" y="1965.0" />
+      <point x="3808.423" y="1965.0" />
+      <point x="4.185087777841545E-4" y="-164.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.dialogue.DialogueDb" target="com.coseemo.pkmnambra.dialogue.Dialogue" relationship="TO_MANY">
+      <point x="162.0" y="0.0" />
+      <point x="448.0" y="5538.0" />
+      <point x="448.0" y="5416.5" />
+      <point x="-200.0" y="5416.5" />
+      <point x="-200.0" y="7158.0" />
+      <point x="-138.5" y="0.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.mapobjectfactory.MapObjectFactory" target="com.coseemo.pkmnambra.mapobjectfactory.AnimatedPlaceObject" relationship="CREATE">
+      <point x="160.0" y="91.5" />
+      <point x="0.0" y="-104.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.screen.CaptureScreen" target="com.coseemo.pkmnambra.actors.Player" relationship="TO_ONE">
+      <point x="-108.99983148194178" y="463.999543227264" />
+      <point x="3566.2607139809156" y="4719.0" />
+      <point x="1206.0" y="4719.0" />
+      <point x="0.0" y="-236.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.screen.InventoryScreen" target="com.coseemo.pkmnambra.singleton.GameState" relationship="TO_ONE">
+      <point x="-15.0" y="236.0" />
+      <point x="1391.0" y="2914.0" />
+      <point x="3446.0" y="2914.0" />
+      <point x="3446.0" y="3034.0" />
+      <point x="1986.0" y="3034.0" />
+      <point x="0.0" y="-224.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.map.Tile" target="com.coseemo.pkmnambra.actorobserver.Actor" relationship="TO_ONE">
+      <point x="0.0" y="-152.0" />
+      <point x="1486.0" y="5340.0" />
+      <point x="622.767" y="5340.0" />
+      <point x="-14.999851591049946" y="-572.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.pokemonfactory.Exeggutor" target="com.coseemo.pkmnambra.pokemonfactory.Pokemon" relationship="GENERALIZATION">
+      <point x="0.0" y="67.5" />
+      <point x="3926.0" y="1965.0" />
+      <point x="3808.423" y="1965.0" />
+      <point x="4.185087777841545E-4" y="-164.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.pokemonfactory.Pyukumuku" target="com.coseemo.pkmnambra.pokemonfactory.Pokemon" relationship="GENERALIZATION">
+      <point x="0.0" y="67.5" />
+      <point x="3446.0" y="1965.0" />
+      <point x="3808.423" y="1965.0" />
+      <point x="4.185087777841545E-4" y="-164.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.screen.PressXScreen" target="com.coseemo.pkmnambra.screen.TransitionScreen" relationship="CREATE">
+      <point x="116.0" y="0.0" />
+      <point x="2165.0" y="38.0" />
+      <point x="2165.0" y="3772.5" />
+      <point x="-110.5" y="-85.5" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.util.AnimationSet" target="com.coseemo.pkmnambra.maplogic.DIRECTION" relationship="TO_MANY">
+      <point x="60.0" y="-68.0" />
+      <point x="386.0" y="6956.5" />
+      <point x="480.0" y="6956.5" />
+      <point x="480.0" y="6881.5" />
+      <point x="1861.0" y="6881.5" />
+      <point x="1861.0" y="7558.0" />
+      <point x="141.5" y="0.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.capture.CaptureRenderer" target="com.coseemo.pkmnambra.ui.OptionBox" relationship="TO_ONE">
+      <point x="14.999769075331642" y="-332.0" />
+      <point x="4171.975" y="3064.0" />
+      <point x="1206.0" y="3064.0" />
+      <point x="0.0" y="-140.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.savemanager.MapLoader" target="com.coseemo.pkmnambra.dialogue.DialogueLoader" relationship="CREATE">
+      <point x="-185.0" y="-157.5" />
+      <point x="-176.0" y="3700.5" />
+      <point x="-176.0" y="4413.0" />
+      <point x="104.0" y="4413.0" />
+      <point x="-2.0" y="-68.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.savemanager.MapLoader" target="com.coseemo.pkmnambra.actorobserver.Actor" relationship="CREATE">
+      <point x="185.0" y="168.0" />
+      <point x="1040.0" y="4026.0" />
+      <point x="1040.0" y="4903.0" />
+      <point x="648.267" y="4903.0" />
+      <point x="10.500148408950054" y="-572.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.actorobserver.World" target="com.coseemo.pkmnambra.mapobjectfactory.WorldObject" relationship="TO_MANY">
+      <point x="160.5" y="77.5" />
+      <point x="3285.5" y="6045.5" />
+      <point x="3285.5" y="6003.0" />
+      <point x="5306.0" y="6003.0" />
+      <point x="0.0" y="-320.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.singleton.EventManager" target="com.coseemo.pkmnambra.captureobserver.CaptureEventNotifier" relationship="TO_ONE">
+      <point x="-4.5" y="44.0" />
+      <point x="2281.5" y="4063.5" />
+      <point x="3032.0" y="4063.5" />
+      <point x="3032.0" y="4459.234579200001" />
+      <point x="-159.5" y="3.396802758288686E-4" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.screen.CaptureScreen" target="com.coseemo.pkmnambra.screen.GameScreen" relationship="CREATE">
+      <point x="1.685180582171597E-4" y="-464.0" />
+      <point x="3675.2607139809156" y="2366.0" />
+      <point x="1281.0" y="2366.0" />
+      <point x="15.0" y="320.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.screen.GameScreen" target="com.coseemo.pkmnambra.render.PlaceRenderer" relationship="TO_ONE">
+      <point x="-155.0" y="15.0" />
+      <point x="491.0" y="1853.0" />
+      <point x="45.0" y="-164.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.actorobserver.Actor" target="com.coseemo.pkmnambra.util.AnimationSet" relationship="TO_ONE">
+      <point x="-123.26685159105" y="572.0" />
+      <point x="188.5" y="-68.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.controller.InteractionController" target="com.coseemo.pkmnambra.controller.DialogueController" relationship="TO_ONE">
+      <point x="141.5" y="0.0" />
+      <point x="209.0" y="2618.0" />
+      <point x="209.0" y="3318.0" />
+      <point x="115.0" y="0.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.itemfactory.CaptureItemFactory" target="com.coseemo.pkmnambra.itemfactory.Pokeball" relationship="CREATE">
+      <point x="-121.5" y="15.0" />
+      <point x="4971.0" y="4415.0" />
+      <point x="-15.0" y="-31.5" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.itemfactory.CaptureItem" target="com.coseemo.pkmnambra.itemfactory.Item" relationship="GENERALIZATION">
+      <point x="-106.5" y="0.0" />
+      <point x="3315.0" y="5538.0" />
+      <point x="3315.0" y="6358.0" />
+      <point x="97.0" y="0.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.actors.Player" target="com.coseemo.pkmnambra.actorobserver.Actor" relationship="GENERALIZATION">
+      <point x="-150.0" y="160.5" />
+      <point x="658.767" y="5218.5" />
+      <point x="21.000148408950054" y="-572.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.actors.ActorBehavior" target="com.coseemo.pkmnambra.actorobserver.Actor" relationship="TO_ONE">
+      <point x="0.0" y="68.0" />
+      <point x="906.0" y="5340.0" />
+      <point x="622.767" y="5340.0" />
+      <point x="-14.999851591049946" y="-572.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.screen.MenuScreen" target="com.coseemo.pkmnambra.screen.GameScreen" relationship="CREATE">
+      <point x="-42.0" y="212.0" />
+      <point x="-216.0" y="2366.0" />
+      <point x="1281.0" y="2366.0" />
+      <point x="15.0" y="320.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.actors.ProfessorBehavior" target="com.coseemo.pkmnambra.actors.ActorBehavior" relationship="GENERALIZATION">
+      <point x="139.0" y="0.0" />
+      <point x="765.0" y="4398.0" />
+      <point x="765.0" y="5058.0" />
+      <point x="-121.0" y="0.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.pokemonfactory.Bellossom" target="com.coseemo.pkmnambra.pokemonfactory.Pokemon" relationship="GENERALIZATION">
+      <point x="0.0" y="67.5" />
+      <point x="2726.0" y="1965.0" />
+      <point x="3808.423" y="1965.0" />
+      <point x="4.185087777841545E-4" y="-164.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.actorobserver.World" target="com.coseemo.pkmnambra.actorobserver.ActorObserver" relationship="REALIZATION">
+      <point x="141.4263981526583" y="248.0" />
+      <point x="0.0" y="-55.5" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.screen.GameScreen" target="com.coseemo.pkmnambra.controller.InteractionController" relationship="TO_ONE">
+      <point x="-155.0" y="-45.0" />
+      <point x="26.0" y="1793.0" />
+      <point x="0.0" y="-68.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.screen.CaptureScreen" target="com.coseemo.pkmnambra.captureobserver.CaptureObserver" relationship="REALIZATION">
+      <point x="0.0" y="463.99999999999955" />
+      <point x="3675.2605454628574" y="4486.233224585472" />
+      <point x="3703.1398314819417" y="4486.233224585472" />
+      <point x="0.0" y="-31.5" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.pokemonfactory.Raichu" target="com.coseemo.pkmnambra.pokemonfactory.Pokemon" relationship="GENERALIZATION">
+      <point x="0.0" y="67.5" />
+      <point x="4406.0" y="1965.0" />
+      <point x="3808.423" y="1965.0" />
+      <point x="4.185087777841545E-4" y="-164.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.screen.InventoryScreen" target="com.coseemo.pkmnambra.actors.Player" relationship="TO_ONE">
+      <point x="0.0" y="236.0" />
+      <point x="1406.0" y="2974.0" />
+      <point x="1078.0" y="2974.0" />
+      <point x="1078.0" y="4337.0" />
+      <point x="2296.5" y="4337.0" />
+      <point x="2296.5" y="4719.0" />
+      <point x="1206.0" y="4719.0" />
+      <point x="0.0" y="-236.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.dialogue.DialogueTraverser" target="com.coseemo.pkmnambra.dialogue.Dialogue" relationship="TO_ONE">
+      <point x="-125.5" y="0.0" />
+      <point x="-200.0" y="3858.0" />
+      <point x="-200.0" y="7158.0" />
+      <point x="-138.5" y="0.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.singleton.GameState" target="com.coseemo.pkmnambra.screen.TransitionScreen" relationship="CREATE">
+      <point x="155.5" y="0.0" />
+      <point x="2165.0" y="3318.0" />
+      <point x="2165.0" y="3772.5" />
+      <point x="-110.5" y="-85.5" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.actorobserver.World" target="com.coseemo.pkmnambra.actors.Player" relationship="TO_ONE">
+      <point x="160.5" y="0.0" />
+      <point x="2296.5" y="5968.0" />
+      <point x="2296.5" y="4719.0" />
+      <point x="1206.0" y="4719.0" />
+      <point x="0.0" y="-236.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.controller.PlayerController" target="com.coseemo.pkmnambra.actors.Player" relationship="TO_ONE">
+      <point x="0.0" y="164.0" />
+      <point x="806.0" y="2974.0" />
+      <point x="1078.0" y="2974.0" />
+      <point x="1078.0" y="4337.0" />
+      <point x="2296.5" y="4337.0" />
+      <point x="2296.5" y="4719.0" />
+      <point x="1206.0" y="4719.0" />
+      <point x="0.0" y="-236.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.dialogue.DialogueLoader" target="com.coseemo.pkmnambra.dialogue.Dialogue" relationship="CREATE">
+      <point x="-267.5" y="68.0" />
+      <point x="-127.5" y="-80.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.pokemonfactory.PokemonFactory" target="com.coseemo.pkmnambra.pokemonfactory.Toucannon" relationship="CREATE">
+      <point x="-127.5" y="30.0" />
+      <point x="3206.0" y="1255.2307197796904" />
+      <point x="0.0" y="-67.5" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.singleton.GameState" target="com.coseemo.pkmnambra.singleton.PlayerState" relationship="TO_ONE">
+      <point x="-155.5" y="30.0" />
+      <point x="1726.0" y="3348.0" />
+      <point x="0.0" y="-116.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.actors.Player" target="com.coseemo.pkmnambra.inventory.Inventory" relationship="TO_ONE">
+      <point x="-25.0" y="236.0" />
+      <point x="15.0" y="-116.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.pokemonfactory.Toucannon" target="com.coseemo.pkmnambra.pokemonfactory.Pokemon" relationship="GENERALIZATION">
+      <point x="0.0" y="67.5" />
+      <point x="3206.0" y="1965.0" />
+      <point x="3808.423" y="1965.0" />
+      <point x="4.185087777841545E-4" y="-164.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.savemanager.MapLoader" target="com.coseemo.pkmnambra.actorobserver.World" relationship="CREATE">
+      <point x="0.0" y="176.0" />
+      <point x="786.0" y="4044.0" />
+      <point x="775.0" y="4044.0" />
+      <point x="775.0" y="5968.0" />
+      <point x="-160.5" y="0.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.singleton.ScreenManager" target="com.coseemo.pkmnambra.Main" relationship="TO_ONE">
+      <point x="0.0" y="-68.0" />
+      <point x="2586.0" y="3677.5" />
+      <point x="2541.0" y="3677.5" />
+      <point x="2541.0" y="-482.0" />
+      <point x="132.5" y="0.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.itemfactory.CaptureItemFactory" target="com.coseemo.pkmnambra.itemfactory.Trap" relationship="CREATE">
+      <point x="12.0" y="31.5" />
+      <point x="-48.0" y="-31.5" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.controller.DialogueController" target="com.coseemo.pkmnambra.dialogue.DialogueTraverser" relationship="CREATE">
+      <point x="0.0" y="140.0" />
+      <point x="20.0" y="-68.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.singleton.GameState" target="com.coseemo.pkmnambra.singleton.ResourceManager" relationship="CREATE">
+      <point x="15.0" y="224.0" />
+      <point x="15.0" y="-56.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.savemanager.MapLoader" target="com.coseemo.pkmnambra.actors.ProfessorBehavior" relationship="CREATE">
+      <point x="-177.5" y="176.0" />
+      <point x="2.5" y="-104.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.controller.DialogueController" target="com.coseemo.pkmnambra.ui.OptionBox" relationship="TO_ONE">
+      <point x="0.0" y="-140.0" />
+      <point x="6.0" y="3064.0" />
+      <point x="1206.0" y="3064.0" />
+      <point x="0.0" y="-140.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.captureobserver.CaptureEventNotifier" target="com.coseemo.pkmnambra.captureobserver.CaptureObserver" relationship="TO_MANY">
+      <point x="159.5" y="10.194332078485786" />
+      <point x="3534.472131760578" y="4469.4285715982105" />
+      <point x="3534.472131760578" y="4486.205787598211" />
+      <point x="-91.5" y="0.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.singleton.GameState" target="com.coseemo.pkmnambra.singleton.MapState" relationship="TO_ONE">
+      <point x="-155.5" y="0.0" />
+      <point x="1587.0" y="3318.0" />
+      <point x="101.0" y="-92.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.screen.GameScreen" target="com.coseemo.pkmnambra.dialogue.DialogueLoader" relationship="CREATE">
+      <point x="-155.0" y="0.0" />
+      <point x="-176.0" y="1838.0" />
+      <point x="-176.0" y="4413.0" />
+      <point x="104.0" y="4413.0" />
+      <point x="-2.0" y="-68.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.screen.CaptureScreen" target="com.coseemo.pkmnambra.capture.CaptureLogic" relationship="CREATE">
+      <point x="-137.0" y="29.99954322726444" />
+      <point x="3471.592845741494" y="3853.3241940193607" />
+      <point x="3471.592845741494" y="4036.784" />
+      <point x="135.0" y="29.999543227263985" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.screen.CaptureScreen" target="com.coseemo.pkmnambra.pokemonfactory.Pokemon" relationship="TO_ONE">
+      <point x="-136.99983148194178" y="14.99954322726444" />
+      <point x="3512.0" y="3838.3241940193607" />
+      <point x="3512.0" y="2185.65" />
+      <point x="-109.49958149122222" y="-2.7738657445297576E-4" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.savemanager.MapLoader" target="com.coseemo.pkmnambra.map.TileMap" relationship="CREATE">
+      <point x="185.0" y="157.5" />
+      <point x="1466.0" y="4015.5" />
+      <point x="0.0" y="-92.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.capture.CaptureRenderer" target="com.coseemo.pkmnambra.singleton.GameState" relationship="TO_ONE">
+      <point x="-2.309246683580568E-4" y="-332.0" />
+      <point x="4156.975" y="3034.0" />
+      <point x="1986.0" y="3034.0" />
+      <point x="0.0" y="-224.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.pokemonfactory.PokemonFactory" target="com.coseemo.pkmnambra.pokemonfactory.Ludicolo" relationship="CREATE">
+      <point x="127.5" y="0.0" />
+      <point x="4166.0" y="1225.2307197796904" />
+      <point x="0.0" y="-67.5" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.singleton.GameState" target="com.coseemo.pkmnambra.singleton.EventManager" relationship="CREATE">
+      <point x="153.5" y="224.0" />
+      <point x="-146.5" y="-44.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.screen.CaptureScreen" target="com.coseemo.pkmnambra.controller.CaptureController" relationship="CREATE">
+      <point x="-137.0" y="-456.5" />
+      <point x="3481.2298736114562" y="3366.8246507920962" />
+      <point x="3481.2298736114562" y="3550.2844567727357" />
+      <point x="135.0" y="26.95980598063943" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.screen.MenuScreen" target="com.coseemo.pkmnambra.actors.Player" relationship="CREATE">
+      <point x="66.0" y="212.0" />
+      <point x="-108.0" y="1823.0" />
+      <point x="-157.0" y="1823.0" />
+      <point x="-157.0" y="4147.0" />
+      <point x="1063.0" y="4147.0" />
+      <point x="-143.0" y="-236.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.screen.CaptureScreen" target="com.coseemo.pkmnambra.singleton.GameState" relationship="TO_ONE">
+      <point x="-136.99983148194178" y="-4.567727355606621E-4" />
+      <point x="3446.0" y="3823.3241940193607" />
+      <point x="3446.0" y="3034.0" />
+      <point x="1986.0" y="3034.0" />
+      <point x="0.0" y="-224.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.actorobserver.Actor" target="com.coseemo.pkmnambra.actorobserver.World" relationship="TO_ONE">
+      <point x="1.4840895005363564E-4" y="-572.0" />
+      <point x="637.767" y="5143.5" />
+      <point x="945.5" y="5143.5" />
+      <point x="0.0" y="-248.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.singleton.MapState" target="com.coseemo.pkmnambra.actorobserver.World" relationship="TO_MANY">
+      <point x="0.0" y="92.0" />
+      <point x="1486.0" y="4132.0" />
+      <point x="416.0" y="4132.0" />
+      <point x="416.0" y="5143.5" />
+      <point x="945.5" y="5143.5" />
+      <point x="0.0" y="-248.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.singleton.GameState" target="com.coseemo.pkmnambra.singleton.ScreenManager" relationship="TO_ONE">
+      <point x="155.5" y="-30.0" />
+      <point x="2624.5" y="3288.0" />
+      <point x="38.5" y="-68.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.screen.GameScreen" target="com.coseemo.pkmnambra.controller.PlayerController" relationship="CREATE">
+      <point x="-155.0" y="75.0" />
+      <point x="821.0" y="1913.0" />
+      <point x="15.0" y="-164.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.controller.CaptureController" target="com.coseemo.pkmnambra.ui.OptionBox" relationship="TO_ONE">
+      <point x="-14.999915740970664" y="-163.99965079209642" />
+      <point x="3246.32" y="3064.0" />
+      <point x="1206.0" y="3064.0" />
+      <point x="0.0" y="-140.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.mapobjectfactory.MapObjectFactory" target="com.coseemo.pkmnambra.mapobjectfactory.EncounterZoneObject" relationship="CREATE">
+      <point x="0.0" y="91.5" />
+      <point x="4906.0" y="38.0" />
+      <point x="139.0" y="0.0" />
+    </edge>
+    <edge source="com.coseemo.pkmnambra.screen.GameScreen" target="com.coseemo.pkmnambra.camera.Camera" relationship="TO_ONE">
+      <point x="-132.5" y="320.0" />
+      <point x="67.5" y="-80.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Compact" zoom="0.5960464477539062" showDependencies="true" x="3651.2115584" y="4182.3781248" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
