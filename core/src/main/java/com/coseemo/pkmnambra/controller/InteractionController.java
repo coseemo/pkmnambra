@@ -5,13 +5,14 @@ import com.badlogic.gdx.InputAdapter;
 import com.coseemo.pkmnambra.actorobserver.Actor;
 import com.coseemo.pkmnambra.actors.ActorBehavior;
 import com.coseemo.pkmnambra.actors.Player;
+import com.coseemo.pkmnambra.actors.ProfessorBehavior;
 import com.coseemo.pkmnambra.dialogue.Dialogue;
 import com.coseemo.pkmnambra.maplogic.DIRECTION;
 import com.coseemo.pkmnambra.map.Tile;
 
 import java.util.List;
 
-public class InteractionController extends InputAdapter {
+public class InteractionController extends InputAdapter{
 
     private final Actor a;
     private DialogueController dialogueController;
@@ -19,11 +20,12 @@ public class InteractionController extends InputAdapter {
     private boolean isInDialogue = false;
 
     public InteractionController(Actor a, DialogueController dialogueController) {
+        super();
         this.a = a;
         this.dialogueController = dialogueController;
     }
 
-    @Override
+
     public boolean keyUp(int keycode) {
         if (isInDialogue) {
             return false;

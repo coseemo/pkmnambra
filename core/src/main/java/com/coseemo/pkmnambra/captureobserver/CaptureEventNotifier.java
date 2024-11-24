@@ -23,6 +23,10 @@ public class CaptureEventNotifier {
         }
     }
 
+    public void update() {
+
+    }
+
     // Pulisce la lista degli osservatori
     public void clearObservers() {
         observers.clear();
